@@ -4,8 +4,6 @@ title: Module's Requirements
 
 ## Sensor & Human–Machine Interface (HMI) Module Requirements
 
-**Amphibot V1 – Concept 3**
-
 This section defines the functional and design requirements for the Sensor & Human–Machine Interface (HMI) module of the Amphibot V1, based on the selected Concept 3 design. This module is responsible for gathering key sensor data, presenting clear and intuitive feedback to the operator, and supporting low-cognitive-load interaction during hazardous environment exploration.
 
 In alignment with Concept 3’s emphasis on fast deployment, simple operation, and strong situational awareness, the requirements below focus on reliable sensor acquisition, clear visual and tactile user cues, and robust communication with other system modules. Each requirement includes a minimum acceptable performance level to avoid system failure, a target performance goal, and identification of stretch goals that enhance usability or system clarity beyond baseline functionality.

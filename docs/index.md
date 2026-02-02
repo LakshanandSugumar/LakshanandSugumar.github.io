@@ -8,7 +8,7 @@ tags:
 <center>
 <font size= "6">Lakshanand's Datasheet</font><br>
 as part of<br>
-<font size= "8"> Project CSK</font><br>
+<font size= "8"> Amphibot V1</font><br>
 for<br>
 <font size= "5"> Team 302 </font><br>
 
