@@ -23,6 +23,6 @@ The block diagram highlights the following key aspects:
 
 Overall, this block diagram provides a high-level functional view of how the Sensor & HMI Module satisfies the defined product requirements while maintaining modularity and clear signal flow.
 
-## Example Block Diagram
+## Block Diagram
 
 ![Individual Block Diagram](laksh_blockdiagram.drawio.png)
