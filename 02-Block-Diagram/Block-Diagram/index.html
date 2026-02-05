@@ -26,7 +26,7 @@
 
     
       
-        <title>Module's Block Diagram - Lakshanand's 314 Data Sheet</title>
+        <title>Block Diagram - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview" class="md-skip">
+        <a href="#objectives" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module's Block Diagram
+              Block Diagram
             
           </span>
         </div>
@@ -517,7 +517,7 @@
           
   
   <span class="md-ellipsis">
-    Module's Block Diagram
+    Block Diagram
   </span>
   
 
@@ -528,7 +528,7 @@
         
   
   <span class="md-ellipsis">
-    Module's Block Diagram
+    Block Diagram
   </span>
   
 
@@ -548,11 +548,89 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#block-diagram-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Block Diagram Description
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Block Diagram Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microcontroller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microcontroller
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#humanmachine-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Human–Machine Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communication-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communication Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -800,11 +878,89 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#block-diagram-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Block Diagram Description
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Block Diagram Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microcontroller" class="md-nav__link">
+    <span class="md-ellipsis">
+      Microcontroller
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#humanmachine-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Human–Machine Interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communication-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communication Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      External Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -840,20 +996,93 @@
   
 
 
-  <h1>Module's Block Diagram</h1>
+  <h1>Block Diagram</h1>
 
+<h2 id="objectives">Objectives</h2>
+<p>The objective of this assignment is to document the electrical architecture of the <strong>Sensor &amp; Human–Machine Interface (HMI) subsystem</strong> for <strong>Amphibot V1</strong>, and to clearly define how this subsystem interfaces with teammate-designed boards. This block diagram establishes subsystem-level organization, identifies selected components, and documents chip-to-chip and board-to-board connections.</p>
+<p>By organizing the subsystem at the block-diagram level, this document supports component selection, schematic development, and clear communication of design intent to teammates and instructional staff. This document will be updated prior to design review as the design matures.</p>
 <h2 id="overview">Overview</h2>
-<p>This block diagram represents the <strong>Sensor &amp; Human–Machine Interface (HMI) Module</strong> for <strong>Amphibot V1</strong>, based on the selected <strong>Concept 3</strong> system architecture. The module is centered around a <strong>Microchip PIC18F47Q10 microcontroller</strong> and is responsible for sensor data acquisition, operator interaction, system state indication, and communication with other robot subsystems.</p>
-<p>In alignment with Concept 3’s goals of <strong>fast deployment, simple operation, and strong situational awareness</strong>, the diagram illustrates how regulated power, sensing, user inputs, and visual outputs are integrated to provide reliable, low-cognitive-load interaction in hazardous environments.</p>
-<p>The block diagram highlights the following key aspects:</p>
+<p>This block diagram represents the <strong>Sensor &amp; HMI subsystem</strong> for <strong>Team 302 – R6 Recon Amphibot (Amphibot V1)</strong>, based on the selected <strong>Concept 3</strong> system architecture. The subsystem is built around a <strong>Microchip PIC18F47Q10 microcontroller</strong> and is responsible for acquiring sensor data, providing operator feedback, handling local user input, and communicating with other system modules.</p>
+<p>The diagram highlights how regulated power, sensing, user interaction, and communication are integrated to support <strong>fast deployment</strong>, <strong>simple operation</strong>, and <strong>strong situational awareness</strong> in hazardous environments. Emphasis is placed on clear signal flow, correct peripheral usage, and well-defined interfaces with upstream and downstream teammate boards.</p>
+<p>Key features shown include:</p>
 <ul>
-<li><strong>Power Levels:</strong> A 12 V external DC power source is regulated down to a 3.3 V rail, supplying the microcontroller and all connected peripherals.</li>
-<li><strong>Sensors:</strong> An IMU connected via the I²C bus provides motion and orientation data for hazard awareness and system feedback.</li>
-<li><strong>Human–Machine Interface:</strong> An OLED display, pushbuttons, and a status LED provide clear visual and tactile feedback to the operator.</li>
-<li><strong>Communication:</strong> UART enables structured data exchange with other Amphibot modules, while ICSP supports firmware programming and debugging.</li>
-<li><strong>Team Connections:</strong> Upstream and downstream headers expose power and communication interfaces for integration with other team-designed subsystems.</li>
+<li><strong>Power supplies:</strong> A 12 V external source regulated to a 3.3 V rail for logic, sensors, and HMI components</li>
+<li><strong>Sensors:</strong> An IMU connected via I²C for motion and orientation data</li>
+<li><strong>Human–Machine Interface:</strong> OLED display, pushbuttons, and a status LED for low-cognitive-load interaction</li>
+<li><strong>Communication:</strong> UART interface for structured data exchange with other subsystems</li>
+<li><strong>Programming &amp; Debug:</strong> ICSP interface for in-circuit serial programming using a Microchip SNAP</li>
+<li><strong>Team interfaces:</strong> Standard upstream and downstream ribbon cable connectors for power and signal sharing</li>
 </ul>
-<p>Overall, this block diagram provides a high-level functional view of how the Sensor &amp; HMI Module satisfies the defined product requirements while maintaining modularity and clear signal flow.</p>
+<h2 id="block-diagram-description">Block Diagram Description</h2>
+<h3 id="microcontroller">Microcontroller</h3>
+<ul>
+<li><strong>Microcontroller:</strong> Microchip PIC18F47Q10</li>
+<li><strong>Peripherals used:</strong></li>
+<li>I²C (IMU, OLED display)</li>
+<li>Digital Inputs (pushbuttons)</li>
+<li>Digital Output (status LED)</li>
+<li>UART (inter-module communication)</li>
+<li>ICSP (programming and debugging)</li>
+</ul>
+<p>Each peripheral is shown as a sub-block within the microcontroller, with associated pin assignments indicated.</p>
+<h3 id="power-architecture">Power Architecture</h3>
+<ul>
+<li><strong>Input Power:</strong> 12 V DC wall adapter via barrel jack</li>
+<li><strong>Regulation:</strong> 3.3 V, 1.5 A switching regulator</li>
+<li><strong>Distribution:</strong> 3.3 V supplied to the microcontroller, IMU, OLED display, and digital I/O circuitry</li>
+</ul>
+<p>Dashed-line voltage boxes indicate the power domains used within the subsystem.</p>
+<h3 id="sensors">Sensors</h3>
+<ul>
+<li><strong>IMU:</strong></li>
+<li>Interface: Digital Serial (I²C, 2 signal pins, bidirectional)</li>
+<li>Function: Motion and orientation sensing for hazard awareness</li>
+</ul>
+<h3 id="humanmachine-interface">Human–Machine Interface</h3>
+<ul>
+<li><strong>OLED Display:</strong></li>
+<li>Interface: Digital Serial (I²C, 2 signal pins)</li>
+<li>
+<p>Function: Visual feedback of system state and hazard information</p>
+</li>
+<li>
+<p><strong>Pushbuttons:</strong></p>
+</li>
+<li>Interface: Digital Input (1 signal pin per button)</li>
+<li>
+<p>Function: Local user input and mode selection</p>
+</li>
+<li>
+<p><strong>Status LED:</strong></p>
+</li>
+<li>Interface: Digital Output (1 signal pin)</li>
+<li>Function: Immediate visual system-state indication</li>
+</ul>
+<h3 id="communication-interfaces">Communication Interfaces</h3>
+<ul>
+<li><strong>UART:</strong></li>
+<li>Interface: Digital Serial (UART, 2 signal pins: TX/RX)</li>
+<li>
+<p>Function: Communication with other Amphibot subsystems</p>
+</li>
+<li>
+<p><strong>ICSP:</strong></p>
+</li>
+<li>Interface: In-Circuit Serial Programming</li>
+<li>Function: Firmware programming and debugging via Microchip SNAP</li>
+</ul>
+<h3 id="external-interfaces">External Interfaces</h3>
+<ul>
+<li><strong>Upstream Ribbon Cable Connector:</strong></li>
+<li>
+<p>Provides power and communication signals from upstream teammate board</p>
+</li>
+<li>
+<p><strong>Downstream Ribbon Cable Connector:</strong></p>
+</li>
+<li>Routes regulated power and selected communication signals to downstream teammate board</li>
+</ul>
+<p>Standard ribbon cable pins and team-specific connections are clearly identified.</p>
 <h2 id="block-diagram">Block Diagram</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../laksh_blockdiagram.drawio.png" data-desc-position="bottom"><img alt="Individual Block Diagram" src="../laksh_blockdiagram.drawio.png"></a></p>
 
