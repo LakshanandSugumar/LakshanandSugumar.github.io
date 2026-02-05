@@ -25,4 +25,4 @@ Overall, this block diagram provides a high-level functional view of how the Sen
 
 ## Example Block Diagram
 
-![Individual Block Diagram](laksh_blockdiagram.drawio)
+![Individual Block Diagram](laksh_blockdiagram.drawio.png)
