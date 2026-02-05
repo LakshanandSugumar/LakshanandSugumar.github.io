@@ -843,18 +843,19 @@
   <h1>Module's Block Diagram</h1>
 
 <h2 id="overview">Overview</h2>
-<p>This needs to be updated with a brief purpose for having the block diagram.
-Things to mention are:
-* power levels
-* sensor
-* Actuator
-* team connections
-* Power source
-* ...</p>
-<p>To get some initial formatting help, one can view <a href="https://embedded-systems-design.github.io/EGR304DataSheetTemplate/Appendix/basic-markdown-examples/">"here"</a> some basic techniques.</p>
+<p>This block diagram represents the <strong>Sensor &amp; Human–Machine Interface (HMI) Module</strong> for <strong>Amphibot V1</strong>, based on the selected <strong>Concept 3</strong> system architecture. The module is centered around a <strong>Microchip PIC18F47Q10 microcontroller</strong> and is responsible for sensor data acquisition, operator interaction, system state indication, and communication with other robot subsystems.</p>
+<p>In alignment with Concept 3’s goals of <strong>fast deployment, simple operation, and strong situational awareness</strong>, the diagram illustrates how regulated power, sensing, user inputs, and visual outputs are integrated to provide reliable, low-cognitive-load interaction in hazardous environments.</p>
+<p>The block diagram highlights the following key aspects:</p>
+<ul>
+<li><strong>Power Levels:</strong> A 12 V external DC power source is regulated down to a 3.3 V rail, supplying the microcontroller and all connected peripherals.</li>
+<li><strong>Sensors:</strong> An IMU connected via the I²C bus provides motion and orientation data for hazard awareness and system feedback.</li>
+<li><strong>Human–Machine Interface:</strong> An OLED display, pushbuttons, and a status LED provide clear visual and tactile feedback to the operator.</li>
+<li><strong>Communication:</strong> UART enables structured data exchange with other Amphibot modules, while ICSP supports firmware programming and debugging.</li>
+<li><strong>Team Connections:</strong> Upstream and downstream headers expose power and communication interfaces for integration with other team-designed subsystems.</li>
+</ul>
+<p>Overall, this block diagram provides a high-level functional view of how the Sensor &amp; HMI Module satisfies the defined product requirements while maintaining modularity and clear signal flow.</p>
 <h2 id="example-block-diagram">Example Block Diagram</h2>
-<p>Showing an example of how to import a screenshot of the block diagram created outside of git and brought into a page.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../individual-block-diagram.png" data-desc-position="bottom"><img alt="Example of Indivial Block diagram " src="../individual-block-diagram.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="laksh_blockdiagram.drawio" data-desc-position="bottom"><img alt="Individual Block Diagram" src="laksh_blockdiagram.drawio"></a></p>
 
 
 
