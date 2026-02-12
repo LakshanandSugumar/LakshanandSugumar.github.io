@@ -2,29 +2,27 @@
 title: Module's Selected Major Components
 ---
 
-# PIC (HMI + Sensor Subsystem) — Component Selection  
+# PIC (HMI + Sensor Subsystem) — Component Selection
 
-## 1. OLED Display **(HMI Output)** 
+## 1. OLED Display **(HMI Output)**
 
 ### Option 1
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **0.96" 128×64 SSD1306 OLED (SPI/I²C, SMD module)**<br>![SSD1306 OLED](SSD1306.jpeg)<br>Monochrome OLED display, 128×64 resolution, 3.3V compatible<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Extremely common with strong library support (u8g2, Adafruit)<br>- Very low power consumption<br>- Simple interface (I²C or SPI)<br>- Compact footprint | - Small display area limits UI readability<br>- Limited graphical capability<br>- Some variants ship configured for I²C only |
-
+| Solution                                                                                                                                                                                                                                                                    | Pros                                                                                                                                                      | Cons                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **0.96" 128×64 SSD1306 OLED (SPI/I²C, SMD module)**<br>![SSD1306 OLED](/docs/03-Component-Selection/Images/OLED/1.jpg)<br>Monochrome OLED display, 128×64 resolution, 3.3V compatible<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Extremely common with strong library support (u8g2, Adafruit)<br>- Very low power consumption<br>- Simple interface (I²C or SPI)<br>- Compact footprint | - Small display area limits UI readability<br>- Limited graphical capability<br>- Some variants ship configured for I²C only |
 
 ### Option 2
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **1.3" 128×64 SH1106 / SSD1309 SPI OLED (SMD module)**<br>![1.3 OLED](OLED_1_3.jpeg)<br>Larger monochrome OLED with SPI interface<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Larger screen improves readability for hazard alerts<br>- SPI interface allows faster refresh than I²C<br>- Low power (no backlight required)<br>- Good contrast for indoor use | - Slightly larger PCB footprint<br>- Must verify driver compatibility (SH1106 vs SSD1306)<br>- Monochrome only |
-
+| Solution                                                                                                                                                                                                                                                 | Pros                                                                                                                                                                              | Cons                                                                                                           |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **1.3" 128×64 SH1106 / SSD1309 SPI OLED (SMD module)**<br>![1.3 OLED](/docs/03-Component-Selection/Images/OLED/2.jpg)<br>Larger monochrome OLED with SPI interface<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Larger screen improves readability for hazard alerts<br>- SPI interface allows faster refresh than I²C<br>- Low power (no backlight required)<br>- Good contrast for indoor use | - Slightly larger PCB footprint<br>- Must verify driver compatibility (SH1106 vs SSD1306)<br>- Monochrome only |
 
 ### Option 3
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **1.3" 240×135 ST7789 SPI Color TFT (IPS)**<br>![ST7789 TFT](ST7789.jpeg)<br>Color TFT display with SPI interface and backlight<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Color graphics and better UI visualization<br>- Higher resolution<br>- Wide viewing angles (IPS)<br>- Strong Arduino/PIC driver support | - Higher power draw due to backlight<br>- More complex firmware<br>- Requires backlight current management |
+| Solution                                                                                                                                                                                                                                                 | Pros                                                                                                                                      | Cons                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **1.3" 240×135 ST7789 SPI Color TFT (IPS)**<br>![ST7789 TFT](/docs/03-Component-Selection/Images/OLED/3.jpg)<br>Color TFT display with SPI interface and backlight<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Color graphics and better UI visualization<br>- Higher resolution<br>- Wide viewing angles (IPS)<br>- Strong Arduino/PIC driver support | - Higher power draw due to backlight<br>- More complex firmware<br>- Requires backlight current management |
 
 **Choice:** Option 2 — 1.3" SPI OLED
 
@@ -38,23 +36,21 @@ Using SPI instead of I²C allows faster screen refresh rates, which is helpful w
 
 ### Option 1
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **ICM-42688-P (6-Axis IMU, QFN SMD)**<br>![ICM42688](ICM42688.jpeg)<br>High-performance accelerometer + gyroscope with I²C/SPI<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Supports very high sample rates (>1kHz)<br>- Low noise and high precision<br>- FIFO buffering reduces MCU load<br>- Low power modes available | - QFN package is small and harder to solder<br>- No built-in magnetometer |
-
+| Solution                                                                                                                                                                                                                                              | Pros                                                                                                                                            | Cons                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **ICM-42688-P (6-Axis IMU, QFN SMD)**<br>![ICM42688](/docs/03-Component-Selection/Images/IMu/1.webp)<br>High-performance accelerometer + gyroscope with I²C/SPI<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Supports very high sample rates (>1kHz)<br>- Low noise and high precision<br>- FIFO buffering reduces MCU load<br>- Low power modes available | - QFN package is small and harder to solder<br>- No built-in magnetometer |
 
 ### Option 2
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **BNO055 (9-DOF with onboard fusion)**<br>![BNO055](BNO055.jpeg)<br>Accelerometer + Gyro + Magnetometer with built-in sensor fusion<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Built-in sensor fusion simplifies firmware<br>- Outputs orientation directly<br>- I²C interface<br>- Good documentation | - More expensive<br>- Larger footprint<br>- Fusion startup delay |
-
+| Solution                                                                                                                                                                                                                                                    | Pros                                                                                                                      | Cons                                                             |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **BNO055 (9-DOF with onboard fusion)**<br>![BNO055](/docs/03-Component-Selection/Images/IMu/2.jpg)<br>Accelerometer + Gyro + Magnetometer with built-in sensor fusion<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Built-in sensor fusion simplifies firmware<br>- Outputs orientation directly<br>- I²C interface<br>- Good documentation | - More expensive<br>- Larger footprint<br>- Fusion startup delay |
 
 ### Option 3
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **MPU-6050 (6-Axis IMU)**<br>![MPU6050](MPU6050.jpeg)<br>Accelerometer + Gyroscope combo with I²C interface<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very common and inexpensive<br>- Strong community support<br>- Simple I²C interface | - Older generation sensor<br>- Higher noise compared to modern parts<br>- Limited long-term availability |
+| Solution                                                                                                                                                                                                                           | Pros                                                                                  | Cons                                                                                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **MPU-6050 (6-Axis IMU)**<br>![MPU6050](/docs/03-Component-Selection/Images/IMu/3.jpg)<br>Accelerometer + Gyroscope combo with I²C interface<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very common and inexpensive<br>- Strong community support<br>- Simple I²C interface | - Older generation sensor<br>- Higher noise compared to modern parts<br>- Limited long-term availability |
 
 **Choice:** Option 1 — ICM-42688-P
 
@@ -68,23 +64,21 @@ It also includes a FIFO buffer, which reduces the processing load on the microco
 
 ### Option 1
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **HDC2080 (TI, I²C Humidity/Temp Sensor)**<br>![HDC2080](HDC2080.jpeg)<br>Low-power digital humidity and temperature sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very low power consumption<br>- Good accuracy and stability<br>- I²C interface<br>- Strong manufacturer documentation | - Requires proper PCB layout for accuracy<br>- Needs pull-up resistors |
-
+| Solution                                                                                                                                                                                                                                                    | Pros                                                                                                                    | Cons                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **HDC2080 (TI, I²C Humidity/Temp Sensor)**<br>![HDC2080](/docs/03-Component-Selection/Images/TempandHumi/1.webp)<br>Low-power digital humidity and temperature sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very low power consumption<br>- Good accuracy and stability<br>- I²C interface<br>- Strong manufacturer documentation | - Requires proper PCB layout for accuracy<br>- Needs pull-up resistors |
 
 ### Option 2
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **AHT21 (I²C Humidity/Temp Sensor)**<br>![AHT21](AHT21.jpeg)<br>Compact humidity and temperature sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Low cost<br>- I²C compatible<br>- Good availability | - Slightly less accurate than TI parts<br>- Requires careful voltage verification |
-
+| Solution                                                                                                                                                                                                                                  | Pros                                                  | Cons                                                                              |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **AHT21 (I²C Humidity/Temp Sensor)**<br>![AHT21](/docs/03-Component-Selection/Images/TempandHumi/2.webp)<br>Compact humidity and temperature sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Low cost<br>- I²C compatible<br>- Good availability | - Slightly less accurate than TI parts<br>- Requires careful voltage verification |
 
 ### Option 3
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **DHT11 (Digital Temp/Humidity)**<br>![DHT11](DHT11.jpeg)<br>Single-wire temperature and humidity sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very inexpensive<br>- Simple to prototype | - Low accuracy<br>- Timing-sensitive protocol<br>- Not ideal for engineering validation |
+| Solution                                                                                                                                                                                                                                  | Pros                                        | Cons                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **DHT11 (Digital Temp/Humidity)**<br>![DHT11](/docs/03-Component-Selection/Images/TempandHumi/3.jpg)<br>Single-wire temperature and humidity sensor<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very inexpensive<br>- Simple to prototype | - Low accuracy<br>- Timing-sensitive protocol<br>- Not ideal for engineering validation |
 
 **Choice:** Option 1 — HDC2080
 
@@ -98,23 +92,21 @@ This sensor uses I²C communication, which integrates cleanly with the PIC micro
 
 ### Option 1
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **6×6mm SMD Tactile Switch**<br>![TactSwitch](TACT_SWITCH.jpeg)<br>Surface-mount momentary pushbutton<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Easy to solder<br>- Clear tactile feedback<br>- Durable for repeated lab use | - Larger PCB footprint |
-
+| Solution                                                                                                                                                                                                                  | Pros                                                                           | Cons                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------- |
+| **6×6mm SMD Tactile Switch**<br>![TactSwitch](/docs/03-Component-Selection/Images/User/1.jpg)<br>Surface-mount momentary pushbutton<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Easy to solder<br>- Clear tactile feedback<br>- Durable for repeated lab use | - Larger PCB footprint |
 
 ### Option 2
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **4×4mm Low-Profile SMD Tact Switch**<br>![SmallSwitch](SMALL_SWITCH.jpeg)<br>Compact surface-mount switch<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Saves board space<br>- Clean design aesthetic | - Harder to press<br>- Less tactile feedback |
-
+| Solution                                                                                                                                                                                                                      | Pros                                            | Cons                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------------------- |
+| **4×4mm Low-Profile SMD Tact Switch**<br>![SmallSwitch](/docs/03-Component-Selection/Images/User/2.jpg)<br>Compact surface-mount switch<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Saves board space<br>- Clean design aesthetic | - Harder to press<br>- Less tactile feedback |
 
 ### Option 3
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **Capacitive Touch Button (SMD IC + pad)**<br>![CapTouch](CAP_TOUCH.jpeg)<br>Touch-sensitive input<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - No mechanical wear<br>- Modern interface | - Requires calibration<br>- Susceptible to noise<br>- Less intuitive feedback |
+| Solution                                                                                                                                                                                                                 | Pros                                       | Cons                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------ | ----------------------------------------------------------------------------- |
+| **Capacitive Touch Button (SMD IC + pad)**<br>![CapTouch](/docs/03-Component-Selection/Images/User/3.jpg)<br>Touch-sensitive input<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - No mechanical wear<br>- Modern interface | - Requires calibration<br>- Susceptible to noise<br>- Less intuitive feedback |
 
 **Choice:** Option 1 — 6×6mm SMD Tact Switch
 
@@ -126,30 +118,27 @@ Smaller switches would save board space but would be harder to press and more di
 
 ## 5. 3.3V Switching Regulator
 
-
 ### Option 1
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **AP63203WU-7 (3.3V Buck Converter)**<br>![AP63203](AP63203.jpeg)<br>3A SMD switching regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - High current capability<br>- Surface mount compliant<br>- Good efficiency<br>- Already used in team documentation | - Requires external inductor and layout care |
-
+| Solution                                                                                                                                                                                                               | Pros                                                                                                                | Cons                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **AP63203WU-7 (3.3V Buck Converter)**<br>![AP63203](/docs/03-Component-Selection/Images/3.3/1.jpg)<br>3A SMD switching regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - High current capability<br>- Surface mount compliant<br>- Good efficiency<br>- Already used in team documentation | - Requires external inductor and layout care |
 
 ### Option 2
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **TPS62840 (3.3V Buck Converter)**<br>![TPS62840](TPS62840.jpeg)<br>High-efficiency compact regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Excellent efficiency<br>- Low thermal dissipation<br>- Strong transient response | - Slightly higher cost<br>- Smaller package (harder layout) |
-
+| Solution                                                                                                                                                                                                                    | Pros                                                                               | Cons                                                        |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| **TPS62840 (3.3V Buck Converter)**<br>![TPS62840](/docs/03-Component-Selection/Images/3.3/2.jpg)<br>High-efficiency compact regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Excellent efficiency<br>- Low thermal dissipation<br>- Strong transient response | - Slightly higher cost<br>- Smaller package (harder layout) |
 
 ### Option 3
 
-| Solution | Pros | Cons |
-|----------|------|------|
-| **AMS1117-3.3 LDO**<br>![AMS1117](AMS1117.jpeg)<br>Linear voltage regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very simple design<br>- Low component count | - Poor efficiency<br>- High heat dissipation<br>- Not ideal for dynamic loads |
+| Solution                                                                                                                                                                                           | Pros                                          | Cons                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------- |
+| **AMS1117-3.3 LDO**<br>![AMS1117](/docs/03-Component-Selection/Images/3.3/3.jpg)<br>Linear voltage regulator<br>Price: ≈ $X.XX/each<br>[Product Page](PRODUCT_LINK)<br>[Datasheet](DATASHEET_LINK) | - Very simple design<br>- Low component count | - Poor efficiency<br>- High heat dissipation<br>- Not ideal for dynamic loads |
 
 **Choice:** Option 1 — AP63203WU-7
 
-**Rationale:**  The AP63203WU-7 switching regulator was selected because it provides sufficient current capacity with good efficiency while remaining surface-mount compliant. Since this subsystem includes a display, sensors, and microcontroller, stable 3.3V power is essential for reliable operation.
+**Rationale:** The AP63203WU-7 switching regulator was selected because it provides sufficient current capacity with good efficiency while remaining surface-mount compliant. Since this subsystem includes a display, sensors, and microcontroller, stable 3.3V power is essential for reliable operation.
 
 Compared to a linear regulator like the AMS1117, the switching regulator produces significantly less heat and wastes less power, especially under varying load conditions. Although switching regulators require additional external components and careful PCB layout, the improved efficiency and thermal performance make them a better long-term solution. Additionally, this regulator aligns with the team’s existing component selection, which simplifies integration and BOM management. For these reasons, the AP63203WU-7 is the optimal power solution.
 
@@ -160,16 +149,16 @@ Compared to a linear regulator like the AMS1117, the switching regulator produce
 The table below summarizes the major active components selected for **Laksh’s HMI & Sensor Subsystem**.  
 This excludes passive components (resistors, capacitors, inductors), pull-up resistors, small filtering components, and standard PCB hardware.
 
-| **Subsystem**                | **Component**                          | **Manufacturer**         | **Key Specs**                                              | **Price** | **Source** |
-|------------------------------|----------------------------------------|--------------------------|-----------------------------------------------------------|-----------|------------|
-| **Microcontroller**          | PIC18F47Q10                           | Microchip Technology     | 8-bit MCU, 3.3V logic, I²C/SPI/UART support              | $X.XX     | DigiKey    |
-| **OLED Display (HMI)**       | 1.3" 128×64 SPI OLED (SH1106/SSD1309) | (TBD Vendor)             | Monochrome, SPI interface, 3.3V compatible                | $X.XX     | DigiKey    |
-| **IMU (Motion Sensor)**      | ICM-42688-P                           | TDK InvenSense           | 6-axis accel + gyro, FIFO buffer, I²C/SPI, >50Hz         | $X.XX     | DigiKey    |
-| **Temp/Humidity Sensor**     | HDC2080                               | Texas Instruments        | I²C interface, low power, high accuracy                  | $X.XX     | DigiKey    |
-| **3.3V Regulation**          | AP63203WU-7                           | Diodes Inc.              | 3A buck converter, high efficiency, SMD                  | $X.XX     | DigiKey    |
-| **User Input**               | 6×6mm SMD Tactile Switch              | (TBD Vendor)             | Momentary pushbutton, surface-mount                      | $X.XX     | DigiKey    |
-| **Status Indicators**        | 0805 SMD LEDs                         | (TBD Vendor)             | 3.3V logic compatible with current-limiting resistor     | $X.XX     | DigiKey    |
-| **Daisy-Chain Interface**    | 2×4 IDC Header (Ribbon Cable)         | (TBD Vendor)             | Standard UART ribbon interface (course requirement)      | $X.XX     | DigiKey    |
+| **Subsystem**             | **Component**                         | **Manufacturer**     | **Key Specs**                                        | **Price** | **Source** |
+| ------------------------- | ------------------------------------- | -------------------- | ---------------------------------------------------- | --------- | ---------- |
+| **Microcontroller**       | PIC18F47Q10                           | Microchip Technology | 8-bit MCU, 3.3V logic, I²C/SPI/UART support          | $X.XX     | DigiKey    |
+| **OLED Display (HMI)**    | 1.3" 128×64 SPI OLED (SH1106/SSD1309) | (TBD Vendor)         | Monochrome, SPI interface, 3.3V compatible           | $X.XX     | DigiKey    |
+| **IMU (Motion Sensor)**   | ICM-42688-P                           | TDK InvenSense       | 6-axis accel + gyro, FIFO buffer, I²C/SPI, >50Hz     | $X.XX     | DigiKey    |
+| **Temp/Humidity Sensor**  | HDC2080                               | Texas Instruments    | I²C interface, low power, high accuracy              | $X.XX     | DigiKey    |
+| **3.3V Regulation**       | AP63203WU-7                           | Diodes Inc.          | 3A buck converter, high efficiency, SMD              | $X.XX     | DigiKey    |
+| **User Input**            | 6×6mm SMD Tactile Switch              | (TBD Vendor)         | Momentary pushbutton, surface-mount                  | $X.XX     | DigiKey    |
+| **Status Indicators**     | 0805 SMD LEDs                         | (TBD Vendor)         | 3.3V logic compatible with current-limiting resistor | $X.XX     | DigiKey    |
+| **Daisy-Chain Interface** | 2×4 IDC Header (Ribbon Cable)         | (TBD Vendor)         | Standard UART ribbon interface (course requirement)  | $X.XX     | DigiKey    |
 
 ---
 
