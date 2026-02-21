@@ -16,11 +16,8 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 ## Downloadable Files
 
-- **KiCad Project Files:**  
-  [Download COMPSCHEM.zip](COMPSCHEM.zip)
+- **Cadence Project Files:**  
+  [Download Compressed ECAD](COMPSCHEM.zip)
 
 - **Final Schematic PDF:**  
-  [Download FINALFINAL.pdf](FINALFINAL.pdf)
-
-- **Example Reference Schematic:**  
-  [Download ExampleSchematic.pdf](ExampleSchematic.pdf)
+  [Download PDFSCHEMATICS](FINALFINAL.pdf)
