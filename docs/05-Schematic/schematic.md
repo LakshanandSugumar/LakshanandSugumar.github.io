@@ -21,3 +21,6 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 - **Final Schematic PDF:**  
   [Download PDFSCHEMATICS](FINALFINAL.pdf)
+
+- **Symbols :**  
+  [Download PDFSCHEMATICS](ind-symbol-schem.zip)
