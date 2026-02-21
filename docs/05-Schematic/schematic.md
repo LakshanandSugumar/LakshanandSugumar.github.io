@@ -1,16 +1,26 @@
+# Individual Subsystem Schematic
+
+This schematic shows the complete design for my **Sensor & HMI Subsystem**. It includes the **PIC18F57Q43 microcontroller**, regulated **3.3V (1.5A) power supply**, **128×64 SPI Graphical OLED Display**, **MPU6050 6-DoF IMU (I²C)**, **HDC2080 Temperature & Humidity Sensor (I²C)**, **photoresistor (analog light sensing circuit)**, **status LEDs**, **pushbutton switches**, and the **Microchip SNAP ICSP programming interface**.
+
+The schematic demonstrates all required power distribution, decoupling, reset circuitry, I²C and SPI communication routing, ADC configuration, sensor interface connections, and programming/debug support necessary for reliable subsystem operation and integration within the team architecture.
+
 ---
-title: Module Schematic
+
+# Sensor & HMI Subsystem Schematic
+
+**Figure 01: Sensor & HMI Subsystem Schematic**
+
+![Sensor & HMI Schematic](SCHEM-IMG.png)
+
 ---
 
-## Overview
+## Downloadable Files
 
-This schematic is design to support .... (highlight functionally, power, and controller).
+- **KiCad Project Files:**  
+  [Download COMPSCHEM.zip](COMPSCHEM.zip)
 
+- **Final Schematic PDF:**  
+  [Download FINALFINAL.pdf](FINALFINAL.pdf)
 
-![schematic](Screenshot.png){style width:"350" height:"300;"}
-**Figure ##:** Showing a example schematic.
-
-
-## Resouces
-
-The schematic as a PDF download is available [*here*](ExampleSchematic.pdf), and the Zip folder of the project [*here*](dummyZip.zip).
+- **Example Reference Schematic:**  
+  [Download ExampleSchematic.pdf](ExampleSchematic.pdf)
