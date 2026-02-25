@@ -125,14 +125,14 @@ title: Module's Selected Major Components
 
 ## Option 2 — BNO055 (9-DOF with onboard fusion)
 
-![BNO055](imu2.jpg)
+![BNO055](9dofimu.jpg)
 
-| Specification | Details                                                                                |
-| ------------- | -------------------------------------------------------------------------------------- |
-| Axes          | 9-DOF                                                                                  |
-| Interface     | I²C                                                                                    |
-| Price         | ≈ $12.00                                                                               |
-| Datasheet     | https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf |
+| Specification | Details                                                                                           |
+| ------------- | ------------------------------------------------------------------------------------------------- |
+| Axes          | 9-DOF                                                                                             |
+| Interface     | I²C                                                                                               |
+| Price         | ≈ $35.00                                                                                          |
+| Datasheet     | https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf?1698865246 |
 
 ### Pros
 
