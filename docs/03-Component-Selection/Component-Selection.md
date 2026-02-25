@@ -10,322 +10,269 @@ title: Module Selected Major Components
 
 ## Option 1 — 0.96" 128×64 SSD1306 OLED
 
-| Specification | Details                              |
-| ------------- | ------------------------------------ |
-| Resolution    | 128×64                               |
-| Interface     | SPI / I²C                            |
-| Voltage       | 3.3V compatible                      |
-| Price         | ≈ $2.00                              |
-| Product Page  | https://www.adafruit.com/product/326 |
+| Specification | Details                                                                      |
+| ------------- | ---------------------------------------------------------------------------- |
+| Resolution    | 128×64                                                                       |
+| Interface     | SPI / I²C                                                                    |
+| Voltage       | 3.3V compatible                                                              |
+| Price         | ≈ $2.00                                                                      |
+| Image         | ![SSD1306 OLED](https://cdn.sparkfun.com//assets/parts/1/2/9/7/16038-01.jpg) |
+| Product Page  | https://www.adafruit.com/product/326                                         |
 
 ### Pros
 
-- Extremely common with strong library support (u8g2, Adafruit)
-- Very low power consumption
-- Simple interface (I²C or SPI)
-- Compact footprint
+- Very common & excellent library support
+- Low power
+- Simple interface (I²C/SPI)
 
 ### Cons
 
-- Small display area limits UI readability
-- Limited graphical capability
-- Some variants ship configured for I²C only
+- Small area limits readability
+- Limited graphics
+- Some I²C-only variants
 
 ---
 
 ## Option 2 — 1.3" 128×64 SH1106 / SSD1309 SPI OLED
 
-| Specification | Details                                       |
-| ------------- | --------------------------------------------- |
-| Resolution    | 128×64                                        |
-| Interface     | SPI                                           |
-| Voltage       | 3.3V compatible                               |
-| Price         | ≈ $6.50                                       |
-| Product Page  | https://www.pololu.com/product/3760           |
-| Datasheet     | https://www.pololu.com/file/0J1813/SH1106.pdf |
+| Specification | Details                                                                            |
+| ------------- | ---------------------------------------------------------------------------------- |
+| Resolution    | 128×64                                                                             |
+| Interface     | SPI                                                                                |
+| Voltage       | 3.3V compatible                                                                    |
+| Price         | ≈ $6.50                                                                            |
+| Image         | ![1.3" OLED](https://cdn.sparkfun.com//assets/parts/1/3/9/6/16055-SFE12998-01.jpg) |
+| Product Page  | https://www.pololu.com/product/3760                                                |
+| Datasheet     | https://www.pololu.com/file/0J1813/SH1106.pdf                                      |
 
 ### Pros
 
-- Larger screen improves readability for hazard alerts
-- SPI allows faster refresh than I²C
-- Low power (no backlight required)
-- High contrast for indoor environments
+- Larger screen: better readability
+- SPI refresh faster than I²C
+- No backlight required
+- Good indoor contrast
 
 ### Cons
 
-- Slightly larger PCB footprint
-- Must verify SH1106 vs SSD1306 driver compatibility
+- Larger PCB footprint
+- Must verify SH1106/SSD1306 driver
 - Monochrome only
 
 ---
 
-## Option 3 — 1.3" 240×135 ST7789 SPI Color TFT (IPS)
+## Option 3 — 1.3" 240×135 ST7789 SPI Color TFT
 
-| Specification | Details                                             |
-| ------------- | --------------------------------------------------- |
-| Resolution    | 240×135                                             |
-| Interface     | SPI                                                 |
-| Voltage       | 3.3V logic                                          |
-| Price         | ≈ $17.00                                            |
-| Product Page  | https://www.adafruit.com/product/4313               |
-| Library       | https://github.com/adafruit/Adafruit-ST7735-Library |
+| Specification | Details                                                                                 |
+| ------------- | --------------------------------------------------------------------------------------- |
+| Resolution    | 240×135                                                                                 |
+| Interface     | SPI                                                                                     |
+| Voltage       | 3.3V                                                                                    |
+| Price         | ≈ $17.00                                                                                |
+| Image         | ![ST7789 TFT](https://cdn.sparkfun.com//assets/parts/1/4/2/7/28645-BTF-SPI-Display.jpg) |
+| Product Page  | https://www.adafruit.com/product/4313                                                   |
+| Library       | https://github.com/adafruit/Adafruit-ST7735-Library                                     |
 
 ### Pros
 
 - Full color graphics
 - Higher resolution
-- Wide viewing angles (IPS)
-- Strong library support
+- Wide viewing angles
 
 ### Cons
 
-- Higher power draw (backlight required)
+- Higher power (backlight)
 - More complex firmware
-- Requires backlight current management
 
 ---
 
 ### Selected Display: Option 2 — 1.3" SPI OLED
 
-**Rationale:**  
-Provides improved readability over 0.96" displays while maintaining low power consumption and simple SPI integration. Offers a strong balance between UI clarity, firmware complexity, and energy efficiency.
+Balanced readability, low power, and simple firmware.
 
 ---
 
-# 2. IMU (Accelerometer + Gyroscope, ≥50 Hz)
+# 2. IMU (Accelerometer + Gyroscope)
 
-## Option 1 — ICM-42688-P (6-Axis IMU)
+## Option 1 — ICM-42688-P
 
 | Specification | Details                                                                                   |
 | ------------- | ----------------------------------------------------------------------------------------- |
-| Axes          | 3-Axis Accel + 3-Axis Gyro                                                                |
-| Interface     | I²C / SPI                                                                                 |
-| Sample Rate   | >1 kHz                                                                                    |
+| Axes          | 6-axis (Accel + Gyro)                                                                     |
+| Interface     | SPI / I²C                                                                                 |
 | Price         | ≈ $4.70                                                                                   |
+| Image         | ![ICM-42688](https://cdn.sparkfun.com//assets/parts/1/3/5/5/28275-IMU_ICM_42688_P.jpg)    |
 | Datasheet     | https://invensense.tdk.com/wp-content/uploads/2020/04/ds-000347_icm-42688-p-datasheet.pdf |
 
 ### Pros
 
-- Very high sample rates
-- Low noise, high precision
-- FIFO buffering reduces MCU load
-- Low power modes available
+- High sample rates
+- Low noise
+- FIFO buffer
 
 ### Cons
 
-- QFN package (harder to solder)
+- QFN (harder solder)
 - No magnetometer
 
 ---
 
-## Option 2 — BNO055 (9-DOF with Onboard Fusion)
+## Option 2 — BNO055
 
 | Specification | Details                                                                                |
 | ------------- | -------------------------------------------------------------------------------------- |
-| Axes          | 9-DOF (Accel + Gyro + Mag)                                                             |
+| Axes          | 9-DOF                                                                                  |
 | Interface     | I²C                                                                                    |
 | Price         | ≈ $12.00                                                                               |
+| Image         | ![BNO055](https://cdn.sparkfun.com//assets/parts/1/8/8/1/24751-BNO055.jpg)             |
 | Datasheet     | https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf |
 
 ### Pros
 
-- Built-in sensor fusion
-- Outputs absolute orientation
-- Simplifies firmware
+- Built-in fusion
+- Orientation data
 
 ### Cons
 
 - Higher cost
-- Larger footprint
-- Fusion startup delay
+- Startup delay
 
 ---
 
-## Option 3 — MPU-6050 (6-Axis IMU)
+## Option 3 — MPU-6050
 
-| Specification | Details |
-| ------------- | ------- |
-| Axes          | 6-DOF   |
-| Interface     | I²C     |
-| Price         | ≈ $3.50 |
+| Specification | Details                                                                        |
+| ------------- | ------------------------------------------------------------------------------ |
+| Axes          | 6-DOF                                                                          |
+| Interface     | I²C                                                                            |
+| Price         | ≈ $3.50                                                                        |
+| Image         | ![MPU-6050](https://cdn.sparkfun.com//assets/parts/1/1/3/6/13879-MPU-6050.jpg) |
 
 ### Pros
 
-- Very common
-- Inexpensive
-- Strong community support
+- Cheap
+- Common
 
 ### Cons
 
-- Older generation
+- Older tech
 - Higher noise
-- Limited long-term availability
 
 ---
 
 ### Selected IMU: ICM-42688-P
 
-Chosen for superior precision, high sampling capability, and FIFO buffering which reduces MCU processing overhead.
-
 ---
 
-# 3. Temperature & Humidity Sensor
+# 3. Temperature & Humidity
 
-## Option 1 — HDC2080 (Texas Instruments)
+## Option 1 — HDC2080
 
-| Specification | Details                                       |
-| ------------- | --------------------------------------------- |
-| Interface     | I²C                                           |
-| Voltage       | 1.62–3.6V                                     |
-| Price         | ≈ $3.75                                       |
-| Datasheet     | https://www.ti.com/lit/ds/symlink/hdc2080.pdf |
+| Specification | Details                                                                      |
+| ------------- | ---------------------------------------------------------------------------- |
+| Interface     | I²C                                                                          |
+| Price         | ≈ $3.75                                                                      |
+| Image         | ![HDC2080](https://cdn.sparkfun.com//assets/parts/1/5/8/6/29469-HDC2080.jpg) |
+| Datasheet     | https://www.ti.com/lit/ds/symlink/hdc2080.pdf                                |
 
 ### Pros
 
-- Very low power
+- Low power
 - High accuracy
-- Strong documentation
-- Industry-grade reliability
 
 ### Cons
 
-- Requires proper PCB layout
-- Needs I²C pull-ups
+- Needs careful layout
 
 ---
 
 ## Option 2 — AHT21
 
-| Specification | Details                                                               |
-| ------------- | --------------------------------------------------------------------- |
-| Interface     | I²C                                                                   |
-| Price         | ≈ $2.20                                                               |
-| Datasheet     | https://www.aosong.com/userfiles/files/media/Data%20Sheet%20AHT21.pdf |
+| Specification | Details                                                                  |
+| ------------- | ------------------------------------------------------------------------ |
+| Interface     | I²C                                                                      |
+| Price         | ≈ $2.20                                                                  |
+| Image         | ![AHT21](https://cdn.sparkfun.com//assets/parts/1/9/8/1/28721-AHT21.jpg) |
+| Datasheet     | https://www.aosong.com/userfiles/files/media/Data%20Sheet%20AHT21.pdf    |
 
 ### Pros
 
-- Lower cost
-- Good availability
+- Low cost
 - Compact
 
 ### Cons
 
-- Slightly lower accuracy than TI solution
-- Voltage verification required
+- Slightly less accurate
 
 ---
 
 ## Option 3 — DHT11
 
-| Specification | Details     |
-| ------------- | ----------- |
-| Interface     | Single-wire |
-| Price         | ≈ $1.50     |
+| Specification | Details                                                                  |
+| ------------- | ------------------------------------------------------------------------ |
+| Interface     | Single-wire                                                              |
+| Price         | ≈ $1.50                                                                  |
+| Image         | ![DHT11](https://cdn.sparkfun.com//assets/parts/1/3/5/8/13576-DHT11.jpg) |
 
 ### Pros
 
-- Very inexpensive
-- Easy for basic prototyping
+- Very cheap
 
 ### Cons
 
 - Low accuracy
-- Timing-sensitive protocol
-- Not suitable for engineering validation
+- Timing-sensitive
 
 ---
 
-### Selected Sensor: HDC2080
-
-Chosen for accuracy, reliability, and low power operation suitable for engineering validation and real-world deployment.
+### Selected Temp/Humidity: HDC2080
 
 ---
 
-# 4. User Input (Buttons + LEDs)
+# 4. User Input
 
-## Tactile Switch — 6×6mm SMD Pushbutton
+## 6×6mm SMD Tactile Switch
 
-| Specification | Details                                                            |
-| ------------- | ------------------------------------------------------------------ |
-| Type          | Momentary                                                          |
-| Mounting      | Surface Mount                                                      |
-| Price         | ≈ $0.30                                                            |
-| Datasheet     | https://www.schurter.com/en/datasheet/typ_6x6_mm_tact_switches.pdf |
-
-### Pros
-
-- Durable
-- Clear tactile feedback
-- Easy to solder
-
-### Cons
-
-- Larger PCB footprint than ultra-miniature variants
+| Specification | Details                                                                                   |
+| ------------- | ----------------------------------------------------------------------------------------- |
+| Type          | Momentary                                                                                 |
+| Mount         | SMD                                                                                       |
+| Price         | ≈ $0.30                                                                                   |
+| Image         | ![6x6mm Tactile](https://cdn.sparkfun.com//assets/parts/1/1/8/7/11877-Tactile_Switch.jpg) |
+| Datasheet     | https://www.schurter.com/en/datasheet/typ_6x6_mm_tact_switches.pdf                        |
 
 ---
 
 # 5. 3.3V Switching Regulator
 
-## AP63203WU-7 (3A Buck Converter)
+## AP63203WU-7 Buck Converter
 
-| Specification | Details                                                                      |
-| ------------- | ---------------------------------------------------------------------------- |
-| Output        | 3.3V                                                                         |
-| Current       | 3A                                                                           |
-| Price         | ≈ $1.50                                                                      |
-| Datasheet     | https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf |
-
-### Pros
-
-- High efficiency
-- 3A capability
-- Good thermal performance
-
-### Cons
-
-- Requires external inductor
-- Careful PCB layout required
+| Specification | Details                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| Output        | 3.3V                                                                                       |
+| Current       | 3A                                                                                         |
+| Price         | ≈ $1.50                                                                                    |
+| Image         | ![Buck Converter](https://cdn.sparkfun.com//assets/parts/1/7/5/6/17566-Buck-Converter.jpg) |
+| Datasheet     | https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf               |
 
 ---
 
 # Final Component Selection Summary
 
-| Subsystem       | Component                      | Manufacturer | Key Specs                 | Price |
-| --------------- | ------------------------------ | ------------ | ------------------------- | ----- |
-| Microcontroller | PIC18F47Q10                    | Microchip    | 8-bit, 3.3V, I²C/SPI/UART | $2.60 |
-| OLED Display    | 1.3" SPI OLED (SH1106/SSD1309) | TBD          | 128×64, SPI               | $6.50 |
-| IMU             | ICM-42688-P                    | TDK          | 6-axis, FIFO, >50Hz       | $4.70 |
-| Temp/Humidity   | HDC2080                        | TI           | I²C, Low Power            | $3.75 |
-| Regulator       | AP63203WU-7                    | Diodes Inc.  | 3A Buck                   | $1.50 |
-| Buttons         | 6×6mm SMD Switch               | TBD          | Momentary                 | $0.30 |
-| LEDs            | 0805 SMD                       | TBD          | 3.3V compatible           | $0.10 |
-| Interface       | 2×4 IDC Header                 | TBD          | UART Ribbon               | $0.50 |
+| Subsystem       | Component        | Key Specs                 | Price |
+| --------------- | ---------------- | ------------------------- | ----- |
+| Microcontroller | PIC18F47Q10      | 8-bit, 3.3V, I²C/SPI/UART | $2.60 |
+| OLED Display    | 1.3" SPI OLED    | 128×64, SPI               | $6.50 |
+| IMU             | ICM-42688-P      | 6-axis, FIFO              | $4.70 |
+| Temp/Humidity   | HDC2080          | I²C, low power            | $3.75 |
+| Regulator       | AP63203WU-7      | 3A buck                   | $1.50 |
+| Buttons         | 6×6mm SMD Switch | Momentary                 | $0.30 |
+| LEDs            | 0805 SMD         | 3.3V logic                | $0.10 |
+| Interface       | 2×4 IDC Header   | UART ribbon               | $0.50 |
 
 ---
 
-## Estimated Core Component Cost
+## Estimated Core Cost
 
-**≈ $20–$23 per board**  
-(Excludes passives, PCB fabrication, shipping, and spares)
+**≈ $20–$23 / board** (excl. passives + PCB + shipping)
 
 ---
-
-# Cost Discussion
-
-The subsystem cost remains reasonable considering the sensing accuracy, real-time motion capture capability, and user interface requirements.
-
-The IMU represents a higher-cost component due to its precision and FIFO support, which significantly reduces MCU processing load and improves reliability.
-
-The selected 1.3" SPI OLED provides strong readability while keeping power consumption and firmware complexity manageable compared to full-color TFT options.
-
-The AP63203 buck regulator improves efficiency and thermal performance compared to LDO solutions, increasing overall system reliability.
-
-Overall, the selected components provide a strong balance between:
-
-- Performance
-- Accuracy
-- Power efficiency
-- Manufacturability
-- Budget constraints
-
-while remaining appropriate for a student-designed embedded subsystem.
