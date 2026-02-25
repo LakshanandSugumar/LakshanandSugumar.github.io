@@ -801,6 +801,10 @@
 <td>≈ $2.00</td>
 </tr>
 <tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/2/9/7/16038-01.jpg" data-desc-position="bottom"><img alt="SSD1306 OLED" src="https://cdn.sparkfun.com//assets/parts/1/2/9/7/16038-01.jpg"></a></td>
+</tr>
+<tr>
 <td>Product Page</td>
 <td>https://www.adafruit.com/product/326</td>
 </tr>
@@ -808,16 +812,15 @@
 </table>
 <h3 id="pros">Pros</h3>
 <ul>
-<li>Extremely common with strong library support (u8g2, Adafruit)</li>
-<li>Very low power consumption</li>
-<li>Simple interface (I²C or SPI)</li>
-<li>Compact footprint</li>
+<li>Very common &amp; excellent library support</li>
+<li>Low power</li>
+<li>Simple interface (I²C/SPI)</li>
 </ul>
 <h3 id="cons">Cons</h3>
 <ul>
-<li>Small display area limits UI readability</li>
-<li>Limited graphical capability</li>
-<li>Some variants ship configured for I²C only</li>
+<li>Small area limits readability</li>
+<li>Limited graphics</li>
+<li>Some I²C-only variants</li>
 </ul>
 <hr>
 <h2 id="option-2-13-12864-sh1106-ssd1309-spi-oled">Option 2 — 1.3" 128×64 SH1106 / SSD1309 SPI OLED</h2>
@@ -846,6 +849,10 @@
 <td>≈ $6.50</td>
 </tr>
 <tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/3/9/6/16055-SFE12998-01.jpg" data-desc-position="bottom"><img alt="1.3&quot; OLED" src="https://cdn.sparkfun.com//assets/parts/1/3/9/6/16055-SFE12998-01.jpg"></a></td>
+</tr>
+<tr>
 <td>Product Page</td>
 <td>https://www.pololu.com/product/3760</td>
 </tr>
@@ -857,19 +864,19 @@
 </table>
 <h3 id="pros_1">Pros</h3>
 <ul>
-<li>Larger screen improves readability for hazard alerts</li>
-<li>SPI allows faster refresh than I²C</li>
-<li>Low power (no backlight required)</li>
-<li>High contrast for indoor environments</li>
+<li>Larger screen: better readability</li>
+<li>SPI refresh faster than I²C</li>
+<li>No backlight required</li>
+<li>Good indoor contrast</li>
 </ul>
 <h3 id="cons_1">Cons</h3>
 <ul>
-<li>Slightly larger PCB footprint</li>
-<li>Must verify SH1106 vs SSD1306 driver compatibility</li>
+<li>Larger PCB footprint</li>
+<li>Must verify SH1106/SSD1306 driver</li>
 <li>Monochrome only</li>
 </ul>
 <hr>
-<h2 id="option-3-13-240135-st7789-spi-color-tft-ips">Option 3 — 1.3" 240×135 ST7789 SPI Color TFT (IPS)</h2>
+<h2 id="option-3-13-240135-st7789-spi-color-tft">Option 3 — 1.3" 240×135 ST7789 SPI Color TFT</h2>
 <table>
 <thead>
 <tr>
@@ -888,11 +895,15 @@
 </tr>
 <tr>
 <td>Voltage</td>
-<td>3.3V logic</td>
+<td>3.3V</td>
 </tr>
 <tr>
 <td>Price</td>
 <td>≈ $17.00</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/4/2/7/28645-BTF-SPI-Display.jpg" data-desc-position="bottom"><img alt="ST7789 TFT" src="https://cdn.sparkfun.com//assets/parts/1/4/2/7/28645-BTF-SPI-Display.jpg"></a></td>
 </tr>
 <tr>
 <td>Product Page</td>
@@ -908,22 +919,19 @@
 <ul>
 <li>Full color graphics</li>
 <li>Higher resolution</li>
-<li>Wide viewing angles (IPS)</li>
-<li>Strong library support</li>
+<li>Wide viewing angles</li>
 </ul>
 <h3 id="cons_2">Cons</h3>
 <ul>
-<li>Higher power draw (backlight required)</li>
+<li>Higher power (backlight)</li>
 <li>More complex firmware</li>
-<li>Requires backlight current management</li>
 </ul>
 <hr>
 <h3 id="selected-display-option-2-13-spi-oled">Selected Display: Option 2 — 1.3" SPI OLED</h3>
-<p><strong>Rationale:</strong><br>
-Provides improved readability over 0.96" displays while maintaining low power consumption and simple SPI integration. Offers a strong balance between UI clarity, firmware complexity, and energy efficiency.</p>
+<p>Balanced readability, low power, and simple firmware.</p>
 <hr>
-<h1 id="2-imu-accelerometer-gyroscope-50-hz">2. IMU (Accelerometer + Gyroscope, ≥50 Hz)</h1>
-<h2 id="option-1-icm-42688-p-6-axis-imu">Option 1 — ICM-42688-P (6-Axis IMU)</h2>
+<h1 id="2-imu-accelerometer-gyroscope">2. IMU (Accelerometer + Gyroscope)</h1>
+<h2 id="option-1-icm-42688-p">Option 1 — ICM-42688-P</h2>
 <table>
 <thead>
 <tr>
@@ -934,19 +942,19 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <tbody>
 <tr>
 <td>Axes</td>
-<td>3-Axis Accel + 3-Axis Gyro</td>
+<td>6-axis (Accel + Gyro)</td>
 </tr>
 <tr>
 <td>Interface</td>
-<td>I²C / SPI</td>
-</tr>
-<tr>
-<td>Sample Rate</td>
-<td>&gt;1 kHz</td>
+<td>SPI / I²C</td>
 </tr>
 <tr>
 <td>Price</td>
 <td>≈ $4.70</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/3/5/5/28275-IMU_ICM_42688_P.jpg" data-desc-position="bottom"><img alt="ICM-42688" src="https://cdn.sparkfun.com//assets/parts/1/3/5/5/28275-IMU_ICM_42688_P.jpg"></a></td>
 </tr>
 <tr>
 <td>Datasheet</td>
@@ -956,18 +964,17 @@ Provides improved readability over 0.96" displays while maintaining low power co
 </table>
 <h3 id="pros_3">Pros</h3>
 <ul>
-<li>Very high sample rates</li>
-<li>Low noise, high precision</li>
-<li>FIFO buffering reduces MCU load</li>
-<li>Low power modes available</li>
+<li>High sample rates</li>
+<li>Low noise</li>
+<li>FIFO buffer</li>
 </ul>
 <h3 id="cons_3">Cons</h3>
 <ul>
-<li>QFN package (harder to solder)</li>
+<li>QFN (harder solder)</li>
 <li>No magnetometer</li>
 </ul>
 <hr>
-<h2 id="option-2-bno055-9-dof-with-onboard-fusion">Option 2 — BNO055 (9-DOF with Onboard Fusion)</h2>
+<h2 id="option-2-bno055">Option 2 — BNO055</h2>
 <table>
 <thead>
 <tr>
@@ -978,7 +985,7 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <tbody>
 <tr>
 <td>Axes</td>
-<td>9-DOF (Accel + Gyro + Mag)</td>
+<td>9-DOF</td>
 </tr>
 <tr>
 <td>Interface</td>
@@ -989,6 +996,10 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>≈ $12.00</td>
 </tr>
 <tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/8/8/1/24751-BNO055.jpg" data-desc-position="bottom"><img alt="BNO055" src="https://cdn.sparkfun.com//assets/parts/1/8/8/1/24751-BNO055.jpg"></a></td>
+</tr>
+<tr>
 <td>Datasheet</td>
 <td>https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf</td>
 </tr>
@@ -996,18 +1007,16 @@ Provides improved readability over 0.96" displays while maintaining low power co
 </table>
 <h3 id="pros_4">Pros</h3>
 <ul>
-<li>Built-in sensor fusion</li>
-<li>Outputs absolute orientation</li>
-<li>Simplifies firmware</li>
+<li>Built-in fusion</li>
+<li>Orientation data</li>
 </ul>
 <h3 id="cons_4">Cons</h3>
 <ul>
 <li>Higher cost</li>
-<li>Larger footprint</li>
-<li>Fusion startup delay</li>
+<li>Startup delay</li>
 </ul>
 <hr>
-<h2 id="option-3-mpu-6050-6-axis-imu">Option 3 — MPU-6050 (6-Axis IMU)</h2>
+<h2 id="option-3-mpu-6050">Option 3 — MPU-6050</h2>
 <table>
 <thead>
 <tr>
@@ -1028,26 +1037,27 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>Price</td>
 <td>≈ $3.50</td>
 </tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/1/3/6/13879-MPU-6050.jpg" data-desc-position="bottom"><img alt="MPU-6050" src="https://cdn.sparkfun.com//assets/parts/1/1/3/6/13879-MPU-6050.jpg"></a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="pros_5">Pros</h3>
 <ul>
-<li>Very common</li>
-<li>Inexpensive</li>
-<li>Strong community support</li>
+<li>Cheap</li>
+<li>Common</li>
 </ul>
 <h3 id="cons_5">Cons</h3>
 <ul>
-<li>Older generation</li>
+<li>Older tech</li>
 <li>Higher noise</li>
-<li>Limited long-term availability</li>
 </ul>
 <hr>
 <h3 id="selected-imu-icm-42688-p">Selected IMU: ICM-42688-P</h3>
-<p>Chosen for superior precision, high sampling capability, and FIFO buffering which reduces MCU processing overhead.</p>
 <hr>
-<h1 id="3-temperature-humidity-sensor">3. Temperature &amp; Humidity Sensor</h1>
-<h2 id="option-1-hdc2080-texas-instruments">Option 1 — HDC2080 (Texas Instruments)</h2>
+<h1 id="3-temperature-humidity">3. Temperature &amp; Humidity</h1>
+<h2 id="option-1-hdc2080">Option 1 — HDC2080</h2>
 <table>
 <thead>
 <tr>
@@ -1061,12 +1071,12 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>I²C</td>
 </tr>
 <tr>
-<td>Voltage</td>
-<td>1.62–3.6V</td>
-</tr>
-<tr>
 <td>Price</td>
 <td>≈ $3.75</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/5/8/6/29469-HDC2080.jpg" data-desc-position="bottom"><img alt="HDC2080" src="https://cdn.sparkfun.com//assets/parts/1/5/8/6/29469-HDC2080.jpg"></a></td>
 </tr>
 <tr>
 <td>Datasheet</td>
@@ -1076,15 +1086,12 @@ Provides improved readability over 0.96" displays while maintaining low power co
 </table>
 <h3 id="pros_6">Pros</h3>
 <ul>
-<li>Very low power</li>
+<li>Low power</li>
 <li>High accuracy</li>
-<li>Strong documentation</li>
-<li>Industry-grade reliability</li>
 </ul>
 <h3 id="cons_6">Cons</h3>
 <ul>
-<li>Requires proper PCB layout</li>
-<li>Needs I²C pull-ups</li>
+<li>Needs careful layout</li>
 </ul>
 <hr>
 <h2 id="option-2-aht21">Option 2 — AHT21</h2>
@@ -1105,6 +1112,10 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>≈ $2.20</td>
 </tr>
 <tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/9/8/1/28721-AHT21.jpg" data-desc-position="bottom"><img alt="AHT21" src="https://cdn.sparkfun.com//assets/parts/1/9/8/1/28721-AHT21.jpg"></a></td>
+</tr>
+<tr>
 <td>Datasheet</td>
 <td>https://www.aosong.com/userfiles/files/media/Data%20Sheet%20AHT21.pdf</td>
 </tr>
@@ -1112,14 +1123,12 @@ Provides improved readability over 0.96" displays while maintaining low power co
 </table>
 <h3 id="pros_7">Pros</h3>
 <ul>
-<li>Lower cost</li>
-<li>Good availability</li>
+<li>Low cost</li>
 <li>Compact</li>
 </ul>
 <h3 id="cons_7">Cons</h3>
 <ul>
-<li>Slightly lower accuracy than TI solution</li>
-<li>Voltage verification required</li>
+<li>Slightly less accurate</li>
 </ul>
 <hr>
 <h2 id="option-3-dht11">Option 3 — DHT11</h2>
@@ -1139,25 +1148,26 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>Price</td>
 <td>≈ $1.50</td>
 </tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/3/5/8/13576-DHT11.jpg" data-desc-position="bottom"><img alt="DHT11" src="https://cdn.sparkfun.com//assets/parts/1/3/5/8/13576-DHT11.jpg"></a></td>
+</tr>
 </tbody>
 </table>
 <h3 id="pros_8">Pros</h3>
 <ul>
-<li>Very inexpensive</li>
-<li>Easy for basic prototyping</li>
+<li>Very cheap</li>
 </ul>
 <h3 id="cons_8">Cons</h3>
 <ul>
 <li>Low accuracy</li>
-<li>Timing-sensitive protocol</li>
-<li>Not suitable for engineering validation</li>
+<li>Timing-sensitive</li>
 </ul>
 <hr>
-<h3 id="selected-sensor-hdc2080">Selected Sensor: HDC2080</h3>
-<p>Chosen for accuracy, reliability, and low power operation suitable for engineering validation and real-world deployment.</p>
+<h3 id="selected-temphumidity-hdc2080">Selected Temp/Humidity: HDC2080</h3>
 <hr>
-<h1 id="4-user-input-buttons-leds">4. User Input (Buttons + LEDs)</h1>
-<h2 id="tactile-switch-66mm-smd-pushbutton">Tactile Switch — 6×6mm SMD Pushbutton</h2>
+<h1 id="4-user-input">4. User Input</h1>
+<h2 id="66mm-smd-tactile-switch">6×6mm SMD Tactile Switch</h2>
 <table>
 <thead>
 <tr>
@@ -1171,12 +1181,16 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>Momentary</td>
 </tr>
 <tr>
-<td>Mounting</td>
-<td>Surface Mount</td>
+<td>Mount</td>
+<td>SMD</td>
 </tr>
 <tr>
 <td>Price</td>
 <td>≈ $0.30</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/1/8/7/11877-Tactile_Switch.jpg" data-desc-position="bottom"><img alt="6x6mm Tactile" src="https://cdn.sparkfun.com//assets/parts/1/1/8/7/11877-Tactile_Switch.jpg"></a></td>
 </tr>
 <tr>
 <td>Datasheet</td>
@@ -1184,19 +1198,9 @@ Provides improved readability over 0.96" displays while maintaining low power co
 </tr>
 </tbody>
 </table>
-<h3 id="pros_9">Pros</h3>
-<ul>
-<li>Durable</li>
-<li>Clear tactile feedback</li>
-<li>Easy to solder</li>
-</ul>
-<h3 id="cons_9">Cons</h3>
-<ul>
-<li>Larger PCB footprint than ultra-miniature variants</li>
-</ul>
 <hr>
 <h1 id="5-33v-switching-regulator">5. 3.3V Switching Regulator</h1>
-<h2 id="ap63203wu-7-3a-buck-converter">AP63203WU-7 (3A Buck Converter)</h2>
+<h2 id="ap63203wu-7-buck-converter">AP63203WU-7 Buck Converter</h2>
 <table>
 <thead>
 <tr>
@@ -1218,22 +1222,15 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <td>≈ $1.50</td>
 </tr>
 <tr>
+<td>Image</td>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://cdn.sparkfun.com//assets/parts/1/7/5/6/17566-Buck-Converter.jpg" data-desc-position="bottom"><img alt="Buck Converter" src="https://cdn.sparkfun.com//assets/parts/1/7/5/6/17566-Buck-Converter.jpg"></a></td>
+</tr>
+<tr>
 <td>Datasheet</td>
 <td>https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf</td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros_10">Pros</h3>
-<ul>
-<li>High efficiency</li>
-<li>3A capability</li>
-<li>Good thermal performance</li>
-</ul>
-<h3 id="cons_10">Cons</h3>
-<ul>
-<li>Requires external inductor</li>
-<li>Careful PCB layout required</li>
-</ul>
 <hr>
 <h1 id="final-component-selection-summary">Final Component Selection Summary</h1>
 <table>
@@ -1241,7 +1238,6 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <tr>
 <th>Subsystem</th>
 <th>Component</th>
-<th>Manufacturer</th>
 <th>Key Specs</th>
 <th>Price</th>
 </tr>
@@ -1250,80 +1246,57 @@ Provides improved readability over 0.96" displays while maintaining low power co
 <tr>
 <td>Microcontroller</td>
 <td>PIC18F47Q10</td>
-<td>Microchip</td>
 <td>8-bit, 3.3V, I²C/SPI/UART</td>
 <td>$2.60</td>
 </tr>
 <tr>
 <td>OLED Display</td>
-<td>1.3" SPI OLED (SH1106/SSD1309)</td>
-<td>TBD</td>
+<td>1.3" SPI OLED</td>
 <td>128×64, SPI</td>
 <td>$6.50</td>
 </tr>
 <tr>
 <td>IMU</td>
 <td>ICM-42688-P</td>
-<td>TDK</td>
-<td>6-axis, FIFO, &gt;50Hz</td>
+<td>6-axis, FIFO</td>
 <td>$4.70</td>
 </tr>
 <tr>
 <td>Temp/Humidity</td>
 <td>HDC2080</td>
-<td>TI</td>
-<td>I²C, Low Power</td>
+<td>I²C, low power</td>
 <td>$3.75</td>
 </tr>
 <tr>
 <td>Regulator</td>
 <td>AP63203WU-7</td>
-<td>Diodes Inc.</td>
-<td>3A Buck</td>
+<td>3A buck</td>
 <td>$1.50</td>
 </tr>
 <tr>
 <td>Buttons</td>
 <td>6×6mm SMD Switch</td>
-<td>TBD</td>
 <td>Momentary</td>
 <td>$0.30</td>
 </tr>
 <tr>
 <td>LEDs</td>
 <td>0805 SMD</td>
-<td>TBD</td>
-<td>3.3V compatible</td>
+<td>3.3V logic</td>
 <td>$0.10</td>
 </tr>
 <tr>
 <td>Interface</td>
 <td>2×4 IDC Header</td>
-<td>TBD</td>
-<td>UART Ribbon</td>
+<td>UART ribbon</td>
 <td>$0.50</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="estimated-core-component-cost">Estimated Core Component Cost</h2>
-<p><strong>≈ <span class="arithmatex">\(20–\)</span>23 per board</strong><br>
-(Excludes passives, PCB fabrication, shipping, and spares)</p>
+<h2 id="estimated-core-cost">Estimated Core Cost</h2>
+<p><strong>≈ <span class="arithmatex">\(20–\)</span>23 / board</strong> (excl. passives + PCB + shipping)</p>
 <hr>
-<h1 id="cost-discussion">Cost Discussion</h1>
-<p>The subsystem cost remains reasonable considering the sensing accuracy, real-time motion capture capability, and user interface requirements.</p>
-<p>The IMU represents a higher-cost component due to its precision and FIFO support, which significantly reduces MCU processing load and improves reliability.</p>
-<p>The selected 1.3" SPI OLED provides strong readability while keeping power consumption and firmware complexity manageable compared to full-color TFT options.</p>
-<p>The AP63203 buck regulator improves efficiency and thermal performance compared to LDO solutions, increasing overall system reliability.</p>
-<p>Overall, the selected components provide a strong balance between:</p>
-<ul>
-<li>Performance</li>
-<li>Accuracy</li>
-<li>Power efficiency</li>
-<li>Manufacturability</li>
-<li>Budget constraints</li>
-</ul>
-<p>while remaining appropriate for a student-designed embedded subsystem.</p>
 
 
 
