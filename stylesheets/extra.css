@@ -10,3 +10,8 @@ blockquote{
         color: var(--md-typeset-color);
     }
 }
+
+/* Page container border override */
+main, .md-main, .md-main__inner, .md-content, .md-typeset {
+    border: 1px solid #4b947d;
+}
