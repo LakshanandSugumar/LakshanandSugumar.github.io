@@ -12,8 +12,6 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 ![Sensor & HMI Schematic](1.jpg)
 
-![Sensor & HMI Schematic](2.jpg)
-
 ---
 
 ## Downloadable Files
