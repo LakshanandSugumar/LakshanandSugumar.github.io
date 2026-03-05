@@ -10,6 +10,10 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 **Figure 01: Sensor & HMI Subsystem Schematic**
 
+![Sensor & HMI Schematic](1.jpg)
+
+![Sensor & HMI Schematic](2.jpg)
+
 ---
 
 ## Downloadable Files
