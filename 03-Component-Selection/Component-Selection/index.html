@@ -809,16 +809,16 @@
 </table>
 <h3 id="pros">Pros</h3>
 <ul>
-<li>Extremely common with strong library support (u8g2, Adafruit)</li>
-<li>Very low power consumption</li>
-<li>Simple interface (I²C or SPI)</li>
-<li>Compact footprint</li>
+<li>Widely used with extensive software support</li>
+<li>Low power consumption</li>
+<li>Simple communication interface</li>
+<li>Small footprint</li>
 </ul>
 <h3 id="cons">Cons</h3>
 <ul>
-<li>Small display area limits UI readability</li>
-<li>Limited graphical capability</li>
-<li>Some variants ship configured for I²C only</li>
+<li>Limited screen size reduces readability</li>
+<li>Basic monochrome graphics only</li>
+<li>Some versions default to I²C configuration</li>
 </ul>
 <hr>
 <h2 id="option-2-13-12864-sh1106-ssd1309-spi-oled">Option 2 — 1.3" 128×64 SH1106 / SSD1309 SPI OLED</h2>
@@ -859,16 +859,16 @@
 </table>
 <h3 id="pros_1">Pros</h3>
 <ul>
-<li>Larger screen improves readability for hazard alerts</li>
-<li>SPI interface allows faster refresh than I²C</li>
-<li>Low power (no backlight required)</li>
-<li>Good contrast for indoor use</li>
+<li>Larger viewing area improves clarity</li>
+<li>Faster refresh rate via SPI</li>
+<li>No backlight required (lower power)</li>
+<li>High contrast for indoor use</li>
 </ul>
 <h3 id="cons_1">Cons</h3>
 <ul>
-<li>Slightly larger PCB footprint</li>
-<li>Must verify driver compatibility (SH1106 vs SSD1306)</li>
-<li>Monochrome only</li>
+<li>Slightly increased PCB area</li>
+<li>Requires driver compatibility verification</li>
+<li>Monochrome display</li>
 </ul>
 <hr>
 <h2 id="option-3-13-240135-st7789-spi-color-tft-ips">Option 3 — 1.3" 240×135 ST7789 SPI Color TFT (IPS)</h2>
@@ -909,19 +909,20 @@
 </table>
 <h3 id="pros_2">Pros</h3>
 <ul>
-<li>Color graphics and better UI visualization</li>
+<li>Full-color graphical interface</li>
 <li>Higher resolution</li>
-<li>Wide viewing angles (IPS)</li>
-<li>Strong Arduino/PIC driver support</li>
+<li>Wide viewing angles</li>
 </ul>
 <h3 id="cons_2">Cons</h3>
 <ul>
-<li>Higher power draw due to backlight</li>
-<li>More complex firmware</li>
-<li>Requires backlight current management</li>
+<li>Increased power consumption</li>
+<li>Greater firmware complexity</li>
+<li>Higher overall cost</li>
 </ul>
 <hr>
 <p><strong>Selected Display:</strong> Option 2 — 1.3" SPI OLED</p>
+<p><strong>Rationale:</strong><br>
+The 1.3" SPI OLED was selected because it provides improved readability for hazard and status information while maintaining low power consumption and firmware simplicity. It offers a good balance between visibility, cost, and implementation complexity.</p>
 <hr>
 <h1 id="2-imu-accelerometer-gyroscope-50-hz">2. IMU (Accelerometer + Gyroscope, ≥50 Hz)</h1>
 <h2 id="option-1-icm-42688-p-6-axis-imu">Option 1 — ICM-42688-P (6-Axis IMU)</h2>
@@ -958,15 +959,15 @@
 </table>
 <h3 id="pros_3">Pros</h3>
 <ul>
-<li>Very high sample rates</li>
-<li>Low noise and high precision</li>
-<li>FIFO buffering reduces MCU load</li>
-<li>Low power modes available</li>
+<li>High sampling capability</li>
+<li>Low noise and precision sensing</li>
+<li>FIFO reduces processor overhead</li>
+<li>Power-efficient modes</li>
 </ul>
 <h3 id="cons_3">Cons</h3>
 <ul>
-<li>QFN package is harder to solder</li>
-<li>No built-in magnetometer</li>
+<li>Small QFN package increases assembly difficulty</li>
+<li>Does not include magnetometer</li>
 </ul>
 <hr>
 <h2 id="option-2-bno055-9-dof-with-onboard-fusion">Option 2 — BNO055 (9-DOF with onboard fusion)</h2>
@@ -999,15 +1000,16 @@
 </table>
 <h3 id="pros_4">Pros</h3>
 <ul>
-<li>Built-in sensor fusion</li>
+<li>Integrated sensor fusion</li>
 <li>Outputs orientation directly</li>
-<li>Simplifies firmware</li>
+<li>Reduces firmware development complexity</li>
+<li>Includes magnetometer for full 9-DOF capability</li>
 </ul>
 <h3 id="cons_4">Cons</h3>
 <ul>
-<li>More expensive</li>
+<li>Higher cost</li>
 <li>Larger footprint</li>
-<li>Fusion startup delay</li>
+<li>Startup calibration delay</li>
 </ul>
 <hr>
 <h2 id="option-3-mpu-6050-6-axis-imu">Option 3 — MPU-6050 (6-Axis IMU)</h2>
@@ -1036,18 +1038,20 @@
 </table>
 <h3 id="pros_5">Pros</h3>
 <ul>
-<li>Very common and inexpensive</li>
-<li>Strong community support</li>
-<li>Simple I²C interface</li>
+<li>Cost-effective</li>
+<li>Widely supported</li>
+<li>Simple interface</li>
 </ul>
 <h3 id="cons_5">Cons</h3>
 <ul>
-<li>Older generation sensor</li>
-<li>Higher noise compared to modern parts</li>
-<li>Limited long-term availability</li>
+<li>Older architecture</li>
+<li>Higher noise levels</li>
+<li>Limited future support</li>
 </ul>
 <hr>
-<p><strong>Selected IMU:</strong> ICM-42688-P</p>
+<p><strong>Selected IMU:</strong> BNO055 (9-DOF with onboard fusion)</p>
+<p><strong>Rationale:</strong><br>
+The BNO055 was selected because its built-in sensor fusion significantly simplifies orientation computation and hazard analysis. By providing processed orientation data directly, it reduces firmware complexity on the PIC microcontroller and improves overall system clarity during demonstration and testing.</p>
 <hr>
 <h1 id="3-temperature-humidity-sensor">3. Temperature &amp; Humidity Sensor</h1>
 <h2 id="option-1-hdc2080-ti">Option 1 — HDC2080 (TI)</h2>
@@ -1126,6 +1130,8 @@
 </table>
 <hr>
 <p><strong>Selected Sensor:</strong> HDC2080</p>
+<p><strong>Rationale:</strong><br>
+The HDC2080 provides higher accuracy and better long-term stability compared to low-cost alternatives. Its I²C interface integrates cleanly with the system and supports reliable environmental monitoring required for hazard evaluation.</p>
 <hr>
 <h1 id="4-user-input-tactile-switch">4. User Input (Tactile Switch)</h1>
 <h2 id="66mm-smd-tactile-switch">6×6mm SMD Tactile Switch</h2>
@@ -1156,6 +1162,8 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Rationale:</strong><br>
+This tactile switch provides reliable mechanical feedback and supports interrupt-driven input handling for local interaction and emergency stop functionality.</p>
 <hr>
 <h1 id="5-33v-switching-regulator">5. 3.3V Switching Regulator</h1>
 <h2 id="ap63203wu-7-3a-buck-converter">AP63203WU-7 (3A Buck Converter)</h2>
@@ -1186,6 +1194,9 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Selected Regulator:</strong> AP63203WU-7</p>
+<p><strong>Rationale:</strong><br>
+The AP63203WU-7 was selected because it provides a simple and cost-effective 3.3V solution with sufficient current capacity for system operation. Its fixed output simplifies design while maintaining reliable performance under typical operating loads.</p>
 <hr>
 <h1 id="final-component-selection-summary">Final Component Selection Summary</h1>
 <table>
@@ -1215,10 +1226,10 @@
 </tr>
 <tr>
 <td>IMU</td>
-<td>ICM-42688-P</td>
-<td>TDK</td>
-<td>6-axis, FIFO</td>
-<td>$4.70</td>
+<td>BNO055</td>
+<td>Bosch</td>
+<td>9-DOF, Fusion</td>
+<td>$35.00</td>
 </tr>
 <tr>
 <td>Temp/Humidity</td>

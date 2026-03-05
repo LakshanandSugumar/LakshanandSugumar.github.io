@@ -437,10 +437,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-summary" class="md-nav__link">
     <span class="md-ellipsis">
       Project Summary
@@ -448,18 +447,13 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#my-contribution" class="md-nav__link">
     <span class="md-ellipsis">
       My Contribution
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -788,10 +782,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Introduction">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-summary" class="md-nav__link">
     <span class="md-ellipsis">
       Project Summary
@@ -799,18 +792,13 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#my-contribution" class="md-nav__link">
     <span class="md-ellipsis">
       My Contribution
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -845,26 +833,44 @@ as part of<br>
 <font size="8"> Amphibot V1</font><br>
 for<br>
 <font size="5"> Team 302 </font><br><p></p>
-<p><strong>Submission: 1, 16, 2026</strong></p>
+<p><strong>Submission: April 4, 2026</strong></p>
 <p></p></center><p></p>
+<hr>
 <h2 id="introduction">Introduction</h2>
+<p>This datasheet presents the design and implementation of the <strong>Sensor + Human–Machine Interface (HMI) subsystem</strong> for Amphibot V1 (EGR 314 – Spring 2026).</p>
+<p>It provides a standalone overview of my subsystem’s purpose, hardware design, firmware architecture, and role within the team’s UART daisy-chained robot platform.</p>
+<hr>
+<h2 id="project-summary">Project Summary</h2>
+<p>Amphibot V1 is a three-PCB modular reconnaissance robot inspired by R6 drone mechanics. The system includes:</p>
 <ul>
-<li><strong>This needs to be updated so that a reader gets an idea of the purpose of this datasheet.</strong></li>
+<li>ESP32 Wireless Gateway</li>
+<li>Sensor + HMI Board (PIC-based)</li>
+<li>Actuator Control Board</li>
 </ul>
-<h3 id="project-summary">Project Summary</h3>
+<p>The boards communicate using a standardized 64-byte UART packet structure in a daisy-chain configuration.</p>
+<p>The Sensor + HMI subsystem:</p>
 <ul>
-<li>This needs to be updated to reflect <ins>your version</ins> of the team project, so when shared not via the team's report, the reader gets an idea of the direction of the project and how your work will contribute to the overall success.</li>
-<li><a href="https://github.com/LakshanandSugumar/LakshanandSugumar.github.io.git">team report.</a></li>
+<li>Collects IMU and environmental data</li>
+<li>Computes a simplified hazard score</li>
+<li>Displays system status on an SPI OLED</li>
+<li>Handles local button input and emergency stop</li>
+<li>Forwards structured UART messages between boards</li>
 </ul>
-<h3 id="my-contribution">My Contribution</h3>
+<p>For the complete team documentation, see the<br>
+<a href="https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/">Team Report</a></p>
+<hr>
+<h2 id="my-contribution">My Contribution</h2>
+<p>I designed and implemented the complete <strong>Sensor + HMI subsystem</strong>, including:</p>
 <ul>
-<li>This needs to be updated to reflect a team introduction</li>
-<li>Content should also help an unfamiliar reader navigate to areas of interest. Information like:</li>
+<li>Component selection and PCB design</li>
+<li>PIC-based firmware (interrupt-driven)</li>
+<li>Sensor integration (IMU + temp/humidity)</li>
+<li>OLED display interface</li>
+<li>UART packet parsing and forwarding</li>
+<li>Emergency stop handling</li>
 </ul>
-<p>To review the details listed of the material used to construct the subsection, you can review it in the <a href="https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-BOM/BOM/">"BOM"</a> section of the datasheet.</p>
-<blockquote>
-<p>Continue for all the remaining/missing sections.</p>
-</blockquote>
+<hr>
+<p>This page serves as an overview. Detailed technical sections are provided throughout the remainder of the datasheet.</p>
 
 
 
