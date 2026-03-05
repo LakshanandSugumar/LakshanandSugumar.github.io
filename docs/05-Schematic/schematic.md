@@ -10,7 +10,9 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 **Figure 01: Sensor & HMI Subsystem Schematic**
 
-![Sensor & HMI Schematic](SCHEM-IMG.png)
+![Sensor & HMI Schematic](1.png)
+
+![Sensor & HMI Schematic](2.png)
 
 ---
 
@@ -20,7 +22,7 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
   [Download Compressed ECAD](COMPSCHEM.zip)
 
 - **Final Schematic PDF:**  
-  [Download PDFSCHEMATICS](FINALFINAL.pdf)
+  [Download PDFSCHEMATICS](schematics.pdf)
 
 - **Symbols :**  
   [Download symbols](ind-symbol-schem.zip)
