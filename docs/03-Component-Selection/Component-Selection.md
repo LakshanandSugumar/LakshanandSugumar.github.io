@@ -22,16 +22,16 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Extremely common with strong library support (u8g2, Adafruit)
-- Very low power consumption
-- Simple interface (I²C or SPI)
-- Compact footprint
+- Widely used with extensive software support
+- Low power consumption
+- Simple communication interface
+- Small footprint
 
 ### Cons
 
-- Small display area limits UI readability
-- Limited graphical capability
-- Some variants ship configured for I²C only
+- Limited screen size reduces readability
+- Basic monochrome graphics only
+- Some versions default to I²C configuration
 
 ---
 
@@ -50,16 +50,16 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Larger screen improves readability for hazard alerts
-- SPI interface allows faster refresh than I²C
-- Low power (no backlight required)
-- Good contrast for indoor use
+- Larger viewing area improves clarity
+- Faster refresh rate via SPI
+- No backlight required (lower power)
+- High contrast for indoor use
 
 ### Cons
 
-- Slightly larger PCB footprint
-- Must verify driver compatibility (SH1106 vs SSD1306)
-- Monochrome only
+- Slightly increased PCB area
+- Requires driver compatibility verification
+- Monochrome display
 
 ---
 
@@ -78,20 +78,22 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Color graphics and better UI visualization
+- Full-color graphical interface
 - Higher resolution
-- Wide viewing angles (IPS)
-- Strong Arduino/PIC driver support
+- Wide viewing angles
 
 ### Cons
 
-- Higher power draw due to backlight
-- More complex firmware
-- Requires backlight current management
+- Increased power consumption
+- Greater firmware complexity
+- Higher overall cost
 
 ---
 
 **Selected Display:** Option 2 — 1.3" SPI OLED
+
+**Rationale:**  
+The 1.3" SPI OLED was selected because it provides improved readability for hazard and status information while maintaining low power consumption and firmware simplicity. It offers a good balance between visibility, cost, and implementation complexity.
 
 ---
 
@@ -111,15 +113,15 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Very high sample rates
-- Low noise and high precision
-- FIFO buffering reduces MCU load
-- Low power modes available
+- High sampling capability
+- Low noise and precision sensing
+- FIFO reduces processor overhead
+- Power-efficient modes
 
 ### Cons
 
-- QFN package is harder to solder
-- No built-in magnetometer
+- Small QFN package increases assembly difficulty
+- Does not include magnetometer
 
 ---
 
@@ -136,15 +138,16 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Built-in sensor fusion
+- Integrated sensor fusion
 - Outputs orientation directly
-- Simplifies firmware
+- Reduces firmware development complexity
+- Includes magnetometer for full 9-DOF capability
 
 ### Cons
 
-- More expensive
+- Higher cost
 - Larger footprint
-- Fusion startup delay
+- Startup calibration delay
 
 ---
 
@@ -160,19 +163,22 @@ title: Module's Selected Major Components
 
 ### Pros
 
-- Very common and inexpensive
-- Strong community support
-- Simple I²C interface
+- Cost-effective
+- Widely supported
+- Simple interface
 
 ### Cons
 
-- Older generation sensor
-- Higher noise compared to modern parts
-- Limited long-term availability
+- Older architecture
+- Higher noise levels
+- Limited future support
 
 ---
 
-**Selected IMU:** ICM-42688-P
+**Selected IMU:** BNO055 (9-DOF with onboard fusion)
+
+**Rationale:**  
+The BNO055 was selected because its built-in sensor fusion significantly simplifies orientation computation and hazard analysis. By providing processed orientation data directly, it reduces firmware complexity on the PIC microcontroller and improves overall system clarity during demonstration and testing.
 
 ---
 
@@ -216,6 +222,9 @@ title: Module's Selected Major Components
 
 **Selected Sensor:** HDC2080
 
+**Rationale:**  
+The HDC2080 provides higher accuracy and better long-term stability compared to low-cost alternatives. Its I²C interface integrates cleanly with the system and supports reliable environmental monitoring required for hazard evaluation.
+
 ---
 
 # 4. User Input (Tactile Switch)
@@ -230,6 +239,9 @@ title: Module's Selected Major Components
 | Mounting      | Surface-mount                                                      |
 | Price         | ≈ $0.30                                                            |
 | Datasheet     | https://www.schurter.com/en/datasheet/typ_6x6_mm_tact_switches.pdf |
+
+**Rationale:**  
+This tactile switch provides reliable mechanical feedback and supports interrupt-driven input handling for local interaction and emergency stop functionality.
 
 ---
 
@@ -246,20 +258,25 @@ title: Module's Selected Major Components
 | Price         | ≈ $1.50                                                                      |
 | Datasheet     | https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf |
 
+**Selected Regulator:** AP63203WU-7
+
+**Rationale:**  
+The AP63203WU-7 was selected because it provides a simple and cost-effective 3.3V solution with sufficient current capacity for system operation. Its fixed output simplifies design while maintaining reliable performance under typical operating loads.
+
 ---
 
 # Final Component Selection Summary
 
-| Subsystem       | Component      | Manufacturer | Key Specs             | Price |
-| --------------- | -------------- | ------------ | --------------------- | ----- |
-| Microcontroller | PIC18F47Q10    | Microchip    | 8-bit MCU, 3.3V logic | $2.60 |
-| OLED Display    | 1.3" SPI OLED  | TBD          | 128×64, SPI           | $6.50 |
-| IMU             | ICM-42688-P    | TDK          | 6-axis, FIFO          | $4.70 |
-| Temp/Humidity   | HDC2080        | TI           | I²C, low power        | $3.75 |
-| Regulator       | AP63203WU-7    | Diodes Inc.  | 3A Buck               | $1.50 |
-| Button          | 6×6mm SMD      | TBD          | Momentary             | $0.30 |
-| LEDs            | 0805 SMD       | TBD          | 3.3V compatible       | $0.10 |
-| Interface       | 2×4 IDC Header | TBD          | UART ribbon           | $0.50 |
+| Subsystem       | Component      | Manufacturer | Key Specs             | Price  |
+| --------------- | -------------- | ------------ | --------------------- | ------ |
+| Microcontroller | PIC18F47Q10    | Microchip    | 8-bit MCU, 3.3V logic | $2.60  |
+| OLED Display    | 1.3" SPI OLED  | TBD          | 128×64, SPI           | $6.50  |
+| IMU             | BNO055         | Bosch        | 9-DOF, Fusion         | $35.00 |
+| Temp/Humidity   | HDC2080        | TI           | I²C, low power        | $3.75  |
+| Regulator       | AP63203WU-7    | Diodes Inc.  | 3A Buck               | $1.50  |
+| Button          | 6×6mm SMD      | TBD          | Momentary             | $0.30  |
+| LEDs            | 0805 SMD       | TBD          | 3.3V compatible       | $0.10  |
+| Interface       | 2×4 IDC Header | TBD          | UART ribbon           | $0.50  |
 
 ---
 

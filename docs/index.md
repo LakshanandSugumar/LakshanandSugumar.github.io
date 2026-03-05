@@ -1,8 +1,9 @@
 ---
 title: Welcome
 tags:
-  - tag1
-  - tag2
+  - EGR314
+  - Amphibot
+  - SensorSubsystem
 ---
 
 <center>
@@ -12,24 +13,54 @@ as part of<br>
 for<br>
 <font size= "5"> Team 302 </font><br>
 
-**Submission: 1, 16, 2026**
+**Submission: April 4, 2026**
 
 </center>
 
+---
+
 ## Introduction
 
-- **This needs to be updated so that a reader gets an idea of the purpose of this datasheet.**
+This datasheet presents the design and implementation of the **Sensor + Human–Machine Interface (HMI) subsystem** for Amphibot V1 (EGR 314 – Spring 2026).
 
-### Project Summary
+It provides a standalone overview of my subsystem’s purpose, hardware design, firmware architecture, and role within the team’s UART daisy-chained robot platform.
 
-- This needs to be updated to reflect <ins>your version</ins> of the team project, so when shared not via the team's report, the reader gets an idea of the direction of the project and how your work will contribute to the overall success.
-- [team report.](https://github.com/LakshanandSugumar/LakshanandSugumar.github.io.git)
+---
 
-### My Contribution
+## Project Summary
 
-- This needs to be updated to reflect a team introduction
-- Content should also help an unfamiliar reader navigate to areas of interest. Information like:
+Amphibot V1 is a three-PCB modular reconnaissance robot inspired by R6 drone mechanics. The system includes:
 
-To review the details listed of the material used to construct the subsection, you can review it in the ["BOM"](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-BOM/BOM/) section of the datasheet.
+- ESP32 Wireless Gateway
+- Sensor + HMI Board (PIC-based)
+- Actuator Control Board
 
-> Continue for all the remaining/missing sections.
+The boards communicate using a standardized 64-byte UART packet structure in a daisy-chain configuration.
+
+The Sensor + HMI subsystem:
+
+- Collects IMU and environmental data
+- Computes a simplified hazard score
+- Displays system status on an SPI OLED
+- Handles local button input and emergency stop
+- Forwards structured UART messages between boards
+
+For the complete team documentation, see the  
+[Team Report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/)
+
+---
+
+## My Contribution
+
+I designed and implemented the complete **Sensor + HMI subsystem**, including:
+
+- Component selection and PCB design
+- PIC-based firmware (interrupt-driven)
+- Sensor integration (IMU + temp/humidity)
+- OLED display interface
+- UART packet parsing and forwarding
+- Emergency stop handling
+
+---
+
+This page serves as an overview. Detailed technical sections are provided throughout the remainder of the datasheet.
