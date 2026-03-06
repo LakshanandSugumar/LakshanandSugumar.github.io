@@ -13,7 +13,7 @@ as part of<br>
 for<br>
 <font size= "5"> Team 302 </font><br>
 
-**Submission: April 4, 2026**
+**Last Updated: March 6, 2026**
 
 </center>
 
@@ -45,8 +45,7 @@ The Sensor + HMI subsystem:
 - Handles local button input and emergency stop
 - Forwards structured UART messages between boards
 
-For the complete team documentation, see the  
-[Team Report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/)
+For the complete team documentation, click [Team Report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/)
 
 ---
 
