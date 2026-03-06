@@ -905,9 +905,6 @@
 
 
 <h1 id="pic18f47k42-sensor-hmi-subsystem">PIC18F47K42 — Sensor + HMI Subsystem</h1>
-<p><strong>Team 302</strong><br>
-<strong>Laksh — Individual Subsystem</strong></p>
-<hr>
 <h1 id="1-microcontroller-selection">1. Microcontroller Selection</h1>
 <h2 id="selected-microcontroller">Selected Microcontroller</h2>
 <p><strong>PIC18F47K42 (40-Pin PDIP)</strong></p>
@@ -921,6 +918,7 @@
 <li>ICSP programming/debug support (MPLAB SNAP)</li>
 <li>3.3V operation</li>
 <li>DIP package for prototyping simplicity</li>
+<li>Class Requirement</li>
 </ul>
 <p>The PIC18F47K42 satisfies all requirements with sufficient I/O margin and hardware peripheral support.</p>
 <hr>
@@ -958,7 +956,6 @@
 <li>MPLAB SNAP Programming Header</li>
 </ol>
 <p>All logic operates at <strong>3.3V</strong>.</p>
-<hr>
 <h1 id="5-power-architecture">5. Power Architecture</h1>
 <h2 id="input">Input</h2>
 <ul>
@@ -975,7 +972,6 @@
 <li>0.1µF near each MCU VDD</li>
 <li>0.1µF near sensors</li>
 </ul>
-<hr>
 <h1 id="6-peripheral-configuration">6. Peripheral Configuration</h1>
 <h2 id="i2c-bus-shared">I2C Bus (Shared)</h2>
 <table>
@@ -1005,7 +1001,6 @@
 <li>MPU6050</li>
 <li>HDC2080</li>
 </ul>
-<hr>
 <h2 id="spi-bus-oled">SPI Bus (OLED)</h2>
 <table>
 <thead>
@@ -1038,7 +1033,6 @@
 </tbody>
 </table>
 <p>OLED powered at 3.3V.</p>
-<hr>
 <h2 id="switches-4x">Switches (4x)</h2>
 <p>Each switch:</p>
 <ul>
@@ -1074,7 +1068,6 @@
 </tbody>
 </table>
 <p>No floating inputs.</p>
-<hr>
 <h2 id="leds-4x">LEDs (4x)</h2>
 <p>Each LED uses 220Ω series resistor.</p>
 <table>
@@ -1135,8 +1128,7 @@
 </tr>
 </tbody>
 </table>
-<p>⚠️ SNAP connects to <strong>ICSPCLK (RB6)</strong> and <strong>ICSPDAT (RB7)</strong><br>
-It does NOT connect to I2C SDA/SCL.</p>
+<p>SNAP connects to <strong>ICSPCLK (RB6)</strong> and <strong>ICSPDAT (RB7)</strong></p>
 <hr>
 <h1 id="7-peripheral-usage-summary">7. Peripheral Usage Summary</h1>
 <table>
