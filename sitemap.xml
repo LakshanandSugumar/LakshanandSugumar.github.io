@@ -21,12 +21,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-BOM/BOM/</loc>
+         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-%20Microcontroller%20Selection/mcs/</loc>
          <lastmod>2026-03-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/05-Schematic/schematic/</loc>
+         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/05-%20Power%20Budget/power/</loc>
+         <lastmod>2026-03-06</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/06%20-BOM/BOM/</loc>
+         <lastmod>2026-03-06</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://embedded-systems-design.github.io/EGR314DataSheetTemplate/07%20-Schematic/schematic/</loc>
          <lastmod>2026-03-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
