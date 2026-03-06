@@ -1,10 +1,5 @@
 # PIC18F47K42 — Sensor + HMI Subsystem
 
-**Team 302**  
-**Laksh — Individual Subsystem**
-
----
-
 # 1. Microcontroller Selection
 
 ## Selected Microcontroller
@@ -23,6 +18,7 @@ The subsystem requires:
 - ICSP programming/debug support (MPLAB SNAP)
 - 3.3V operation
 - DIP package for prototyping simplicity
+- Class Requirement
 
 The PIC18F47K42 satisfies all requirements with sufficient I/O margin and hardware peripheral support.
 
@@ -78,8 +74,6 @@ The subsystem contains:
 
 All logic operates at **3.3V**.
 
----
-
 # 5. Power Architecture
 
 ## Input
@@ -96,8 +90,6 @@ All logic operates at **3.3V**.
 - 22µF bulk capacitors
 - 0.1µF near each MCU VDD
 - 0.1µF near sensors
-
----
 
 # 6. Peripheral Configuration
 
@@ -117,8 +109,6 @@ Connected Devices:
 - MPU6050
 - HDC2080
 
----
-
 ## SPI Bus (OLED)
 
 | Signal | MCU Pin |
@@ -130,8 +120,6 @@ Connected Devices:
 | RES    | RA3     |
 
 OLED powered at 3.3V.
-
----
 
 ## Switches (4x)
 
@@ -150,8 +138,6 @@ Each switch:
 | SW4    | RB3     |
 
 No floating inputs.
-
----
 
 ## LEDs (4x)
 
@@ -176,8 +162,7 @@ Each LED uses 220Ω series resistor.
 | VDD      | 3.3V    |
 | GND      | GND     |
 
-⚠️ SNAP connects to **ICSPCLK (RB6)** and **ICSPDAT (RB7)**  
-It does NOT connect to I2C SDA/SCL.
+SNAP connects to **ICSPCLK (RB6)** and **ICSPDAT (RB7)**
 
 ---
 
