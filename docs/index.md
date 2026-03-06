@@ -31,7 +31,7 @@ It provides a standalone overview of my subsystem’s purpose, hardware design, 
 
 Amphibot V1 is a three-PCB modular reconnaissance robot inspired by R6 drone mechanics. The system includes:
 
-- ESP32 Wireless Gateway
+- PIC 18F47K42 microcontroller
 - Sensor + HMI Board (PIC-based)
 - Actuator Control Board
 
