@@ -2,11 +2,7 @@
 title: Block Diagram
 ---
 
-## Objectives
-
-The objective of this assignment is to document the electrical architecture of the **Sensor & Human–Machine Interface (HMI) subsystem** for **Amphibot V1**, and to clearly define how this subsystem interfaces with teammate-designed boards. This block diagram establishes subsystem-level organization, identifies selected components, and documents chip-to-chip and board-to-board connections.
-
-By organizing the subsystem at the block-diagram level, this document supports component selection, schematic development, and clear communication of design intent to teammates and instructional staff. This document will be updated prior to design review as the design matures.
+![Individual Block Diagram](laksh_blockdiagram.drawio.png)
 
 ## Overview
 
@@ -85,9 +81,7 @@ Dashed-line voltage boxes indicate the power domains used within the subsystem.
 
 Standard ribbon cable pins and team-specific connections are clearly identified.
 
-## Block Diagram
-
-![Individual Block Diagram](laksh_blockdiagram.drawio.png)
+## Downloadable
 
 - [Block Diagram (PDF)](laksh_blockdiagram.drawio.pdf)
 - [View Block Diagram Online](https://drive.google.com/file/d/1TroP7_NFbSjZxFFsCl5taaWzNd-KRFt1/view?usp=sharing)

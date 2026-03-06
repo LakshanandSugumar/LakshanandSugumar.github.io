@@ -62,5 +62,3 @@ I designed and implemented the complete **Sensor + HMI subsystem**, including:
 - Emergency stop handling
 
 ---
-
-This page serves as an overview. Detailed technical sections are provided throughout the remainder of the datasheet.

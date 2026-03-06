@@ -88,5 +88,3 @@ Spare quantities are included where necessary to ensure reliability during assem
 - Spare passives included for assembly margin.
 
 ---
-
-End of Document
