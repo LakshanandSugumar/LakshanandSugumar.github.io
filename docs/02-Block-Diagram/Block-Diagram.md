@@ -88,3 +88,6 @@ Standard ribbon cable pins and team-specific connections are clearly identified.
 ## Block Diagram
 
 ![Individual Block Diagram](laksh_blockdiagram.drawio.png)
+
+- [Block Diagram (PDF)](laksh_blockdiagram.drawio.pdf)
+- [View Block Diagram Online](https://drive.google.com/file/d/1TroP7_NFbSjZxFFsCl5taaWzNd-KRFt1/view?usp=sharing)

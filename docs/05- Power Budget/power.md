@@ -22,7 +22,7 @@ This subsystem operates entirely from a single regulated **+3.3V rail** generate
 
 # Power Budget Table
 
-[Power Budget)](powerbudget.png)
+![Power Budget](powerbudget.png)
 
 ## A. Major Active Components
 
