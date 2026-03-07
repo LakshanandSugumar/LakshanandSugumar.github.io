@@ -61,3 +61,8 @@ I designed and implemented the complete **Sensor + HMI subsystem**, including:
 - Emergency stop handling
 
 ---
+
+## Downloads
+
+- 📦 [Download Cadence Project](EGR314_Design_Review.zip)
+- 📦 [Download Cadence Symbols](symbols_design_review.zip)

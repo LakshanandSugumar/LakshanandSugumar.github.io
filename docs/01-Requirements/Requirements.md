@@ -24,8 +24,3 @@ In alignment with Concept 3’s emphasis on fast deployment, simple operation, a
 | Demonstration clarity   | Module shall visibly demonstrate cause-and-effect interaction                                 | At least one clear response to input      | Multiple simultaneous cues (LED + display)                     | Yes     |
 
 ---
-
-## Downloads
-
-- 📦 [Download Cadence Project](EGR314_Design_Review.zip)
-- 📦 [Download Cadence Symbols](symbols_design_review.zip)
