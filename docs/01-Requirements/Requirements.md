@@ -22,3 +22,10 @@ In alignment with Concept 3’s emphasis on fast deployment, simple operation, a
 | Pushbutton input        | Module shall detect local user input                                                          | Button press reliably detected            | Debounced, interrupt-based input handling                      | No      |
 | UART communication      | Module shall exchange data with other system modules                                          | Basic UART messaging functional           | Structured sensor and status messages                          | No      |
 | Demonstration clarity   | Module shall visibly demonstrate cause-and-effect interaction                                 | At least one clear response to input      | Multiple simultaneous cues (LED + display)                     | Yes     |
+
+---
+
+## Downloads
+
+- 📦 [Download Cadence Project](EGR314_Design_Review.zip)
+- 📦 [Download Cadence Symbols](symbols_design_review.zip)
