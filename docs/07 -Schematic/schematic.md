@@ -18,11 +18,6 @@ The schematic demonstrates all required power distribution, decoupling, reset ci
 
 ## Downloadable Files
 
-- **Cadence Project Files:**  
-  [Download Compressed ECAD](COMPSCHEM.zip)
-
-- **Final Schematic PDF:**  
-  [Download PDFSCHEMATICS](schematics.pdf)
-
-- **Symbols :**  
-  [Download symbols](ind-symbol-schem.zip)
+- 📦 [Download Cadence Project](EGR314_Design_Review.zip)
+- 📦 [Download Cadence Symbols](symbols_design_review.zip)
+- 📦 [Download Cadence schematics pdf](finalschematics.pdf)
