@@ -62,6 +62,19 @@ I designed and implemented the complete **Sensor + HMI subsystem**, including:
 
 ---
 
+You can navigate to the main sections of our report using the links below:
+
+- [Requirements](https://lakshanandsugumar.github.io/01-Requirements/Requirements/)
+- [Block Diagram](https://lakshanandsugumar.github.io/02-Block-Diagram/Block-Diagram/)
+- [Component Selection](https://lakshanandsugumar.github.io/03-Component-Selection/Component-Selection/)
+- [Microcontroller Selection](https://lakshanandsugumar.github.io/04-%20Microcontroller%20Selection/mcs/)
+- [Power Budget](https://lakshanandsugumar.github.io/05-%20Power%20Budget/power/)
+- [Bill Of Material](https://lakshanandsugumar.github.io/06%20-BOM/BOM/)
+- [Schematics](https://lakshanandsugumar.github.io/07%20-Schematic/schematic/)
+- [PCB](https://lakshanandsugumar.github.io/08%20-PCB/pcb/)
+
+---
+
 ## Downloads
 
 - 📦 [Download Cadence Project](EGR314_Design_Review.zip)
