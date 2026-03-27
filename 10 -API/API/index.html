@@ -9,13 +9,13 @@
       
       
       
-        <link rel="canonical" href="https://embedded-systems-design.github.io/EGR314DataSheetTemplate/08%20-PCB/pcb/">
+        <link rel="canonical" href="https://embedded-systems-design.github.io/EGR314DataSheetTemplate/10%20-API/API/">
       
       
-        <link rel="prev" href="../../07%20-Schematic/schematic/">
+        <link rel="prev" href="../../08%20-PCB/pcb/">
       
       
-        <link rel="next" href="../../10%20-API/API/">
+        <link rel="next" href="../../Appendix/">
       
       
       <link rel="icon" href="../../static/logo314.png">
@@ -26,7 +26,7 @@
 
     
       
-        <title>Module's PCB - Lakshanand's 314 Data Sheet</title>
+        <title>API - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pcb" class="md-skip">
+        <a href="#api" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module's PCB
+              API
             
           </span>
         </div>
@@ -355,13 +355,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../08%20-PCB/pcb/" class="md-tabs__link">
           
   
     
@@ -377,11 +375,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../10%20-API/API/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
     
@@ -810,6 +810,52 @@
       
   
   
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../08%20-PCB/pcb/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    08  PCB
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -834,24 +880,24 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked="">
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
             
   
   <span class="md-ellipsis">
-    08  PCB
+    10  API
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
-            08  PCB
+            10  API
           </label>
           <ul class="md-nav__list" data-md-scrollfix="">
             
@@ -868,12 +914,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    Module's PCB
+    API
   </span>
   
 
@@ -884,7 +932,7 @@
         
   
   <span class="md-ellipsis">
-    Module's PCB
+    API
   </span>
   
 
@@ -896,6 +944,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -904,9 +954,213 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#pcb" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      PCB
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subsystem-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subsystem Responsibilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subsystem Responsibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-act-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I act on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-handling-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Handling Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-type-____" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type ** -- *____***
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Type ** -- *____***">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-type-_____1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type ** -- *____***
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Type ** -- *____***">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-message-specification-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Message Specification Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Message Specification Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-type-64-motor-speed-setpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type 64 -- Motor Speed Setpoint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiver Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sender-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sender Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordination-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordination Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliverables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submission-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submission Links
     </span>
   </a>
   
@@ -923,52 +1177,6 @@
             
           </ul>
         </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-      
-        
-      
-    
-    
-      
-      
-    
-    
-      
-        
-        
-      
-    
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
-      
-        
-  
-  
-    <a href="../../10%20-API/API/" class="md-nav__link">
-      
-  
-  <span class="md-ellipsis">
-    10  API
-  </span>
-  
-
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
-  
-
       
     </li>
   
@@ -1045,6 +1253,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1053,9 +1263,213 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#pcb" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      PCB
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subsystem-responsibilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subsystem Responsibilities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subsystem Responsibilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I send
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I receive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#messages-i-act-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I act on
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-handling-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Handling Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-type-____" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type ** -- *____***
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Type ** -- *____***">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-type-_____1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type ** -- *____***
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Message Type ** -- *____***">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-summary_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Summary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-table_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-message-specification-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Message Specification Format
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Message Specification Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#message-type-64-motor-speed-setpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Type 64 -- Motor Speed Setpoint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#receiver-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiver Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sender-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sender Behavior
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordination-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordination Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deliverables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submission-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submission Links
     </span>
   </a>
   
@@ -1076,7 +1490,7 @@
                   
 
   
-    <a href="https://github.com/embedded-systems-design/EGR314DataSheetTemplate/edit/main/docs/08 -PCB/pcb.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/embedded-systems-design/EGR314DataSheetTemplate/edit/main/docs/10 -API/API.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
     </a>
@@ -1084,24 +1498,327 @@
   
 
 
-  <h1>Module's PCB</h1>
+<h1 id="api">API</h1>
+<h2 id="overview">Overview</h2>
+<p>This page documents the messages used by my subsystem in the team UART daisy-chain protocol.</p>
+<p>My board is the <strong>Sensor + HMI subsystem</strong>. It uses:</p>
+<ul>
+<li>BNO055 IMU</li>
+<li>HDC2080 temperature/humidity sensor</li>
+<li>OLED display</li>
+<li>pushbuttons</li>
+<li>LEDs</li>
+<li>UART communication with the rest of the team</li>
+</ul>
+<p>This page lists the messages I send, receive, or act on, and expands each message into a complete specification.</p>
+<hr>
+<h2 id="subsystem-responsibilities">Subsystem Responsibilities</h2>
+<h3 id="messages-i-send">Messages I send</h3>
+<ul>
+<li>IMU / motion data</li>
+<li>temperature and humidity data</li>
+<li>local button events</li>
+<li>hazard or status updates</li>
+<li>acknowledgements when required by the protocol</li>
+</ul>
+<h3 id="messages-i-receive">Messages I receive</h3>
+<ul>
+<li>display update requests</li>
+<li>status requests</li>
+<li>motor or actuator status messages from the rest of the team</li>
+<li>any broadcast messages that my subsystem must act on</li>
+</ul>
+<h3 id="messages-i-act-on">Messages I act on</h3>
+<ul>
+<li>emergency stop</li>
+<li>broadcast status / alert messages</li>
+<li>team-wide coordination messages</li>
+</ul>
+<hr>
+<h2 id="message-handling-rules">Message Handling Rules</h2>
+<p>My receiver will:</p>
+<ul>
+<li>ignore characters outside of a valid message frame</li>
+<li>ignore malformed messages</li>
+<li>ignore messages larger than the allowed buffer</li>
+<li>pass through messages not addressed to me</li>
+<li>drop messages that originated from me</li>
+<li>process messages intended for my board</li>
+<li>provide a unique acknowledgement for each valid message received</li>
+</ul>
+<p>My sender will:</p>
+<ul>
+<li>send properly formatted messages</li>
+<li>use valid prefix and suffix bytes</li>
+<li>keep message length within the protocol limit</li>
+<li>avoid putting prefix or suffix values into the message data</li>
+<li>use time-varying example values</li>
+<li>prioritize forwarding received messages before sending new ones</li>
+<li>limit sending rate with non-blocking code</li>
+</ul>
+<hr>
+<h2 id="message-type-____">Message Type ** -- <strong><em>*</em></strong><em>____</em><strong><em>*</em></strong>**</h2>
+<h3 id="message-summary">Message Summary</h3>
+<ul>
+<li><strong>Direction:</strong> Sent / Received / Broadcast / Acted on</li>
+<li><strong>Purpose:</strong> <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*__</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>*</li>
+</ul>
+<h3 id="message-table">Message Table</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right;">Byte 1</th>
+<th style="text-align: right;">Byte 2</th>
+<th style="text-align: right;">Byte 3</th>
+<th style="text-align: right;">Byte 4</th>
+<th style="text-align: right;">Byte 5</th>
+<th style="text-align: right;">Byte 6</th>
+<th style="text-align: right;">Byte 7</th>
+<th style="text-align: right;">Byte 8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variable Name</td>
+<td style="text-align: right;"><code>message_type</code></td>
+<td style="text-align: right;"><code>field_2</code></td>
+<td style="text-align: right;"><code>field_3</code></td>
+<td style="text-align: right;"><code>field_4</code></td>
+<td style="text-align: right;"><code>field_5</code></td>
+<td style="text-align: right;"><code>field_6</code></td>
+<td style="text-align: right;"><code>field_7</code></td>
+<td style="text-align: right;"><code>field_8</code></td>
+</tr>
+<tr>
+<td>Variable Type</td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+</tr>
+<tr>
+<td>Min Value</td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td>Max Value</td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+</tr>
+<tr>
+<td>Example</td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>Number of bytes: ___</li>
+<li>Data type(s): ___</li>
+<li>Variable name(s): ___</li>
+<li>Smallest valid value recognized in code: ___</li>
+<li>Largest valid value recognized in code: ___</li>
+<li>Example valid payload: ___</li>
+</ul>
+<hr>
+<h2 id="message-type-_____1">Message Type ** -- <strong><em>*</em></strong><em>____</em><strong><em>*</em></strong>**</h2>
+<h3 id="message-summary_1">Message Summary</h3>
+<ul>
+<li><strong>Direction:</strong> Sent / Received / Broadcast / Acted on</li>
+<li><strong>Purpose:</strong> <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*__</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>*</li>
+</ul>
+<h3 id="message-table_1">Message Table</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right;">Byte 1</th>
+<th style="text-align: right;">Byte 2</th>
+<th style="text-align: right;">Byte 3</th>
+<th style="text-align: right;">Byte 4</th>
+<th style="text-align: right;">Byte 5</th>
+<th style="text-align: right;">Byte 6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variable Name</td>
+<td style="text-align: right;"><code>message_type</code></td>
+<td style="text-align: right;"><code>field_2</code></td>
+<td style="text-align: right;"><code>field_3</code></td>
+<td style="text-align: right;"><code>field_4</code></td>
+<td style="text-align: right;"><code>field_5</code></td>
+<td style="text-align: right;"><code>field_6</code></td>
+</tr>
+<tr>
+<td>Variable Type</td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+</tr>
+<tr>
+<td>Min Value</td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr>
+<td>Max Value</td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+<td style="text-align: right;"><code>255</code></td>
+</tr>
+<tr>
+<td>Example</td>
+<td style="text-align: right;"><code>2</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="notes_1">Notes</h3>
+<ul>
+<li>Number of bytes: ___</li>
+<li>Data type(s): ___</li>
+<li>Variable name(s): ___</li>
+<li>Smallest valid value recognized in code: ___</li>
+<li>Largest valid value recognized in code: ___</li>
+<li>Example valid payload: ___</li>
+</ul>
+<hr>
+<h2 id="example-message-specification-format">Example Message Specification Format</h2>
+<p>This is the style I will use for every message in my API.</p>
+<h3 id="message-type-64-motor-speed-setpoint">Message Type 64 -- Motor Speed Setpoint</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right;">Byte 1</th>
+<th style="text-align: right;">Byte 2</th>
+<th style="text-align: right;">Byte 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Variable Name</td>
+<td style="text-align: right;"><code>message_type</code></td>
+<td style="text-align: right;"><code>motor_id</code></td>
+<td style="text-align: right;"><code>motor_speed</code></td>
+</tr>
+<tr>
+<td>Variable Type</td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>uint8_t</code></td>
+<td style="text-align: right;"><code>int8_t</code></td>
+</tr>
+<tr>
+<td>Min Value</td>
+<td style="text-align: right;"><code>64</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>-100</code></td>
+</tr>
+<tr>
+<td>Max Value</td>
+<td style="text-align: right;"><code>64</code></td>
+<td style="text-align: right;"><code>5</code></td>
+<td style="text-align: right;"><code>100</code></td>
+</tr>
+<tr>
+<td>Example</td>
+<td style="text-align: right;"><code>64</code></td>
+<td style="text-align: right;"><code>3</code></td>
+<td style="text-align: right;"><code>-30</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="receiver-behavior">Receiver Behavior</h2>
+<p>My receiver must:</p>
+<ul>
+<li>handle all messages on the daisy-chain UART network</li>
+<li>pass on messages intended for other boards</li>
+<li>process messages intended for me</li>
+<li>ignore messages from myself</li>
+<li>ignore malformed or oversized messages</li>
+<li>acknowledge valid messages uniquely</li>
+</ul>
+<hr>
+<h2 id="sender-behavior">Sender Behavior</h2>
+<p>My sender must:</p>
+<ul>
+<li>send one example of each message type</li>
+<li>use valid message formatting</li>
+<li>include proper prefix and suffix</li>
+<li>stay within the allowed data length</li>
+<li>avoid invalid prefix/suffix bytes in message data</li>
+<li>use non-blocking timing for transmission</li>
+<li>be easy to modify for instructor testing</li>
+</ul>
+<hr>
+<h2 id="coordination-notes">Coordination Notes</h2>
+<p>If any message format changes, the team must update:</p>
+<ul>
+<li>my implementation</li>
+<li>my teammates’ implementations</li>
+<li>the team report webpage</li>
+</ul>
+<hr>
+<h2 id="deliverables">Deliverables</h2>
+<ul>
+<li>API webpage</li>
+<li>API PDF export</li>
+<li>zipped software package</li>
+</ul>
+<hr>
+<h2 id="submission-links">Submission Links</h2>
+<ul>
+<li>API Page: [link here]</li>
+<li>API PDF: [link here]</li>
+<li>Software ZIP: [link here]</li>
+</ul>
 
-<h2 id="pcb">PCB</h2>
-<p>Below are the PCB design images for the Sensor &amp; HMI Module.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0001.jpg" data-desc-position="bottom"><img alt="PCB Image 1" src="../314_page-0001.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0002.jpg" data-desc-position="bottom"><img alt="PCB Image 2" src="../314_page-0002.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0003.jpg" data-desc-position="bottom"><img alt="PCB Image 3" src="../314_page-0003.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0004.jpg" data-desc-position="bottom"><img alt="PCB Image 4" src="../314_page-0004.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0005.jpg" data-desc-position="bottom"><img alt="PCB Image 5" src="../314_page-0005.jpg"></a></p>
 
 
 
 
 
-
-
-  
-  
 
 
 
@@ -1131,7 +1848,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../../07%20-Schematic/schematic/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Individual Subsystem Schematic">
+          <a href="../../08%20-PCB/pcb/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module's PCB">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
@@ -1141,20 +1858,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Individual Subsystem Schematic
+                Module's PCB
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../10%20-API/API/" class="md-footer__link md-footer__link--next" aria-label="Next: API">
+          <a href="../../Appendix/" class="md-footer__link md-footer__link--next" aria-label="Next: Appendix - Main Page">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                API
+                Appendix - Main Page
               </div>
             </div>
             <div class="md-footer__button md-icon">
