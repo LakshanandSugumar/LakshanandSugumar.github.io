@@ -2,189 +2,239 @@
 
 ## Overview
 
-This page documents the messages used by my subsystem in the team UART daisy-chain protocol.
+This page defines the messaging interface for the Sensor + Human–Machine Interface (HMI) subsystem in the Amphibot V1 system.
 
-My board is the **Sensor + HMI subsystem**. It uses:
+This subsystem is responsible for:
 
-- BNO055 IMU
-- HDC2080 temperature/humidity sensor
-- OLED display
-- pushbuttons
-- LEDs
-- UART communication with the rest of the team
+- Collecting sensor data (IMU and environmental)
+- Processing hazard-related information
+- Providing user interaction through buttons and display
+- Communicating with other subsystems via UART
 
-This page lists the messages I send, receive, or act on, and expands each message into a complete specification.
+The system uses a standardized UART packet structure, where message data is contained within the payload portion of each packet.
+
+---
+
+## Subsystem Components
+
+This subsystem includes:
+
+- **BNO055 IMU** (orientation and motion sensing)
+- **HDC2080** (temperature and humidity sensing)
+- **OLED display** (SPI interface)
+- **Pushbuttons** (user input)
+- **Status LEDs**
+- **PIC18F47K42 microcontroller**
+- **UART communication interface**
 
 ---
 
 ## Subsystem Responsibilities
 
-### Messages I send
+### Messages Sent
 
-- IMU / motion data
-- temperature and humidity data
-- local button events
-- hazard or status updates
-- acknowledgements when required by the protocol
+- IMU orientation data
+- Temperature and humidity data
+- Button press events
+- Status responses
 
-### Messages I receive
+### Messages Received
 
-- display update requests
-- status requests
-- motor or actuator status messages from the rest of the team
-- any broadcast messages that my subsystem must act on
+- Display update commands
+- Status requests
+- Broadcast system messages
 
-### Messages I act on
+### Messages Acted On
 
-- emergency stop
-- broadcast status / alert messages
-- team-wide coordination messages
+- Emergency stop
+- System-wide alerts and coordination messages
 
 ---
 
-## Message Handling Rules
+## Message Handling Requirements
 
-My receiver will:
+### Receiver Behavior
 
-- ignore characters outside of a valid message frame
-- ignore malformed messages
-- ignore messages larger than the allowed buffer
-- pass through messages not addressed to me
-- drop messages that originated from me
-- process messages intended for my board
-- provide a unique acknowledgement for each valid message received
+The receiver must:
 
-My sender will:
+- Ignore data outside valid message frames
+- Ignore malformed or oversized messages
+- Forward messages not addressed to this subsystem
+- Process messages addressed to this subsystem
+- Discard messages originating from itself
+- Generate a unique acknowledgment for valid messages
 
-- send properly formatted messages
-- use valid prefix and suffix bytes
-- keep message length within the protocol limit
-- avoid putting prefix or suffix values into the message data
-- use time-varying example values
-- prioritize forwarding received messages before sending new ones
-- limit sending rate with non-blocking code
+### Sender Behavior
 
----
+The sender must:
 
-## Message Type ** -- ********\_\_\_\_**********
-
-### Message Summary
-
-- **Direction:** Sent / Received / Broadcast / Acted on
-- **Purpose:** ******************\_\_******************
-
-### Message Table
-
-| Field         |         Byte 1 |    Byte 2 |    Byte 3 |    Byte 4 |    Byte 5 |    Byte 6 |    Byte 7 |    Byte 8 |
-| ------------- | -------------: | --------: | --------: | --------: | --------: | --------: | --------: | --------: |
-| Variable Name | `message_type` | `field_2` | `field_3` | `field_4` | `field_5` | `field_6` | `field_7` | `field_8` |
-| Variable Type |      `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` |
-| Min Value     |            `0` |       `0` |       `0` |       `0` |       `0` |       `0` |       `0` |       `0` |
-| Max Value     |          `255` |     `255` |     `255` |     `255` |     `255` |     `255` |     `255` |     `255` |
-| Example       |            `1` |       `0` |       `0` |       `0` |       `0` |       `0` |       `0` |       `0` |
-
-### Notes
-
-- Number of bytes: \_\_\_
-- Data type(s): \_\_\_
-- Variable name(s): \_\_\_
-- Smallest valid value recognized in code: \_\_\_
-- Largest valid value recognized in code: \_\_\_
-- Example valid payload: \_\_\_
+- Format all messages according to protocol
+- Use valid prefix and suffix bytes
+- Ensure message size is within limits
+- Prevent reserved bytes from appearing in payload
+- Use time-varying data
+- Prioritize forwarding over sending
+- Use non-blocking timing control
 
 ---
 
-## Message Type ** -- ********\_\_\_\_**********
-
-### Message Summary
-
-- **Direction:** Sent / Received / Broadcast / Acted on
-- **Purpose:** ******************\_\_******************
-
-### Message Table
-
-| Field         |         Byte 1 |    Byte 2 |    Byte 3 |    Byte 4 |    Byte 5 |    Byte 6 |
-| ------------- | -------------: | --------: | --------: | --------: | --------: | --------: |
-| Variable Name | `message_type` | `field_2` | `field_3` | `field_4` | `field_5` | `field_6` |
-| Variable Type |      `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` | `uint8_t` |
-| Min Value     |            `0` |       `0` |       `0` |       `0` |       `0` |       `0` |
-| Max Value     |          `255` |     `255` |     `255` |     `255` |     `255` |     `255` |
-| Example       |            `2` |       `0` |       `0` |       `0` |       `0` |       `0` |
-
-### Notes
-
-- Number of bytes: \_\_\_
-- Data type(s): \_\_\_
-- Variable name(s): \_\_\_
-- Smallest valid value recognized in code: \_\_\_
-- Largest valid value recognized in code: \_\_\_
-- Example valid payload: \_\_\_
+## Message Specifications
 
 ---
 
-## Example Message Specification Format
+### Message Type 3 -- IMU Data
 
-This is the style I will use for every message in my API.
+#### Message Summary
 
-### Message Type 64 -- Motor Speed Setpoint
+- **Direction:** Sent (Broadcast)
+- **Purpose:** Transmits orientation data from the IMU for system awareness and hazard evaluation.
 
-| Field         |         Byte 1 |     Byte 2 |        Byte 3 |
-| ------------- | -------------: | ---------: | ------------: |
-| Variable Name | `message_type` | `motor_id` | `motor_speed` |
-| Variable Type |      `uint8_t` |  `uint8_t` |      `int8_t` |
-| Min Value     |           `64` |        `1` |        `-100` |
-| Max Value     |           `64` |        `5` |         `100` |
-| Example       |           `64` |        `3` |         `-30` |
+| Field         | Byte 1–2       | Byte 3–4  | Byte 5–6  | Byte 7–8  |
+| ------------- | -------------- | --------- | --------- | --------- |
+| Variable Name | `message_type` | `roll`    | `pitch`   | `yaw`     |
+| Variable Type | `uint16_t`     | `int16_t` | `int16_t` | `int16_t` |
+| Min Value     | 3              | -180      | -180      | -180      |
+| Max Value     | 3              | 180       | 180       | 180       |
+| Example       | 3              | 10        | -5        | 45        |
 
----
-
-## Receiver Behavior
-
-My receiver must:
-
-- handle all messages on the daisy-chain UART network
-- pass on messages intended for other boards
-- process messages intended for me
-- ignore messages from myself
-- ignore malformed or oversized messages
-- acknowledge valid messages uniquely
+- Number of bytes: 8
 
 ---
 
-## Sender Behavior
+### Message Type 5 -- Temperature & Humidity Data
 
-My sender must:
+#### Message Summary
 
-- send one example of each message type
-- use valid message formatting
-- include proper prefix and suffix
-- stay within the allowed data length
-- avoid invalid prefix/suffix bytes in message data
-- use non-blocking timing for transmission
-- be easy to modify for instructor testing
+- **Direction:** Sent (Broadcast)
+- **Purpose:** Sends environmental data for monitoring and hazard assessment.
+
+| Field         | Byte 1–2       | Byte 3–4      | Byte 5–6   |
+| ------------- | -------------- | ------------- | ---------- |
+| Variable Name | `message_type` | `temperature` | `humidity` |
+| Variable Type | `uint16_t`     | `int16_t`     | `uint16_t` |
+| Min Value     | 5              | -40           | 0          |
+| Max Value     | 5              | 125           | 100        |
+| Example       | 5              | 25            | 60         |
+
+- Number of bytes: 6
+
+---
+
+### Message Type 8 -- Button Event
+
+#### Message Summary
+
+- **Direction:** Sent (Broadcast)
+- **Purpose:** Reports user input from pushbuttons.
+
+| Field         | Byte 1–2       | Byte 3      | Byte 4    |
+| ------------- | -------------- | ----------- | --------- |
+| Variable Name | `message_type` | `button_id` | `state`   |
+| Variable Type | `uint16_t`     | `uint8_t`   | `uint8_t` |
+| Min Value     | 8              | 1           | 0         |
+| Max Value     | 8              | 4           | 1         |
+| Example       | 8              | 2           | 1         |
+
+- Number of bytes: 4
+
+---
+
+### Message Type 7 -- Display Update
+
+#### Message Summary
+
+- **Direction:** Received / Acted on
+- **Purpose:** Updates OLED display with system status or hazard information.
+
+| Field         | Byte 1–2       | Byte 3         | Byte 4–8     |
+| ------------- | -------------- | -------------- | ------------ |
+| Variable Name | `message_type` | `display_mode` | `data`       |
+| Variable Type | `uint16_t`     | `uint8_t`      | `uint8_t[5]` |
+| Min Value     | 7              | 0              | 0            |
+| Max Value     | 7              | 5              | 255          |
+| Example       | 7              | 1              | 10           |
+
+- Number of bytes: 8
+
+---
+
+### Message Type 9 -- Status Request
+
+#### Message Summary
+
+- **Direction:** Received
+- **Purpose:** Requests subsystem status information.
+
+| Field         | Byte 1–2       |
+| ------------- | -------------- |
+| Variable Name | `message_type` |
+| Variable Type | `uint16_t`     |
+| Min Value     | 9              |
+| Max Value     | 9              |
+| Example       | 9              |
+
+- Number of bytes: 2
+
+---
+
+### Message Type 10 -- Status Response
+
+#### Message Summary
+
+- **Direction:** Sent
+- **Purpose:** Returns subsystem status and health information.
+
+| Field         | Byte 1–2       | Byte 3        | Byte 4       |
+| ------------- | -------------- | ------------- | ------------ |
+| Variable Name | `message_type` | `status_code` | `error_flag` |
+| Variable Type | `uint16_t`     | `uint8_t`     | `uint8_t`    |
+| Min Value     | 10             | 0             | 0            |
+| Max Value     | 10             | 5             | 1            |
+| Example       | 10             | 1             | 0            |
+
+- Number of bytes: 4
+
+---
+
+### Message Type 12 -- Emergency Stop
+
+#### Message Summary
+
+- **Direction:** Received / Acted on
+- **Purpose:** Immediately halts subsystem operation for safety.
+
+| Field         | Byte 1–2       |
+| ------------- | -------------- |
+| Variable Name | `message_type` |
+| Variable Type | `uint16_t`     |
+| Min Value     | 12             |
+| Max Value     | 12             |
+| Example       | 12             |
+
+- Number of bytes: 2
 
 ---
 
 ## Coordination Notes
 
-If any message format changes, the team must update:
+All message definitions must remain consistent across:
 
-- my implementation
-- my teammates’ implementations
-- the team report webpage
+- Individual subsystem implementations
+- Teammate subsystems
+- Team documentation
 
 ---
 
 ## Deliverables
 
 - API webpage
-- API PDF export
-- zipped software package
+- PDF export of API page
+- Packaged MPLAB project
 
 ---
 
 ## Submission Links
 
-- API Page: [link here]
-- API PDF: [link here]
-- Software ZIP: [link here]
+- API Page: [Add link]
+- API PDF: [Add link]
+- Software ZIP: [Add link]
