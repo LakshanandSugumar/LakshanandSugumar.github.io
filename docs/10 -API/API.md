@@ -2,7 +2,7 @@
 
 ## Overview
 
-This page defines the messaging interface for the Sensor + Human–Machine Interface (HMI) subsystem in the Amphibot V1 system.
+This page defines the messaging interface for the **Sensor + Human–Machine Interface (HMI) subsystem** in the Amphibot V1 system.
 
 This subsystem is responsible for:
 
@@ -11,70 +11,62 @@ This subsystem is responsible for:
 - Providing user interaction through buttons and display
 - Communicating with other subsystems via UART
 
-The system uses a standardized UART packet structure, where message data is contained within the payload portion of each packet.
+All communication uses a **standardized 64-byte UART packet structure**, where message-specific data is contained in the payload.
 
 ---
 
 ## Subsystem Components
 
-This subsystem includes:
-
-- **BNO055 IMU** (orientation and motion sensing)
-- **HDC2080** (temperature and humidity sensing)
-- **OLED display** (SPI interface)
-- **Pushbuttons** (user input)
+- **BNO055 IMU**
+- **HDC2080 Temperature/Humidity Sensor**
+- **OLED Display (SPI)**
+- **Pushbuttons**
 - **Status LEDs**
-- **PIC18F47K42 microcontroller**
-- **UART communication interface**
+- **PIC18F47K42 Microcontroller**
+- **UART Communication Interface**
+- **Microchip Snap (Programming/Debugging)**
 
 ---
 
-## Subsystem Responsibilities
+## Board ID Assignment
 
-### Messages Sent
-
-- IMU orientation data
-- Temperature and humidity data
-- Button press events
-- Status responses
-
-### Messages Received
-
-- Display update commands
-- Status requests
-- Broadcast system messages
-
-### Messages Acted On
-
-- Emergency stop
-- System-wide alerts and coordination messages
+| Device           | ID     |
+| ---------------- | ------ |
+| ESP32 Gateway    | `0x01` |
+| Sensor + HMI PIC | `0x02` |
+| Actuator PIC     | `0x03` |
+| Broadcast        | `0xFF` |
 
 ---
 
-## Message Handling Requirements
+## UART Packet Structure (64 Bytes)
 
-### Receiver Behavior
+| Byte(s) | Field          | Size | Type      | Description             |
+| ------- | -------------- | ---- | --------- | ----------------------- |
+| 0       | Start Byte     | 1    | `uint8_t` | `0xAA`                  |
+| 1       | Message Type   | 1    | `uint8_t` | Defines message         |
+| 2       | Sender ID      | 1    | `uint8_t` | Origin device           |
+| 3       | Receiver ID    | 1    | `uint8_t` | Destination device      |
+| 4       | Payload Length | 1    | `uint8_t` | Number of payload bytes |
+| 5–60    | Payload        | 56   | byte[]    | Message data            |
+| 61      | Checksum       | 1    | `uint8_t` | Error detection         |
+| 62      | Reserved       | 1    | `uint8_t` | Unused                  |
+| 63      | End Byte       | 1    | `uint8_t` | `0x55`                  |
 
-The receiver must:
+---
 
-- Ignore data outside valid message frames
-- Ignore malformed or oversized messages
-- Forward messages not addressed to this subsystem
-- Process messages addressed to this subsystem
-- Discard messages originating from itself
-- Generate a unique acknowledgment for valid messages
+## Message Types
 
-### Sender Behavior
-
-The sender must:
-
-- Format all messages according to protocol
-- Use valid prefix and suffix bytes
-- Ensure message size is within limits
-- Prevent reserved bytes from appearing in payload
-- Use time-varying data
-- Prioritize forwarding over sending
-- Use non-blocking timing control
+| Name            | Value  | Description           |
+| --------------- | ------ | --------------------- |
+| IMU_DATA        | `0x03` | Orientation data      |
+| TEMP_HUMIDITY   | `0x05` | Environmental data    |
+| BUTTON_EVENT    | `0x08` | Button press          |
+| DISPLAY_UPDATE  | `0x07` | Update OLED           |
+| STATUS_REQUEST  | `0x09` | Request system status |
+| STATUS_RESPONSE | `0x0A` | Return system status  |
+| EMERGENCY_STOP  | `0x0C` | Immediate stop        |
+| ACK             | `0x0F` | Acknowledgement       |
 
 ---
 
@@ -82,135 +74,153 @@ The sender must:
 
 ---
 
-### Message Type 3 -- IMU Data
-
-#### Message Summary
+### IMU_DATA (0x03)
 
 - **Direction:** Sent (Broadcast)
-- **Purpose:** Transmits orientation data from the IMU for system awareness and hazard evaluation.
+- **Units:** Degrees
 
-| Field         | Byte 1–2       | Byte 3–4  | Byte 5–6  | Byte 7–8  |
-| ------------- | -------------- | --------- | --------- | --------- |
-| Variable Name | `message_type` | `roll`    | `pitch`   | `yaw`     |
-| Variable Type | `uint16_t`     | `int16_t` | `int16_t` | `int16_t` |
-| Min Value     | 3              | -180      | -180      | -180      |
-| Max Value     | 3              | 180       | 180       | 180       |
-| Example       | 3              | 10        | -5        | 45        |
+| Byte(s) | Field | Type      | Min  | Max | Example |
+| ------- | ----- | --------- | ---- | --- | ------- |
+| 0–1     | roll  | `int16_t` | -180 | 180 | 10      |
+| 2–3     | pitch | `int16_t` | -180 | 180 | -5      |
+| 4–5     | yaw   | `int16_t` | -180 | 180 | 45      |
 
-- Number of bytes: 8
+- Payload Size: 6 bytes
 
 ---
 
-### Message Type 5 -- Temperature & Humidity Data
-
-#### Message Summary
+### TEMP_HUMIDITY (0x05)
 
 - **Direction:** Sent (Broadcast)
-- **Purpose:** Sends environmental data for monitoring and hazard assessment.
+- **Units:** °C and %
 
-| Field         | Byte 1–2       | Byte 3–4      | Byte 5–6   |
-| ------------- | -------------- | ------------- | ---------- |
-| Variable Name | `message_type` | `temperature` | `humidity` |
-| Variable Type | `uint16_t`     | `int16_t`     | `uint16_t` |
-| Min Value     | 5              | -40           | 0          |
-| Max Value     | 5              | 125           | 100        |
-| Example       | 5              | 25            | 60         |
+| Byte(s) | Field       | Type       | Min | Max | Example |
+| ------- | ----------- | ---------- | --- | --- | ------- |
+| 0–1     | temperature | `int16_t`  | -40 | 125 | 25      |
+| 2–3     | humidity    | `uint16_t` | 0   | 100 | 60      |
 
-- Number of bytes: 6
+- Payload Size: 4 bytes
 
 ---
 
-### Message Type 8 -- Button Event
-
-#### Message Summary
+### BUTTON_EVENT (0x08)
 
 - **Direction:** Sent (Broadcast)
-- **Purpose:** Reports user input from pushbuttons.
 
-| Field         | Byte 1–2       | Byte 3      | Byte 4    |
-| ------------- | -------------- | ----------- | --------- |
-| Variable Name | `message_type` | `button_id` | `state`   |
-| Variable Type | `uint16_t`     | `uint8_t`   | `uint8_t` |
-| Min Value     | 8              | 1           | 0         |
-| Max Value     | 8              | 4           | 1         |
-| Example       | 8              | 2           | 1         |
+| Byte(s) | Field     | Type      | Min | Max | Example |
+| ------- | --------- | --------- | --- | --- | ------- |
+| 0       | button_id | `uint8_t` | 1   | 4   | 2       |
+| 1       | state     | `uint8_t` | 0   | 1   | 1       |
 
-- Number of bytes: 4
+- Payload Size: 2 bytes
 
 ---
 
-### Message Type 7 -- Display Update
+### DISPLAY_UPDATE (0x07)
 
-#### Message Summary
+- **Direction:** Received / Acted On
 
-- **Direction:** Received / Acted on
-- **Purpose:** Updates OLED display with system status or hazard information.
+| Byte(s) | Field        | Type         | Min | Max | Example |
+| ------- | ------------ | ------------ | --- | --- | ------- |
+| 0       | display_mode | `uint8_t`    | 0   | 5   | 1       |
+| 1–5     | data         | `uint8_t[5]` | 0   | 255 | 10      |
 
-| Field         | Byte 1–2       | Byte 3         | Byte 4–8     |
-| ------------- | -------------- | -------------- | ------------ |
-| Variable Name | `message_type` | `display_mode` | `data`       |
-| Variable Type | `uint16_t`     | `uint8_t`      | `uint8_t[5]` |
-| Min Value     | 7              | 0              | 0            |
-| Max Value     | 7              | 5              | 255          |
-| Example       | 7              | 1              | 10           |
-
-- Number of bytes: 8
+- Payload Size: 6 bytes
 
 ---
 
-### Message Type 9 -- Status Request
-
-#### Message Summary
+### STATUS_REQUEST (0x09)
 
 - **Direction:** Received
-- **Purpose:** Requests subsystem status information.
 
-| Field         | Byte 1–2       |
-| ------------- | -------------- |
-| Variable Name | `message_type` |
-| Variable Type | `uint16_t`     |
-| Min Value     | 9              |
-| Max Value     | 9              |
-| Example       | 9              |
+| Byte(s) | Field        | Type |
+| ------- | ------------ | ---- |
+| —       | (no payload) | —    |
 
-- Number of bytes: 2
+- Payload Size: 0 bytes
 
 ---
 
-### Message Type 10 -- Status Response
-
-#### Message Summary
+### STATUS_RESPONSE (0x0A)
 
 - **Direction:** Sent
-- **Purpose:** Returns subsystem status and health information.
 
-| Field         | Byte 1–2       | Byte 3        | Byte 4       |
-| ------------- | -------------- | ------------- | ------------ |
-| Variable Name | `message_type` | `status_code` | `error_flag` |
-| Variable Type | `uint16_t`     | `uint8_t`     | `uint8_t`    |
-| Min Value     | 10             | 0             | 0            |
-| Max Value     | 10             | 5             | 1            |
-| Example       | 10             | 1             | 0            |
+| Byte(s) | Field       | Type      | Min | Max | Example |
+| ------- | ----------- | --------- | --- | --- | ------- |
+| 0       | status_code | `uint8_t` | 0   | 5   | 1       |
+| 1       | error_flag  | `uint8_t` | 0   | 1   | 0       |
 
-- Number of bytes: 4
+- Payload Size: 2 bytes
 
 ---
 
-### Message Type 12 -- Emergency Stop
+### EMERGENCY_STOP (0x0C)
 
-#### Message Summary
+- **Direction:** Received / Acted On
 
-- **Direction:** Received / Acted on
-- **Purpose:** Immediately halts subsystem operation for safety.
+| Byte(s) | Field        | Type |
+| ------- | ------------ | ---- |
+| —       | (no payload) | —    |
 
-| Field         | Byte 1–2       |
-| ------------- | -------------- |
-| Variable Name | `message_type` |
-| Variable Type | `uint16_t`     |
-| Min Value     | 12             |
-| Max Value     | 12             |
-| Example       | 12             |
-
-- Number of bytes: 2
+- Payload Size: 0 bytes
 
 ---
+
+### ACK (0x0F)
+
+- **Direction:** Sent
+
+| Byte(s) | Field      | Type      | Example |
+| ------- | ---------- | --------- | ------- |
+| 0       | acked_type | `uint8_t` | 0x03    |
+| 1       | status     | `uint8_t` | 0x00    |
+
+- Payload Size: 2 bytes
+
+---
+
+## Message Routing Rules
+
+- If `receiver_id == 0x02` → process message
+- If `receiver_id != 0x02` → forward message
+- If `receiver_id == 0xFF` → process as broadcast
+- Messages always continue through the daisy chain
+
+---
+
+## Receiver Behavior
+
+The receiver:
+
+- Validates start (`0xAA`) and end (`0x55`) bytes
+- Checks checksum
+- Discards malformed or oversized messages
+- Ignores self-originated messages
+- Processes valid messages addressed to this board
+- Forwards all other messages
+- Sends ACK for valid processed messages
+
+---
+
+## Sender Behavior
+
+The sender:
+
+- Constructs valid packets using defined format
+- Uses correct sender ID (`0x02`)
+- Fills payload correctly
+- Computes checksum
+- Sends periodic sensor data
+- Sends event-driven button messages
+- Prioritizes forwarding over sending
+- Uses non-blocking timing
+
+---
+
+## Example Packet
+
+Example IMU message:
+
+```text
+AA 03 02 FF 06 00 0A FF FB 00 2D CS 00 55
+```
