@@ -22,11 +22,11 @@ The schematic covers power distribution, bypass decoupling at every IC supply pi
 
 **Figure 01: Sensor & HMI Subsystem Schematic — Sheet 1**
 
-![Schematic Sheet 1](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0001.jpg)
+![Schematic Sheet 1](/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0001.jpg)
 
-![Schematic Sheet 2](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0002.jpg)
+![Schematic Sheet 2](/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0002.jpg)
 
-![Schematic Sheet 3](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg)
+![Schematic Sheet 3](/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg)
 
 ## Key Design Decisions Visible in Schematic
 
@@ -44,4 +44,3 @@ The schematic covers power distribution, bypass decoupling at every IC supply pi
 
 - [Cadence Project (.zip)](EGR314_Design_Review.zip)
 - [Cadence Symbols (.zip)](symbols_design_review.zip)
-- [Schematic (PDF)](/docs/08%20-PCB/mosfet_hbridge.pdf)

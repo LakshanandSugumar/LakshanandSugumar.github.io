@@ -77,5 +77,5 @@ You can navigate to the main sections of our report using the links below:
 
 ## Downloads
 
-- 📦 [Download Cadence Project](EGR314_Design_Review.zip)
-- 📦 [Download Cadence Symbols](symbols_design_review.zip)
+- 📦 [Download Cadence Project](/07%20-Schematic/EGR314_Design_Review.zip)
+- 📦 [Download Cadence Symbols](/07%20-Schematic/symbols_design_review.zip)
