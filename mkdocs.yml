@@ -2,6 +2,43 @@ site_name: Lakshanand's 314 Data Sheet
 site_url: https://embedded-systems-design.github.io/EGR314DataSheetTemplate
 repo_url: https://github.com/embedded-systems-design/EGR314DataSheetTemplate
 edit_uri: edit/main/docs/
+nav:
+  - Welcome: index.md
+  - 01 Requirements:
+      - Requirements: 01-Requirements/Requirements.md
+  - 02 Block Diagram:
+      - Block Diagram: 02-Block-Diagram/Block-Diagram.md
+  - 03 Component Selection:
+      - Component Selection: 03-Component-Selection/Component-Selection.md
+  - 04 Microcontroller Selection:
+      - Microcontroller Selection: 04- Microcontroller Selection/mcs.md
+  - 05 Power Budget:
+      - Power Budget: 05- Power Budget/power.md
+  - 06 BOM:
+      - BOM: 06 -BOM/BOM.md
+  - 07 Schematic:
+      - Schematic: 07 -Schematic/schematic.md
+  - 08 PCB:
+      - PCB Design: 08 -PCB/pcb.md
+  - 09 Reflection:
+      - Reflection: 09 -Reflection/Reflection.md
+  - 10 API:
+      - API & UART Protocol: 10 -API/API.md
+  - 11 Hardware V2:
+      - Hardware Version 2.0: 11 -Hardware V2/hardwarev2.md
+  - 12 Lessons Learned:
+      - Lessons Learned: 12 -Lesson Learned/lessonlearned.md
+  - 13 Recommendations:
+      - Recommendations for Future Students: 13 - Recommendation of Future Students/Recommendation.md
+  - 14 Resources:
+      - Resources: 14 -Resources/resource.md
+  - Appendix:
+      - Overview: Appendix/index.md
+      - Component Selection Process: Appendix/01-Componet-Selection/Component-Selection-Process.md
+      - ESP32 Table: Appendix/02-Microcontroller-Selection/esp-32-table.md
+      - PIC Table: Appendix/02-Microcontroller-Selection/pic-table.md
+      - Power Budget Details: Appendix/03-Power-Budget/Power-Budget.md
+
 theme:
   name: material
   custom_dir: custom_theme/
