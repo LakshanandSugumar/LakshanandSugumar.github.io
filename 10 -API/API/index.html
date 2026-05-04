@@ -26,7 +26,7 @@
 
     
       
-        <title>API - Lakshanand's 314 Data Sheet</title>
+        <title>API &amp; UART Protocol - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#api" class="md-skip">
+        <a href="#sensor-hmi-subsystem-api-uart-protocol" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API
+              API &amp; UART Protocol
             
           </span>
         </div>
@@ -921,7 +921,7 @@
           
   
   <span class="md-ellipsis">
-    API
+    API &amp; UART Protocol
   </span>
   
 
@@ -932,7 +932,7 @@
         
   
   <span class="md-ellipsis">
-    API
+    API &amp; UART Protocol
   </span>
   
 
@@ -963,118 +963,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#subsystem-components" class="md-nav__link">
+  <a href="#node-ids" class="md-nav__link">
     <span class="md-ellipsis">
-      Subsystem Components
+      Node IDs
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#board-id-assignment" class="md-nav__link">
+  <a href="#uart-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Board ID Assignment
+      UART Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#uart-packet-structure-64-bytes" class="md-nav__link">
+  <a href="#packet-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      UART Packet Structure (64 Bytes)
+      Packet Structure
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#message-types" class="md-nav__link">
+  <a href="#message-responsibility-summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Message Types
+      Message Responsibility Summary
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-specifications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Specifications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Message Specifications">
+    <nav class="md-nav" aria-label="Message Responsibility Summary">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#imu_data-0x03" class="md-nav__link">
+  <a href="#sent-by-this-board" class="md-nav__link">
     <span class="md-ellipsis">
-      IMU_DATA (0x03)
+      Sent by This Board
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#temp_humidity-0x05" class="md-nav__link">
+  <a href="#received-and-acted-on" class="md-nav__link">
     <span class="md-ellipsis">
-      TEMP_HUMIDITY (0x05)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#button_event-0x08" class="md-nav__link">
-    <span class="md-ellipsis">
-      BUTTON_EVENT (0x08)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display_update-0x07" class="md-nav__link">
-    <span class="md-ellipsis">
-      DISPLAY_UPDATE (0x07)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#status_request-0x09" class="md-nav__link">
-    <span class="md-ellipsis">
-      STATUS_REQUEST (0x09)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#status_response-0x0a" class="md-nav__link">
-    <span class="md-ellipsis">
-      STATUS_RESPONSE (0x0A)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency_stop-0x0c" class="md-nav__link">
-    <span class="md-ellipsis">
-      EMERGENCY_STOP (0x0C)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ack-0x0f" class="md-nav__link">
-    <span class="md-ellipsis">
-      ACK (0x0F)
+      Received and Acted On
     </span>
   </a>
   
@@ -1086,38 +1023,155 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#message-routing-rules" class="md-nav__link">
+  <a href="#payload-specifications" class="md-nav__link">
     <span class="md-ellipsis">
-      Message Routing Rules
+      Payload Specifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Payload Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-data-hxrxpxtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Data — H:xR:xP:xT:x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motor-relay-fwd-res-stp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motor Relay — FWD / RES / STP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-change-pagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page Change — PAGE{n}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-stop-estop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Stop — ESTOP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-request-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Request — DATA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-pin-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Pin Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Pin Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esp32-s3-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      ESP32-S3 (Firmware)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pic18f57q83-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      PIC18F57Q83 (PCB)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bno055-register-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      BNO055 Register Reference
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#receiver-behavior" class="md-nav__link">
+  <a href="#routing-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Receiver Behavior
+      Routing Rules
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sender-behavior" class="md-nav__link">
+  <a href="#communication-flow-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Sender Behavior
+      Communication Flow Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communication Flow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motor-forward-cloud-motor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motor Forward (Cloud → Motor)
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-packet" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-data-imu-cloud" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Packet
+      Sensor Data (IMU → Cloud)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Stop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1227,118 +1281,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#subsystem-components" class="md-nav__link">
+  <a href="#node-ids" class="md-nav__link">
     <span class="md-ellipsis">
-      Subsystem Components
+      Node IDs
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#board-id-assignment" class="md-nav__link">
+  <a href="#uart-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Board ID Assignment
+      UART Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#uart-packet-structure-64-bytes" class="md-nav__link">
+  <a href="#packet-structure" class="md-nav__link">
     <span class="md-ellipsis">
-      UART Packet Structure (64 Bytes)
+      Packet Structure
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#message-types" class="md-nav__link">
+  <a href="#message-responsibility-summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Message Types
+      Message Responsibility Summary
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#message-specifications" class="md-nav__link">
-    <span class="md-ellipsis">
-      Message Specifications
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Message Specifications">
+    <nav class="md-nav" aria-label="Message Responsibility Summary">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#imu_data-0x03" class="md-nav__link">
+  <a href="#sent-by-this-board" class="md-nav__link">
     <span class="md-ellipsis">
-      IMU_DATA (0x03)
+      Sent by This Board
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#temp_humidity-0x05" class="md-nav__link">
+  <a href="#received-and-acted-on" class="md-nav__link">
     <span class="md-ellipsis">
-      TEMP_HUMIDITY (0x05)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#button_event-0x08" class="md-nav__link">
-    <span class="md-ellipsis">
-      BUTTON_EVENT (0x08)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#display_update-0x07" class="md-nav__link">
-    <span class="md-ellipsis">
-      DISPLAY_UPDATE (0x07)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#status_request-0x09" class="md-nav__link">
-    <span class="md-ellipsis">
-      STATUS_REQUEST (0x09)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#status_response-0x0a" class="md-nav__link">
-    <span class="md-ellipsis">
-      STATUS_RESPONSE (0x0A)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#emergency_stop-0x0c" class="md-nav__link">
-    <span class="md-ellipsis">
-      EMERGENCY_STOP (0x0C)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ack-0x0f" class="md-nav__link">
-    <span class="md-ellipsis">
-      ACK (0x0F)
+      Received and Acted On
     </span>
   </a>
   
@@ -1350,38 +1341,155 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#message-routing-rules" class="md-nav__link">
+  <a href="#payload-specifications" class="md-nav__link">
     <span class="md-ellipsis">
-      Message Routing Rules
+      Payload Specifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Payload Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-data-hxrxpxtx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensor Data — H:xR:xP:xT:x
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motor-relay-fwd-res-stp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motor Relay — FWD / RES / STP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-change-pagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      Page Change — PAGE{n}
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-stop-estop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Stop — ESTOP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-request-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Request — DATA
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-pin-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Pin Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware Pin Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#esp32-s3-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      ESP32-S3 (Firmware)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pic18f57q83-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      PIC18F57Q83 (PCB)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bno055-register-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      BNO055 Register Reference
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#receiver-behavior" class="md-nav__link">
+  <a href="#routing-rules" class="md-nav__link">
     <span class="md-ellipsis">
-      Receiver Behavior
+      Routing Rules
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sender-behavior" class="md-nav__link">
+  <a href="#communication-flow-examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Sender Behavior
+      Communication Flow Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communication Flow Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#motor-forward-cloud-motor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motor Forward (Cloud → Motor)
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#example-packet" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#sensor-data-imu-cloud" class="md-nav__link">
     <span class="md-ellipsis">
-      Example Packet
+      Sensor Data (IMU → Cloud)
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emergency-stop" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emergency Stop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1408,514 +1516,611 @@
   
 
 
-<h1 id="api">API</h1>
+<h1 id="sensor-hmi-subsystem-api-uart-protocol">Sensor &amp; HMI Subsystem — API &amp; UART Protocol</h1>
+<p><strong>Lakshanand Sugumar — Team 302 — EGR314 Spring 2026</strong></p>
+<hr>
 <h2 id="overview">Overview</h2>
-<p>This page defines the messaging interface for the <strong>Sensor + Human–Machine Interface (HMI) subsystem</strong> in the Amphibot V1 system.</p>
-<p>This subsystem is responsible for:</p>
-<ul>
-<li>Collecting sensor data (IMU and environmental)</li>
-<li>Processing hazard-related information</li>
-<li>Providing user interaction through buttons and display</li>
-<li>Communicating with other subsystems via UART</li>
-</ul>
-<p>All communication uses a <strong>standardized 64-byte UART packet structure</strong>, where message-specific data is contained in the payload.</p>
+<p>This page defines the messaging interface for the Sensor &amp; HMI subsystem of the R6 Recon Amphibot. The subsystem runs on an <strong>ESP32-S3</strong> (firmware) backed by a <strong>PIC18F57Q83</strong> (PCB), and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.</p>
+<p>All packets use the team-standardized AZ/YB framing with ASCII payloads. The packet structure, node IDs, and payload formats on this page are consistent with the full team API reference.</p>
 <hr>
-<h2 id="subsystem-components">Subsystem Components</h2>
-<ul>
-<li><strong>BNO055 IMU</strong></li>
-<li><strong>HDC2080 Temperature/Humidity Sensor</strong></li>
-<li><strong>OLED Display (SPI)</strong></li>
-<li><strong>Pushbuttons</strong></li>
-<li><strong>Status LEDs</strong></li>
-<li><strong>PIC18F47K42 Microcontroller</strong></li>
-<li><strong>UART Communication Interface</strong></li>
-<li><strong>Microchip Snap (Programming/Debugging)</strong></li>
-</ul>
-<hr>
-<h2 id="board-id-assignment">Board ID Assignment</h2>
+<h2 id="node-ids">Node IDs</h2>
 <table>
 <thead>
 <tr>
-<th>Device</th>
-<th>ID</th>
+<th>Node</th>
+<th>ID char</th>
+<th>Hex</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ESP32 Gateway</td>
-<td><code>0x01</code></td>
+<td>Lakshanand — Sensor + HMI</td>
+<td><code>L</code></td>
+<td><code>0x4C</code></td>
+<td>This board</td>
 </tr>
 <tr>
-<td>Sensor + HMI PIC</td>
-<td><code>0x02</code></td>
+<td>Mihir — WiFi Gateway</td>
+<td><code>M</code></td>
+<td><code>0x4D</code></td>
+<td>Upstream</td>
 </tr>
 <tr>
-<td>Actuator PIC</td>
-<td><code>0x03</code></td>
+<td>Raunak — Actuator</td>
+<td><code>R</code></td>
+<td><code>0x52</code></td>
+<td>Downstream</td>
 </tr>
 <tr>
+<td>Broadcast — all nodes</td>
+<td><code>X</code></td>
+<td><code>0x58</code></td>
 <td>Broadcast</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="uart-configuration">UART Configuration</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baud rate</td>
+<td>9600 bps</td>
+</tr>
+<tr>
+<td>Data bits</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Parity</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Stop bits</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Packet length</td>
+<td>Variable (6 bytes minimum, 64 bytes maximum)</td>
+</tr>
+<tr>
+<td>Header</td>
+<td><code>0x41 0x5A</code> ('A' 'Z')</td>
+</tr>
+<tr>
+<td>Footer</td>
+<td><code>0x59 0x42</code> ('Y' 'B')</td>
+</tr>
+<tr>
+<td>Inter-packet gap</td>
+<td>≥ 100 ms between transmissions</td>
+</tr>
+<tr>
+<td>Inter-byte timeout</td>
+<td>2 ms (Raunak's receiver uses this to detect end of packet)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="packet-structure">Packet Structure</h2>
+<p>[ 0x41 | 0x5A | src_id | dest_id | payload bytes | 0x59 | 0x42 ]</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Size</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Header</td>
+<td>2 bytes</td>
+<td>Always <code>0x41 0x5A</code> (AZ)</td>
+</tr>
+<tr>
+<td>src_id</td>
+<td>1 byte</td>
+<td>ASCII ID of sending node</td>
+</tr>
+<tr>
+<td>dest_id</td>
+<td>1 byte</td>
+<td>ASCII ID of destination node (or <code>X</code> for broadcast)</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td>Variable</td>
+<td>ASCII command string or sensor data string</td>
+</tr>
+<tr>
+<td>Footer</td>
+<td>2 bytes</td>
+<td>Always <code>0x59 0x42</code> (YB)</td>
+</tr>
+</tbody>
+</table>
+<p>Packets where <code>src_id == MY_ID</code> are discarded (bus echo). Packets where <code>dest_id != 'L'</code> and <code>dest_id != 'X'</code> are forwarded without processing.</p>
+<hr>
+<h2 id="message-responsibility-summary">Message Responsibility Summary</h2>
+<h3 id="sent-by-this-board">Sent by This Board</h3>
+<table>
+<thead>
+<tr>
+<th>Dest</th>
+<th>Payload</th>
+<th>Trigger</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>R</code></td>
+<td><code>FWD</code></td>
+<td>On receipt of FWD from Mihir</td>
+<td>Relay motor forward to Raunak</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td><code>RES</code></td>
+<td>On receipt of RES from Mihir</td>
+<td>Relay motor reverse to Raunak</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td><code>STP</code></td>
+<td>On receipt of STP from Mihir</td>
+<td>Relay motor stop to Raunak</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>H:xR:xP:xT:x</code></td>
+<td>Every 5 s, and on <code>DATA</code> request</td>
+<td>IMU sensor data string</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>PAGE{n}</code></td>
+<td>On button press</td>
+<td>OLED page changed to n</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>ACK</code></td>
+<td>On receipt of <code>ESTOP</code> broadcast</td>
+<td>Acknowledge emergency stop</td>
+</tr>
+</tbody>
+</table>
+<h3 id="received-and-acted-on">Received and Acted On</h3>
+<table>
+<thead>
+<tr>
+<th>Src</th>
+<th>Payload</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>M</code></td>
+<td><code>FWD</code></td>
+<td>Build and send <code>L→R FWD</code> packet</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>RES</code></td>
+<td>Build and send <code>L→R RES</code> packet</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>STP</code></td>
+<td>Build and send <code>L→R STP</code> packet</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td><code>DATA</code></td>
+<td>Read BNO055 + HDC2080, send sensor data string to Mihir</td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td><code>ESTOP</code></td>
+<td>Display ESTOP screen on OLED, send ACK to Mihir</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="payload-specifications">Payload Specifications</h2>
+<hr>
+<h3 id="sensor-data-hxrxpxtx">Sensor Data — <code>H:xR:xP:xT:x</code></h3>
+<p><strong>Direction:</strong> Sent to Mihir (<code>M</code>)<br>
+<strong>Trigger:</strong> Every 5 seconds, and immediately on <code>DATA</code> request<br>
+<strong>Format:</strong> ASCII string
+H:{heading}R:{roll}P:{pitch}T:{temp}</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Source</th>
+<th>Units</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H</td>
+<td>BNO055 EULER_H register (0x1A)</td>
+<td>Degrees (raw ÷ 16)</td>
+<td><code>H:45.2</code></td>
+</tr>
+<tr>
+<td>R</td>
+<td>BNO055 EULER_R register (0x1C)</td>
+<td>Degrees (raw ÷ 16)</td>
+<td><code>R:1.3</code></td>
+</tr>
+<tr>
+<td>P</td>
+<td>BNO055 EULER_P register (0x1E)</td>
+<td>Degrees (raw ÷ 16)</td>
+<td><code>P:-2.5</code></td>
+</tr>
+<tr>
+<td>T</td>
+<td>BNO055 TEMP register (0x34)</td>
+<td>°C (1 byte, direct)</td>
+<td><code>T:28</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Full example packet (hex):</strong>
+41 5A 4C 4D 48 3A 34 35 2E 32 52 3A 31 2E 33 50 3A 2D 32 2E 35 54 3A 32 38 59 42
+Decoded: <code>AZ L M H:45.2R:1.3P:-2.5T:28 YB</code></p>
+<blockquote>
+<p>Mihir parses this string and publishes JSON to <code>egr314/team302/sensor</code> over MQTT.</p>
+</blockquote>
+<hr>
+<h3 id="motor-relay-fwd-res-stp">Motor Relay — <code>FWD</code> / <code>RES</code> / <code>STP</code></h3>
+<p><strong>Direction:</strong> Received from Mihir (<code>M</code>), relayed to Raunak (<code>R</code>)<br>
+<strong>This board's role:</strong> Relay only — does not drive motors directly</p>
+<table>
+<thead>
+<tr>
+<th>Payload</th>
+<th>Mihir → Laksh</th>
+<th>Laksh → Raunak</th>
+<th>Raunak SPI byte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FWD</code></td>
+<td><code>AZ M L FWD YB</code></td>
+<td><code>AZ L R FWD YB</code></td>
+<td><code>0xEF</code></td>
+</tr>
+<tr>
+<td><code>RES</code></td>
+<td><code>AZ M L RES YB</code></td>
+<td><code>AZ L R RES YB</code></td>
+<td><code>0xED</code></td>
+</tr>
+<tr>
+<td><code>STP</code></td>
+<td><code>AZ M L STP YB</code></td>
+<td><code>AZ L R STP YB</code></td>
 <td><code>0xFF</code></td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="uart-packet-structure-64-bytes">UART Packet Structure (64 Bytes)</h2>
+<h3 id="page-change-pagen">Page Change — <code>PAGE{n}</code></h3>
+<p><strong>Direction:</strong> Sent to Mihir (<code>M</code>)<br>
+<strong>Trigger:</strong> BTN_PAGE (GPIO11) press cycles OLED page</p>
 <table>
 <thead>
 <tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Size</th>
-<th>Type</th>
-<th>Description</th>
+<th>Value</th>
+<th>Payload</th>
+<th>OLED Content</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0</td>
-<td>Start Byte</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td><code>0xAA</code></td>
+<td><code>PAGE0</code></td>
+<td>Heading, Roll, Pitch in degrees</td>
 </tr>
 <tr>
 <td>1</td>
-<td>Message Type</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Defines message</td>
+<td><code>PAGE1</code></td>
+<td>Temperature °C from BNO055</td>
 </tr>
 <tr>
 <td>2</td>
-<td>Sender ID</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Origin device</td>
+<td><code>PAGE2</code></td>
+<td>Accelerometer (Ax Ay Az) and Gyroscope (Gx Gy Gz)</td>
 </tr>
 <tr>
 <td>3</td>
-<td>Receiver ID</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Destination device</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Payload Length</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Number of payload bytes</td>
-</tr>
-<tr>
-<td>5–60</td>
-<td>Payload</td>
-<td>56</td>
-<td>byte[]</td>
-<td>Message data</td>
-</tr>
-<tr>
-<td>61</td>
-<td>Checksum</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Error detection</td>
-</tr>
-<tr>
-<td>62</td>
-<td>Reserved</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td>Unused</td>
-</tr>
-<tr>
-<td>63</td>
-<td>End Byte</td>
-<td>1</td>
-<td><code>uint8_t</code></td>
-<td><code>0x55</code></td>
+<td><code>PAGE3</code></td>
+<td>System status — Mihir/Raunak online or offline (15 s timeout)</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h2 id="message-types">Message Types</h2>
+<h3 id="emergency-stop-estop">Emergency Stop — <code>ESTOP</code></h3>
+<p><strong>Direction:</strong> Received — broadcast from any node (<code>X</code>)<br>
+<strong>Trigger:</strong> Remote dashboard command or WiFi loss on Mihir's side</p>
+<p>On receipt:</p>
+<ol>
+<li>Display ESTOP screen on OLED immediately</li>
+<li>Send <code>AZ L M ACK YB</code> to Mihir</li>
+<li>Do not re-forward — Raunak receives the broadcast directly on the shared bus</li>
+</ol>
+<p><strong>Example packet (hex):</strong>
+41 5A 4D 58 45 53 54 4F 50 59 42
+Decoded: <code>AZ M X ESTOP YB</code></p>
+<hr>
+<h3 id="data-request-data">Data Request — <code>DATA</code></h3>
+<p><strong>Direction:</strong> Received from Mihir (<code>M</code>)<br>
+<strong>Trigger:</strong> Mihir requests latest sensor reading on demand</p>
+<p>On receipt: immediately read BNO055 and HDC2080, build and send <code>H:xR:xP:xT:x</code> string to Mihir.</p>
+<hr>
+<h2 id="hardware-pin-reference">Hardware Pin Reference</h2>
+<h3 id="esp32-s3-firmware">ESP32-S3 (Firmware)</h3>
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Value</th>
+<th>GPIO</th>
+<th>Signal</th>
+<th>Direction</th>
+<th>Connected To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPIO 8</td>
+<td>I²C SCL (bus 0)</td>
+<td>Output</td>
+<td>SSD1306 OLED clock</td>
+</tr>
+<tr>
+<td>GPIO 16</td>
+<td>I²C SDA (bus 0)</td>
+<td>Bidir</td>
+<td>SSD1306 OLED data</td>
+</tr>
+<tr>
+<td>GPIO 14</td>
+<td>I²C SCL (bus 1)</td>
+<td>Output</td>
+<td>BNO055 IMU clock</td>
+</tr>
+<tr>
+<td>GPIO 4</td>
+<td>I²C SDA (bus 1)</td>
+<td>Bidir</td>
+<td>BNO055 IMU data</td>
+</tr>
+<tr>
+<td>GPIO 43</td>
+<td>UART2 TX</td>
+<td>Output</td>
+<td>Shared bus transmit</td>
+</tr>
+<tr>
+<td>GPIO 44</td>
+<td>UART2 RX</td>
+<td>Input</td>
+<td>Shared bus receive</td>
+</tr>
+<tr>
+<td>GPIO 11</td>
+<td>BTN_PAGE</td>
+<td>Input</td>
+<td>Cycle OLED pages (pull-up, active LOW)</td>
+</tr>
+<tr>
+<td>GPIO 6</td>
+<td>BTN_CAL</td>
+<td>Input</td>
+<td>Recalibrate IMU zero (pull-up, active LOW)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pic18f57q83-pcb">PIC18F57Q83 (PCB)</h3>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Signal</th>
+<th>Direction</th>
+<th>Connected To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RC3</td>
+<td>I²C1 SCL</td>
+<td>Output</td>
+<td>OLED clock</td>
+</tr>
+<tr>
+<td>RC4</td>
+<td>I²C1 SDA</td>
+<td>Bidir</td>
+<td>OLED data</td>
+</tr>
+<tr>
+<td>RC6</td>
+<td>UART1 TX</td>
+<td>Output</td>
+<td>Shared bus transmit</td>
+</tr>
+<tr>
+<td>RC7</td>
+<td>UART1 RX</td>
+<td>Input</td>
+<td>Shared bus receive</td>
+</tr>
+<tr>
+<td>RB7</td>
+<td>PGD</td>
+<td>Bidir</td>
+<td>SNAP programmer data</td>
+</tr>
+<tr>
+<td>RB6</td>
+<td>PGC</td>
+<td>Input</td>
+<td>SNAP programmer clock</td>
+</tr>
+<tr>
+<td>RE3</td>
+<td>MCLR</td>
+<td>Input</td>
+<td>10 kΩ pull-up to 3.3 V</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="bno055-register-reference">BNO055 Register Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Register</th>
+<th>Address</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>IMU_DATA</td>
-<td><code>0x03</code></td>
-<td>Orientation data</td>
-</tr>
-<tr>
-<td>TEMP_HUMIDITY</td>
-<td><code>0x05</code></td>
-<td>Environmental data</td>
-</tr>
-<tr>
-<td>BUTTON_EVENT</td>
-<td><code>0x08</code></td>
-<td>Button press</td>
-</tr>
-<tr>
-<td>DISPLAY_UPDATE</td>
-<td><code>0x07</code></td>
-<td>Update OLED</td>
-</tr>
-<tr>
-<td>STATUS_REQUEST</td>
-<td><code>0x09</code></td>
-<td>Request system status</td>
-</tr>
-<tr>
-<td>STATUS_RESPONSE</td>
-<td><code>0x0A</code></td>
-<td>Return system status</td>
-</tr>
-<tr>
-<td>EMERGENCY_STOP</td>
-<td><code>0x0C</code></td>
-<td>Immediate stop</td>
-</tr>
-<tr>
-<td>ACK</td>
-<td><code>0x0F</code></td>
-<td>Acknowledgement</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h2 id="message-specifications">Message Specifications</h2>
-<hr>
-<h3 id="imu_data-0x03">IMU_DATA (0x03)</h3>
-<ul>
-<li><strong>Direction:</strong> Sent (Broadcast)</li>
-<li><strong>Units:</strong> Degrees</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Min</th>
-<th>Max</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0–1</td>
-<td>roll</td>
-<td><code>int16_t</code></td>
-<td>-180</td>
-<td>180</td>
-<td>10</td>
-</tr>
-<tr>
-<td>2–3</td>
-<td>pitch</td>
-<td><code>int16_t</code></td>
-<td>-180</td>
-<td>180</td>
-<td>-5</td>
-</tr>
-<tr>
-<td>4–5</td>
-<td>yaw</td>
-<td><code>int16_t</code></td>
-<td>-180</td>
-<td>180</td>
-<td>45</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 6 bytes</li>
-</ul>
-<hr>
-<h3 id="temp_humidity-0x05">TEMP_HUMIDITY (0x05)</h3>
-<ul>
-<li><strong>Direction:</strong> Sent (Broadcast)</li>
-<li><strong>Units:</strong> °C and %</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Min</th>
-<th>Max</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0–1</td>
-<td>temperature</td>
-<td><code>int16_t</code></td>
-<td>-40</td>
-<td>125</td>
-<td>25</td>
-</tr>
-<tr>
-<td>2–3</td>
-<td>humidity</td>
-<td><code>uint16_t</code></td>
-<td>0</td>
-<td>100</td>
-<td>60</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 4 bytes</li>
-</ul>
-<hr>
-<h3 id="button_event-0x08">BUTTON_EVENT (0x08)</h3>
-<ul>
-<li><strong>Direction:</strong> Sent (Broadcast)</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Min</th>
-<th>Max</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>button_id</td>
-<td><code>uint8_t</code></td>
-<td>1</td>
-<td>4</td>
-<td>2</td>
-</tr>
-<tr>
-<td>1</td>
-<td>state</td>
-<td><code>uint8_t</code></td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 2 bytes</li>
-</ul>
-<hr>
-<h3 id="display_update-0x07">DISPLAY_UPDATE (0x07)</h3>
-<ul>
-<li><strong>Direction:</strong> Received / Acted On</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Min</th>
-<th>Max</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>display_mode</td>
-<td><code>uint8_t</code></td>
-<td>0</td>
-<td>5</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1–5</td>
-<td>data</td>
-<td><code>uint8_t[5]</code></td>
-<td>0</td>
-<td>255</td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 6 bytes</li>
-</ul>
-<hr>
-<h3 id="status_request-0x09">STATUS_REQUEST (0x09)</h3>
-<ul>
-<li><strong>Direction:</strong> Received</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>—</td>
-<td>(no payload)</td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 0 bytes</li>
-</ul>
-<hr>
-<h3 id="status_response-0x0a">STATUS_RESPONSE (0x0A)</h3>
-<ul>
-<li><strong>Direction:</strong> Sent</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Min</th>
-<th>Max</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>status_code</td>
-<td><code>uint8_t</code></td>
-<td>0</td>
-<td>5</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>error_flag</td>
-<td><code>uint8_t</code></td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 2 bytes</li>
-</ul>
-<hr>
-<h3 id="emergency_stop-0x0c">EMERGENCY_STOP (0x0C)</h3>
-<ul>
-<li><strong>Direction:</strong> Received / Acted On</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>—</td>
-<td>(no payload)</td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Payload Size: 0 bytes</li>
-</ul>
-<hr>
-<h3 id="ack-0x0f">ACK (0x0F)</h3>
-<ul>
-<li><strong>Direction:</strong> Sent</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Byte(s)</th>
-<th>Field</th>
-<th>Type</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>acked_type</td>
-<td><code>uint8_t</code></td>
-<td>0x03</td>
-</tr>
-<tr>
-<td>1</td>
-<td>status</td>
-<td><code>uint8_t</code></td>
+<td>CHIP_ID</td>
 <td>0x00</td>
+<td>Always 0xA0 — verify on init</td>
+</tr>
+<tr>
+<td>OPR_MODE</td>
+<td>0x3D</td>
+<td>Set to 0x0C for NDOF fusion mode</td>
+</tr>
+<tr>
+<td>PWR_MODE</td>
+<td>0x3E</td>
+<td>Set to 0x00 for normal power</td>
+</tr>
+<tr>
+<td>SYS_TRIG</td>
+<td>0x3F</td>
+<td>Write 0x20 to reset</td>
+</tr>
+<tr>
+<td>EULER_H</td>
+<td>0x1A</td>
+<td>Heading LSB (raw ÷ 16 = degrees)</td>
+</tr>
+<tr>
+<td>EULER_R</td>
+<td>0x1C</td>
+<td>Roll LSB (raw ÷ 16 = degrees)</td>
+</tr>
+<tr>
+<td>EULER_P</td>
+<td>0x1E</td>
+<td>Pitch LSB (raw ÷ 16 = degrees)</td>
+</tr>
+<tr>
+<td>ACCEL</td>
+<td>0x08</td>
+<td>Linear accel X/Y/Z (raw ÷ 100 = m/s²)</td>
+</tr>
+<tr>
+<td>GYRO</td>
+<td>0x14</td>
+<td>Angular velocity X/Y/Z (raw ÷ 16 = °/s)</td>
+</tr>
+<tr>
+<td>TEMP</td>
+<td>0x34</td>
+<td>Temperature in °C (1 byte, direct)</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Payload Size: 2 bytes</li>
-</ul>
 <hr>
-<h2 id="message-routing-rules">Message Routing Rules</h2>
-<ul>
-<li>If <code>receiver_id == 0x02</code> → process message</li>
-<li>If <code>receiver_id != 0x02</code> → forward message</li>
-<li>If <code>receiver_id == 0xFF</code> → process as broadcast</li>
-<li>Messages always continue through the daisy chain</li>
-</ul>
+<h2 id="routing-rules">Routing Rules</h2>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src_id == 'L'</code> (own echo)</td>
+<td>Discard immediately</td>
+</tr>
+<tr>
+<td><code>dest_id == 'L'</code></td>
+<td>Process locally</td>
+</tr>
+<tr>
+<td><code>dest_id == 'X'</code> (broadcast)</td>
+<td>Process locally, do not re-forward</td>
+</tr>
+<tr>
+<td><code>dest_id == 'R'</code> and payload is <code>FWD</code>/<code>RES</code>/<code>STP</code></td>
+<td>Build new packet <code>L→R</code>, send</td>
+</tr>
+<tr>
+<td><code>dest_id</code> is anything else</td>
+<td>Forward without modification</td>
+</tr>
+<tr>
+<td>Bad header or footer</td>
+<td>Discard</td>
+</tr>
+<tr>
+<td>Packet length &gt; 64 bytes</td>
+<td>Discard</td>
+</tr>
+</tbody>
+</table>
 <hr>
-<h2 id="receiver-behavior">Receiver Behavior</h2>
-<p>The receiver:</p>
-<ul>
-<li>Validates start (<code>0xAA</code>) and end (<code>0x55</code>) bytes</li>
-<li>Checks checksum</li>
-<li>Discards malformed or oversized messages</li>
-<li>Ignores self-originated messages</li>
-<li>Processes valid messages addressed to this board</li>
-<li>Forwards all other messages</li>
-<li>Sends ACK for valid processed messages</li>
-</ul>
-<hr>
-<h2 id="sender-behavior">Sender Behavior</h2>
-<p>The sender:</p>
-<ul>
-<li>Constructs valid packets using defined format</li>
-<li>Uses correct sender ID (<code>0x02</code>)</li>
-<li>Fills payload correctly</li>
-<li>Computes checksum</li>
-<li>Sends periodic sensor data</li>
-<li>Sends event-driven button messages</li>
-<li>Prioritizes forwarding over sending</li>
-<li>Uses non-blocking timing</li>
-</ul>
-<hr>
-<h2 id="example-packet">Example Packet</h2>
-<p>Example IMU message:</p>
-<div class="highlight"><pre><span></span><code>AA 03 02 FF 06 00 0A FF FB 00 2D CS 00 55
-</code></pre></div>
+<h2 id="communication-flow-examples">Communication Flow Examples</h2>
+<h3 id="motor-forward-cloud-motor">Motor Forward (Cloud → Motor)</h3>
+<p>Dashboard → MQTT: egr314/team302/motor = "FWD"
+Mihir builds: AZ M L FWD YB → sends on UART bus
+Laksh receives, dest=L, payload=FWD
+Laksh builds: AZ L R FWD YB → sends on UART bus
+Raunak receives, sends SPI 0xEF → motor drives forward</p>
+<h3 id="sensor-data-imu-cloud">Sensor Data (IMU → Cloud)</h3>
+<p>Laksh reads BNO055 every 200 ms, caches values
+Every 5 s: Laksh builds AZ L M H:45.2R:1.3P:-2.5T:28 YB
+Mihir receives, parses string, publishes JSON to egr314/team302/sensor
+Dashboard receives sensor data via MQTT subscription</p>
+<h3 id="emergency-stop">Emergency Stop</h3>
+<p>Dashboard → MQTT: egr314/team302/estop
+Mihir builds: AZ M X ESTOP YB (broadcast)
+Laksh receives broadcast: shows ESTOP on OLED, sends AZ L M ACK YB
+Raunak receives broadcast: sends SPI 0xFF, motor stops</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
