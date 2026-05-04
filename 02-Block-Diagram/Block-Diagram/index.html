@@ -806,9 +806,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#downloadable" class="md-nav__link">
+  <a href="#downloads" class="md-nav__link">
     <span class="md-ellipsis">
-      Downloadable
+      Downloads
     </span>
   </a>
   
@@ -1539,9 +1539,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#downloadable" class="md-nav__link">
+  <a href="#downloads" class="md-nav__link">
     <span class="md-ellipsis">
-      Downloadable
+      Downloads
     </span>
   </a>
   
@@ -1574,88 +1574,95 @@
 
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../laksh_blockdiagram.drawio.png" data-desc-position="bottom"><img alt="Individual Block Diagram" src="../laksh_blockdiagram.drawio.png"></a></p>
 <h2 id="overview">Overview</h2>
-<p>This block diagram represents the <strong>Sensor &amp; HMI subsystem</strong> for <strong>Team 302 – R6 Recon Amphibot (Amphibot V1)</strong>, based on the selected <strong>Concept 3</strong> system architecture. The subsystem is built around a <strong>Microchip PIC18F47Q10 microcontroller</strong> and is responsible for acquiring sensor data, providing operator feedback, handling local user input, and communicating with other system modules.</p>
-<p>The diagram highlights how regulated power, sensing, user interaction, and communication are integrated to support <strong>fast deployment</strong>, <strong>simple operation</strong>, and <strong>strong situational awareness</strong> in hazardous environments. Emphasis is placed on clear signal flow, correct peripheral usage, and well-defined interfaces with upstream and downstream teammate boards.</p>
-<p>Key features shown include:</p>
+<p>This block diagram represents the <strong>Sensor &amp; HMI subsystem</strong> for <strong>Team 302 – R6 Recon Amphibot</strong>, built around a <strong>Microchip PIC18F57K42 microcontroller</strong>. The subsystem acquires motion and orientation data from a <strong>Bosch BNO055 IMU</strong>, presents real-time telemetry on an <strong>SH1106 OLED display</strong>, accepts local operator input through two debounced pushbuttons, and exchanges structured 64-byte UART packets with the upstream ESP32 wireless gateway board and the downstream PIC actuator board.</p>
+<p>All I²C communication — to both the BNO055 and the SH1106 — is handled via a <strong>software bit-bang I²C implementation</strong> due to a hardware I²C peripheral conflict discovered during bring-up on the fabricated PCB.</p>
+<p>Key features shown:</p>
 <ul>
-<li><strong>Power supplies:</strong> A 12 V external source regulated to a 3.3 V rail for logic, sensors, and HMI components</li>
-<li><strong>Sensors:</strong> An IMU connected via I²C for motion and orientation data</li>
-<li><strong>Human–Machine Interface:</strong> OLED display, pushbuttons, and a status LED for low-cognitive-load interaction</li>
-<li><strong>Communication:</strong> UART interface for structured data exchange with other subsystems</li>
-<li><strong>Programming &amp; Debug:</strong> ICSP interface for in-circuit serial programming using a Microchip SNAP</li>
-<li><strong>Team interfaces:</strong> Standard upstream and downstream ribbon cable connectors for power and signal sharing</li>
+<li><strong>Power:</strong> 3.3 V regulated rail supplying the PIC, BNO055, OLED, and all digital I/O</li>
+<li><strong>Sensor:</strong> BNO055 IMU over software I²C for orientation and motion data</li>
+<li><strong>HMI:</strong> SH1106 OLED display over software I²C, two pushbuttons, and status LEDs</li>
+<li><strong>Communication:</strong> UART TX/RX for daisy-chain packet routing between subsystems</li>
+<li><strong>Programming:</strong> ICSP interface for firmware loading via Microchip SNAP programmer</li>
 </ul>
+<hr>
 <h2 id="block-diagram-description">Block Diagram Description</h2>
 <h3 id="microcontroller">Microcontroller</h3>
 <ul>
-<li><strong>Microcontroller:</strong> Microchip PIC18F47Q10</li>
+<li><strong>Microcontroller:</strong> Microchip PIC18F57K42</li>
 <li><strong>Peripherals used:</strong></li>
-<li>I²C (IMU, OLED display)</li>
-<li>Digital Inputs (pushbuttons)</li>
-<li>Digital Output (status LED)</li>
-<li>UART (inter-module communication)</li>
-<li>ICSP (programming and debugging)</li>
+<li>Software bit-bang I²C — BNO055 IMU and SH1106 OLED display</li>
+<li>Digital Inputs — two pushbuttons (debounced via firmware)</li>
+<li>Digital Outputs — status LEDs</li>
+<li>UART — inter-module daisy-chain communication (9600 baud, 8N1)</li>
+<li>ICSP — in-circuit programming and debug via Microchip SNAP</li>
 </ul>
-<p>Each peripheral is shown as a sub-block within the microcontroller, with associated pin assignments indicated.</p>
 <h3 id="power-architecture">Power Architecture</h3>
 <ul>
-<li><strong>Input Power:</strong> 12 V DC wall adapter via barrel jack</li>
-<li><strong>Regulation:</strong> 3.3 V, 1.5 A switching regulator</li>
-<li><strong>Distribution:</strong> 3.3 V supplied to the microcontroller, IMU, OLED display, and digital I/O circuitry</li>
+<li><strong>Input:</strong> 3.3 V supplied from the upstream ribbon cable connector (regulated by the ESP32 board's onboard LDO)</li>
+<li><strong>Distribution:</strong> Single 3.3 V rail shared by the PIC18F57K42, BNO055, SH1106 OLED, and all digital peripherals</li>
+<li><strong>Bypass capacitors:</strong> 0.1 µF ceramic at each IC power pin for high-frequency decoupling</li>
 </ul>
-<p>Dashed-line voltage boxes indicate the power domains used within the subsystem.</p>
 <h3 id="sensors">Sensors</h3>
 <ul>
-<li><strong>IMU:</strong></li>
-<li>Interface: Digital Serial (I²C, 2 signal pins, bidirectional)</li>
-<li>Function: Motion and orientation sensing for hazard awareness</li>
+<li><strong>BNO055 IMU</strong></li>
+<li>Interface: Software I²C (SDA/SCL, 2 signal pins, bidirectional)</li>
+<li>I²C address: 0x28 (ADR pin tied to GND)</li>
+<li>Protocol mode pins: PS0, PS1 tied to GND (I²C mode selected)</li>
+<li>Pull-up resistors: 4.7 kΩ on SDA and SCL lines</li>
+<li>Function: Euler angles, quaternion output, and linear acceleration for hazard scoring and telemetry</li>
 </ul>
 <h3 id="humanmachine-interface">Human–Machine Interface</h3>
 <ul>
-<li><strong>OLED Display:</strong></li>
-<li>Interface: Digital Serial (I²C, 2 signal pins)</li>
+<li><strong>SH1106 OLED Display</strong></li>
+<li>Interface: Software I²C (shared bus with BNO055)</li>
+<li>Resolution: 128 × 64 pixels</li>
 <li>
-<p>Function: Visual feedback of system state and hazard information</p>
+<p>Function: Displays real-time IMU telemetry, hazard indicator, and UART packet status; updated at ≥ 5 Hz</p>
 </li>
 <li>
-<p><strong>Pushbuttons:</strong></p>
+<p><strong>Pushbuttons (×2)</strong></p>
 </li>
-<li>Interface: Digital Input (1 signal pin per button)</li>
+<li>Interface: Digital Input (1 signal pin each, active-low with internal pull-up)</li>
 <li>
-<p>Function: Local user input and mode selection</p>
+<p>Function: Mode selection and manual trigger events; debounced in firmware via flag-based ISR handling</p>
 </li>
 <li>
-<p><strong>Status LED:</strong></p>
+<p><strong>Status LEDs</strong></p>
 </li>
-<li>Interface: Digital Output (1 signal pin)</li>
-<li>Function: Immediate visual system-state indication</li>
+<li>Interface: Digital Output (current-limited via series resistor)</li>
+<li>Function: Visual indication of system state — normal operation, fault condition, and UART activity</li>
 </ul>
 <h3 id="communication-interfaces">Communication Interfaces</h3>
 <ul>
-<li><strong>UART:</strong></li>
-<li>Interface: Digital Serial (UART, 2 signal pins: TX/RX)</li>
+<li><strong>UART (Daisy-Chain Bus)</strong></li>
+<li>Baud rate: 9600 bps, 8N1 framing</li>
+<li>Packet size: 64 bytes, structured per team-defined message format</li>
+<li>Upstream: Receives command and routing packets from ESP32 wireless board</li>
 <li>
-<p>Function: Communication with other Amphibot subsystems</p>
+<p>Downstream: Forwards relevant packets and appends sensor payload for actuator board</p>
 </li>
 <li>
-<p><strong>ICSP:</strong></p>
+<p><strong>ICSP (In-Circuit Serial Programming)</strong></p>
 </li>
-<li>Interface: In-Circuit Serial Programming</li>
-<li>Function: Firmware programming and debugging via Microchip SNAP</li>
+<li>Connector: 5-pin header (MCLR, PGD, PGC, VDD, GND)</li>
+<li>Programmer: Microchip SNAP</li>
+<li>LVP disabled in configuration bits to allow standard ICSP voltage levels</li>
 </ul>
 <h3 id="external-interfaces">External Interfaces</h3>
 <ul>
-<li><strong>Upstream Ribbon Cable Connector:</strong></li>
+<li><strong>Upstream Ribbon Cable Connector</strong></li>
+<li>Receives: 3.3 V power, UART RX from ESP32 TX</li>
 <li>
-<p>Provides power and communication signals from upstream teammate board</p>
+<p>Sends: UART TX to ESP32 RX</p>
 </li>
 <li>
-<p><strong>Downstream Ribbon Cable Connector:</strong></p>
+<p><strong>Downstream Ribbon Cable Connector</strong></p>
 </li>
-<li>Routes regulated power and selected communication signals to downstream teammate board</li>
+<li>Sends: 3.3 V power pass-through, UART TX to actuator board RX</li>
+<li>Receives: UART RX from actuator board TX</li>
 </ul>
-<p>Standard ribbon cable pins and team-specific connections are clearly identified.</p>
-<h2 id="downloadable">Downloadable</h2>
+<hr>
+<h2 id="downloads">Downloads</h2>
 <ul>
 <li><a href="../laksh_blockdiagram.drawio.pdf">Block Diagram (PDF)</a></li>
 <li><a href="https://drive.google.com/file/d/1TroP7_NFbSjZxFFsCl5taaWzNd-KRFt1/view?usp=sharing">View Block Diagram Online</a></li>
@@ -1715,13 +1722,13 @@
         
         
           
-          <a href="../../03-Component-Selection/Component-Selection/" class="md-footer__link md-footer__link--next" aria-label="Next: Module's Selected Major Components">
+          <a href="../../03-Component-Selection/Component-Selection/" class="md-footer__link md-footer__link--next" aria-label="Next: Component Selection">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Module's Selected Major Components
+                Component Selection
               </div>
             </div>
             <div class="md-footer__button md-icon">

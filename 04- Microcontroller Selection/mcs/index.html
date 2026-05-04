@@ -26,7 +26,7 @@
 
     
       
-        <title>PIC18F47K42 — Sensor + HMI Subsystem - Lakshanand's 314 Data Sheet</title>
+        <title>Schematic &amp; Pin Allocation - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pic18f47k42-sensor-hmi-subsystem" class="md-skip">
+        <a href="#pic18f57k42-sensor-hmi-subsystem" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PIC18F47K42 — Sensor + HMI Subsystem
+              Schematic &amp; Pin Allocation
             
           </span>
         </div>
@@ -787,15 +787,216 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Schematic &amp; Pin Allocation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    PIC18F47K42 — Sensor + HMI Subsystem
+    Schematic &amp; Pin Allocation
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-microcontroller-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Microcontroller Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pin-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Pin Layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pin-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Pin Allocation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Pin Allocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-pin-assignment-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Pin Assignment Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. System Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-power-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Power Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Power Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decoupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decoupling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Domain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-peripheral-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Peripheral Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Peripheral Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-i2c-bus-shared-bno055-sh1106-hdc2080" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software I²C Bus (Shared — BNO055 + SH1106 + HDC2080)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uart-daisy-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      UART (Daisy-Chain)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushbuttons-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pushbuttons (×2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-leds-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status LEDs (×2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icsp-mplab-snap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ICSP — MPLAB SNAP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-peripheral-usage-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Peripheral Usage Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-electrical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Electrical Validation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1343,6 +1544,185 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-microcontroller-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Microcontroller Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-pin-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Pin Layout
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pin-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Pin Allocation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Pin Allocation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-pin-assignment-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Pin Assignment Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. System Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-power-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Power Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Power Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decoupling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decoupling
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Power Domain
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-peripheral-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Peripheral Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Peripheral Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-i2c-bus-shared-bno055-sh1106-hdc2080" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software I²C Bus (Shared — BNO055 + SH1106 + HDC2080)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uart-daisy-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      UART (Daisy-Chain)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pushbuttons-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pushbuttons (×2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-leds-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status LEDs (×2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icsp-mplab-snap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ICSP — MPLAB SNAP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-peripheral-usage-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Peripheral Usage Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-electrical-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Electrical Validation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1364,204 +1744,309 @@
   
 
 
-<h1 id="pic18f47k42-sensor-hmi-subsystem">PIC18F47K42 — Sensor + HMI Subsystem</h1>
-<h1 id="1-microcontroller-selection">1. Microcontroller Selection</h1>
-<h2 id="selected-microcontroller">Selected Microcontroller</h2>
-<p><strong>PIC18F47K42 (40-Pin PDIP)</strong></p>
+<h1 id="pic18f57k42-sensor-hmi-subsystem">PIC18F57K42 — Sensor &amp; HMI Subsystem</h1>
 <hr>
-<h2 id="why-pic18f47k42">Why PIC18F47K42?</h2>
-<p>The subsystem requires:</p>
-<ul>
-<li>I2C communication (MPU6050 + HDC2080)</li>
-<li>SPI communication (OLED)</li>
-<li>Multiple GPIO (LEDs + switches)</li>
-<li>ICSP programming/debug support (MPLAB SNAP)</li>
-<li>3.3V operation</li>
-<li>DIP package for prototyping simplicity</li>
-<li>Class Requirement</li>
-</ul>
-<p>The PIC18F47K42 satisfies all requirements with sufficient I/O margin and hardware peripheral support.</p>
+<h2 id="1-microcontroller-overview">1. Microcontroller Overview</h2>
+<p><strong>Selected:</strong> Microchip PIC18F57K42 (QFN-48)</p>
+<p>The PIC18F57K42 was selected for its large flash (128 KB), ample RAM (8 KB), and full peripheral set. A hardware I²C conflict was discovered post-fabrication; all I²C communication to the BNO055, SH1106, and HDC2080 is handled via a software bit-bang implementation on general-purpose GPIO pins.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>8-bit PIC18</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>128 KB</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>8 KB</td>
+</tr>
+<tr>
+<td>Operating Voltage</td>
+<td>2.3–3.6 V</td>
+</tr>
+<tr>
+<td>Package</td>
+<td>QFN-48</td>
+</tr>
+<tr>
+<td>Toolchain</td>
+<td>MPLAB X + MCC Melody</td>
+</tr>
+<tr>
+<td>Programmer</td>
+<td>Microchip SNAP (ICSP)</td>
+</tr>
+</tbody>
+</table>
 <hr>
-<h1 id="2-pic-pin-layout">2. PIC Pin Layout</h1>
-<p>Below is the official pin layout of the PIC18F47K42 (40-pin DIP):</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinlayout.png" data-desc-position="bottom"><img alt="PIC18F47K42 Pin Layout" src="../pinlayout.png"></a></p>
-<p>This confirms:</p>
-<ul>
-<li>Dual VDD and VSS pins</li>
-<li>ICSP pins (RB6, RB7)</li>
-<li>Multiple PORTA, PORTB, PORTC, PORTD pins</li>
-<li>MSSP (I2C/SPI) capability</li>
-</ul>
+<h2 id="2-pin-layout">2. Pin Layout</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinlayout.png" data-desc-position="bottom"><img alt="PIC18F57K42 Pin Layout" src="../pinlayout.png"></a></p>
 <hr>
-<h1 id="3-pin-allocation-diagrams">3. Pin Allocation Diagrams</h1>
-<h2 id="pin-allocation-overview-part-1">Pin Allocation Overview — Part 1</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinallocate1.png" data-desc-position="bottom"><img alt="Pin Allocation 1" src="../pinallocate1.png"></a></p>
+<h2 id="3-pin-allocation">3. Pin Allocation</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinallocate1.png" data-desc-position="bottom"><img alt="Pin Allocation" src="../pinallocate1.png"></a></p>
+<h3 id="full-pin-assignment-table">Full Pin Assignment Table</h3>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Port</th>
+<th>Function</th>
+<th>Connected To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCL (bit-bang)</td>
+<td>RC3</td>
+<td>Software I²C Clock</td>
+<td>BNO055 SCL, SH1106 SCL, HDC2080 SCL</td>
+</tr>
+<tr>
+<td>SDA (bit-bang)</td>
+<td>RC4</td>
+<td>Software I²C Data</td>
+<td>BNO055 SDA, SH1106 SDA, HDC2080 SDA</td>
+</tr>
+<tr>
+<td>TX</td>
+<td>RC6</td>
+<td>UART Transmit</td>
+<td>Downstream daisy-chain RX</td>
+</tr>
+<tr>
+<td>RX</td>
+<td>RC7</td>
+<td>UART Receive</td>
+<td>Upstream daisy-chain TX</td>
+</tr>
+<tr>
+<td>SW1</td>
+<td>RB0</td>
+<td>Digital Input</td>
+<td>Tactile switch 1</td>
+</tr>
+<tr>
+<td>SW2</td>
+<td>RB1</td>
+<td>Digital Input</td>
+<td>Tactile switch 2</td>
+</tr>
+<tr>
+<td>LED1</td>
+<td>RA2</td>
+<td>Digital Output</td>
+<td>Status LED 1</td>
+</tr>
+<tr>
+<td>LED2</td>
+<td>RA3</td>
+<td>Digital Output</td>
+<td>Status LED 2</td>
+</tr>
+<tr>
+<td>PGC</td>
+<td>RB6</td>
+<td>ICSP Clock</td>
+<td>SNAP programmer</td>
+</tr>
+<tr>
+<td>PGD</td>
+<td>RB7</td>
+<td>ICSP Data</td>
+<td>SNAP programmer</td>
+</tr>
+<tr>
+<td>MCLR</td>
+<td>Pin 1</td>
+<td>Reset</td>
+<td>SNAP programmer MCLR</td>
+</tr>
+<tr>
+<td>VDD</td>
+<td>—</td>
+<td>3.3 V supply</td>
+<td>AP63203WU-7 regulator output</td>
+</tr>
+<tr>
+<td>VSS</td>
+<td>—</td>
+<td>Ground</td>
+<td>System GND</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note on software I²C pins:</strong> RC3 and RC4 were chosen because they map to the hardware MSSP peripheral footprint, keeping routing clean on the PCB even though the peripheral itself was not used.</p>
+</blockquote>
 <hr>
-<h2 id="pin-allocation-overview-part-2">Pin Allocation Overview — Part 2</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinallocate2.png" data-desc-position="bottom"><img alt="Pin Allocation 2" src="../pinallocate2.png"></a></p>
-<hr>
-<h2 id="pin-allocation-overview-part-3">Pin Allocation Overview — Part 3</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../pinallocate3.png" data-desc-position="bottom"><img alt="Pin Allocation 3" src="../pinallocate3.png"></a></p>
-<hr>
-<h1 id="4-system-overview">4. System Overview</h1>
-<p>The subsystem contains:</p>
+<h2 id="4-system-architecture">4. System Architecture</h2>
+<p>The subsystem contains the following components, all operating at 3.3 V:</p>
 <ol>
-<li>3.3V Buck Regulator</li>
-<li>PIC18F47K42 Microcontroller</li>
-<li>OLED Display (SPI)</li>
-<li>HDC2080 Temperature/Humidity Sensor (I2C)</li>
-<li>MPU6050 IMU (I2C)</li>
-<li>4 Tactile Switches</li>
-<li>4 Indicator LEDs</li>
-<li>MPLAB SNAP Programming Header</li>
+<li>AP63203WU-7 — 3.3 V / 3 A buck regulator</li>
+<li>PIC18F57K42 — main microcontroller</li>
+<li>BNO055 — 9-DOF IMU (software I²C, address 0x28)</li>
+<li>SH1106 — 1.3" 128×64 OLED display (software I²C, address 0x3C)</li>
+<li>HDC2080 — temperature and humidity sensor (software I²C, address 0x40)</li>
+<li>2× tactile switches — debounced in firmware</li>
+<li>2× status LEDs — current-limited via 220 Ω series resistors</li>
+<li>MPLAB SNAP ICSP header</li>
 </ol>
-<p>All logic operates at <strong>3.3V</strong>.</p>
-<h1 id="5-power-architecture">5. Power Architecture</h1>
-<h2 id="input">Input</h2>
+<hr>
+<h2 id="5-power-architecture">5. Power Architecture</h2>
+<h3 id="input">Input</h3>
 <ul>
-<li>+12V Barrel Jack</li>
-<li>Fuse protection</li>
+<li>3.3 V received from upstream ribbon cable connector (regulated by ESP32 board)</li>
+<li>AP63203WU-7 on board provides local regulation if powered from a raw supply</li>
 </ul>
-<h2 id="regulation">Regulation</h2>
+<h3 id="decoupling">Decoupling</h3>
 <ul>
-<li>Buck regulator → 3.3V output</li>
+<li>22 µF bulk capacitor at regulator output</li>
+<li>0.1 µF ceramic at each VDD pin of PIC18F57K42, BNO055, SH1106, and HDC2080</li>
 </ul>
-<h2 id="decoupling">Decoupling</h2>
-<ul>
-<li>22µF bulk capacitors</li>
-<li>0.1µF near each MCU VDD</li>
-<li>0.1µF near sensors</li>
-</ul>
-<h1 id="6-peripheral-configuration">6. Peripheral Configuration</h1>
-<h2 id="i2c-bus-shared">I2C Bus (Shared)</h2>
+<h3 id="power-domain">Power Domain</h3>
+<p>All logic and peripherals share a single 3.3 V rail. No separate analog or I/O domains.</p>
+<hr>
+<h2 id="6-peripheral-configuration">6. Peripheral Configuration</h2>
+<h3 id="software-i2c-bus-shared-bno055-sh1106-hdc2080">Software I²C Bus (Shared — BNO055 + SH1106 + HDC2080)</h3>
 <table>
 <thead>
 <tr>
 <th>Signal</th>
 <th>MCU Pin</th>
+<th>Pull-up</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>SCL</td>
 <td>RC3</td>
+<td>4.7 kΩ to 3.3 V</td>
 </tr>
 <tr>
 <td>SDA</td>
-<td>RD0</td>
+<td>RC4</td>
+<td>4.7 kΩ to 3.3 V</td>
 </tr>
 </tbody>
 </table>
-<p>Pull-ups:</p>
-<ul>
-<li>4.7kΩ to 3.3V (single pair shared)</li>
-</ul>
-<p>Connected Devices:</p>
-<ul>
-<li>MPU6050</li>
-<li>HDC2080</li>
-</ul>
-<h2 id="spi-bus-oled">SPI Bus (OLED)</h2>
+<p><strong>Device addresses on shared bus:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>I²C Address</th>
+<th>Address Pin Config</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BNO055</td>
+<td>0x28</td>
+<td>ADR, PS0, PS1 tied to GND</td>
+</tr>
+<tr>
+<td>SH1106</td>
+<td>0x3C</td>
+<td>Fixed (module default)</td>
+</tr>
+<tr>
+<td>HDC2080</td>
+<td>0x40</td>
+<td>ADDR pin tied to GND</td>
+</tr>
+</tbody>
+</table>
+<p>No address conflicts. Bus arbitration is handled in firmware by sequencing transactions — BNO055 read → HDC2080 read → SH1106 framebuffer write.</p>
+<h3 id="uart-daisy-chain">UART (Daisy-Chain)</h3>
 <table>
 <thead>
 <tr>
 <th>Signal</th>
 <th>MCU Pin</th>
+<th>Connection</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>SCK</td>
-<td>RC5</td>
+<td>TX</td>
+<td>RC6</td>
+<td>Downstream board RX (Actuator)</td>
 </tr>
 <tr>
-<td>MOSI</td>
+<td>RX</td>
 <td>RC7</td>
-</tr>
-<tr>
-<td>CS</td>
-<td>RA5</td>
-</tr>
-<tr>
-<td>DC</td>
-<td>RA4</td>
-</tr>
-<tr>
-<td>RES</td>
-<td>RA3</td>
+<td>Upstream board TX (ESP32)</td>
 </tr>
 </tbody>
 </table>
-<p>OLED powered at 3.3V.</p>
-<h2 id="switches-4x">Switches (4x)</h2>
-<p>Each switch:</p>
 <ul>
-<li>4.7kΩ pull-up to 3.3V</li>
-<li>Switch connects to GND</li>
-<li>Default = HIGH</li>
-<li>Pressed = LOW</li>
+<li>Baud rate: 9600 bps, 8N1</li>
+<li>Packet size: 64 bytes, team-defined structure</li>
+<li>Hardware UART peripheral (EUSART) — no conflict, functioned correctly</li>
 </ul>
+<h3 id="pushbuttons-2">Pushbuttons (×2)</h3>
 <table>
 <thead>
 <tr>
 <th>Switch</th>
 <th>MCU Pin</th>
+<th>Pull-up</th>
+<th>Logic</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>SW1</td>
 <td>RB0</td>
+<td>4.7 kΩ to 3.3 V</td>
+<td>Active-low</td>
 </tr>
 <tr>
 <td>SW2</td>
 <td>RB1</td>
-</tr>
-<tr>
-<td>SW3</td>
-<td>RB2</td>
-</tr>
-<tr>
-<td>SW4</td>
-<td>RB3</td>
+<td>4.7 kΩ to 3.3 V</td>
+<td>Active-low</td>
 </tr>
 </tbody>
 </table>
-<p>No floating inputs.</p>
-<h2 id="leds-4x">LEDs (4x)</h2>
-<p>Each LED uses 220Ω series resistor.</p>
+<p>Both switches are debounced in firmware via flag-based interrupt handling. No floating inputs.</p>
+<h3 id="status-leds-2">Status LEDs (×2)</h3>
 <table>
 <thead>
 <tr>
 <th>LED</th>
 <th>MCU Pin</th>
+<th>Series Resistor</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>LED1</td>
 <td>RA2</td>
+<td>220 Ω</td>
 </tr>
 <tr>
 <td>LED2</td>
 <td>RA3</td>
-</tr>
-<tr>
-<td>LED3</td>
-<td>RA4</td>
-</tr>
-<tr>
-<td>LED4</td>
-<td>RA5</td>
+<td>220 Ω</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="icsp-mplab-snap">ICSP — MPLAB SNAP</h2>
+<p>LED states reflect: normal operation, fault/hazard condition.</p>
+<h3 id="icsp-mplab-snap">ICSP — MPLAB SNAP</h3>
 <table>
 <thead>
 <tr>
-<th>SNAP Pin</th>
+<th>SNAP Signal</th>
 <th>MCU Pin</th>
 </tr>
 </thead>
@@ -1576,11 +2061,11 @@
 </tr>
 <tr>
 <td>MCLR</td>
-<td>Pin 1</td>
+<td>MCLR (Pin 1)</td>
 </tr>
 <tr>
 <td>VDD</td>
-<td>3.3V</td>
+<td>3.3 V</td>
 </tr>
 <tr>
 <td>GND</td>
@@ -1588,90 +2073,80 @@
 </tr>
 </tbody>
 </table>
-<p>SNAP connects to <strong>ICSPCLK (RB6)</strong> and <strong>ICSPDAT (RB7)</strong></p>
+<p>LVP (Low Voltage Programming) is <strong>disabled</strong> in configuration bits. Standard ICSP voltage levels apply. This was confirmed necessary after initial bring-up failures caused by incorrect LVP configuration.</p>
 <hr>
-<h1 id="7-peripheral-usage-summary">7. Peripheral Usage Summary</h1>
+<h2 id="7-peripheral-usage-summary">7. Peripheral Usage Summary</h2>
 <table>
 <thead>
 <tr>
 <th>Peripheral</th>
-<th>Used</th>
+<th>Status</th>
 <th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>I2C</td>
-<td>Yes</td>
-<td>Sensors</td>
+<td>Software I²C</td>
+<td>✅ Active</td>
+<td>BNO055, SH1106, HDC2080</td>
+</tr>
+<tr>
+<td>Hardware EUSART</td>
+<td>✅ Active</td>
+<td>UART daisy-chain (TX/RX)</td>
+</tr>
+<tr>
+<td>GPIO — Input</td>
+<td>✅ Active</td>
+<td>2× pushbuttons</td>
+</tr>
+<tr>
+<td>GPIO — Output</td>
+<td>✅ Active</td>
+<td>2× status LEDs</td>
+</tr>
+<tr>
+<td>Hardware I²C (MSSP)</td>
+<td>⚠️ Not used</td>
+<td>Peripheral conflict post-fabrication</td>
 </tr>
 <tr>
 <td>SPI</td>
-<td>Yes</td>
-<td>OLED</td>
-</tr>
-<tr>
-<td>UART</td>
-<td>Available</td>
-<td>Expansion</td>
+<td>❌ Not used</td>
+<td>OLED moved to I²C</td>
 </tr>
 <tr>
 <td>ADC</td>
-<td>Available</td>
-<td>Future</td>
-</tr>
-<tr>
-<td>WiFi</td>
-<td>No</td>
-<td>Not required</td>
+<td>❌ Not used</td>
+<td>No analog sensors in V1</td>
 </tr>
 <tr>
 <td>USB</td>
-<td>No</td>
+<td>❌ Not used</td>
 <td>Not required</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h1 id="8-electrical-validation">8. Electrical Validation</h1>
+<h2 id="8-electrical-validation">8. Electrical Validation</h2>
 <ul>
-<li>No floating GPIO</li>
-<li>Proper pull-ups on I2C</li>
-<li>Proper decoupling capacitors</li>
-<li>Dedicated ICSP lines</li>
-<li>SPI isolated from I2C</li>
-<li>All devices 3.3V compatible</li>
+<li>No floating GPIO — all inputs have explicit pull-ups</li>
+<li>4.7 kΩ pull-ups on shared I²C bus (single pair, shared across all three devices)</li>
+<li>0.1 µF decoupling at every IC VDD pin</li>
+<li>22 µF bulk capacitor at regulator output</li>
+<li>UART TX/RX not shorted — confirmed via continuity check during bring-up</li>
+<li>All devices confirmed 3.3 V compatible</li>
+<li>ICSP header wired and verified against SNAP pinout before first programming attempt</li>
 </ul>
-<hr>
-<h1 id="9-subsystem-role">9. Subsystem Role</h1>
-<p>This subsystem:</p>
-<ul>
-<li>Reads IMU data (MPU6050)</li>
-<li>Reads temperature &amp; humidity (HDC2080)</li>
-<li>Displays data on OLED</li>
-<li>Reads user button input</li>
-<li>Drives indicator LEDs</li>
-<li>Communicates over hardware I2C and SPI</li>
-<li>Programmed/debugged using MPLAB SNAP</li>
-</ul>
-<p>This board does <strong>not</strong> include wireless communication.</p>
-<hr>
-<h1 id="10-final-justification">10. Final Justification</h1>
-<p>The PIC18F47K42:</p>
-<ul>
-<li>Meets all subsystem requirements</li>
-<li>Supports simultaneous I2C and SPI</li>
-<li>Provides adequate GPIO margin</li>
-<li>Uses stable MPLAB toolchain</li>
-<li>Separates cleanly from other team subsystems</li>
-</ul>
-<p>The microcontroller selection is technically sufficient and electrically validated.</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
@@ -1701,7 +2176,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../../03-Component-Selection/Component-Selection/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module's Selected Major Components">
+          <a href="../../03-Component-Selection/Component-Selection/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Component Selection">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
@@ -1711,20 +2186,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Module's Selected Major Components
+                Component Selection
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../05-%20Power%20Budget/power/" class="md-footer__link md-footer__link--next" aria-label="Next: PIC18F47K42 Sensor &amp; HMI Subsystem — Power Budget">
+          <a href="../../05-%20Power%20Budget/power/" class="md-footer__link md-footer__link--next" aria-label="Next: Power Budget">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                PIC18F47K42 Sensor &amp; HMI Subsystem — Power Budget
+                Power Budget
               </div>
             </div>
             <div class="md-footer__button md-icon">

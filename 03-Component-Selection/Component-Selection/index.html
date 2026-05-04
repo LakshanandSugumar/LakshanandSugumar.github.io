@@ -26,7 +26,7 @@
 
     
       
-        <title>Module's Selected Major Components - Lakshanand's 314 Data Sheet</title>
+        <title>Component Selection - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pic-hmi-sensor-subsystem-component-selection" class="md-skip">
+        <a href="#sensor-hmi-subsystem-component-selection" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module's Selected Major Components
+              Component Selection
             
           </span>
         </div>
@@ -745,7 +745,7 @@
         
   
   <span class="md-ellipsis">
-    Module's Selected Major Components
+    Component Selection
   </span>
   
 
@@ -1364,10 +1364,124 @@
   
 
 
-<h1 id="pic-hmi-sensor-subsystem-component-selection">PIC (HMI + Sensor Subsystem) — Component Selection</h1>
+<h1 id="sensor-hmi-subsystem-component-selection">Sensor &amp; HMI Subsystem — Component Selection</h1>
+<p>This page documents the component selection process for the Sensor &amp; HMI module of the R6 Recon Amphibot. For each major component, three options were evaluated against the subsystem requirements. The selected component for each category reflects what was fabricated and used in the final V1 prototype demonstrated at the Innovation Showcase.</p>
 <hr>
-<h1 id="1-oled-display-hmi-output">1. OLED Display (HMI Output)</h1>
-<h2 id="option-1-096-12864-ssd1306-oled-spii2c">Option 1 — 0.96" 128×64 SSD1306 OLED (SPI/I²C)</h2>
+<h1 id="1-microcontroller">1. Microcontroller</h1>
+<h2 id="option-1-pic18f57k42-selected">Option 1 — PIC18F57K42 ✅ Selected</h2>
+<table>
+<thead>
+<tr>
+<th>Specification</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>8-bit PIC18</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>128 KB</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>8 KB</td>
+</tr>
+<tr>
+<td>Peripherals</td>
+<td>UART, I²C, SPI, PWM, ADC</td>
+</tr>
+<tr>
+<td>Operating Voltage</td>
+<td>2.3–3.6 V</td>
+</tr>
+<tr>
+<td>Package</td>
+<td>QFN-48</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>≈ $2.85</td>
+</tr>
+<tr>
+<td>Datasheet</td>
+<td><a href="https://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F27-47-57K42-Data-Sheet-40001919G.pdf">PIC18F57K42</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Large flash and RAM for an 8-bit MCU — comfortably fits OLED framebuffer and UART packet buffers</li>
+<li>Full peripheral set: dedicated UART, hardware I²C, SPI, multiple timers</li>
+<li>3.3 V native operation matches the system power rail directly</li>
+<li>Supported by Microchip SNAP programmer and MCC Melody code generation</li>
+</ul>
+<p><strong>Cons</strong></p>
+<ul>
+<li>QFN-48 package requires reflow soldering</li>
+<li>Hardware I²C peripheral had a conflict on the fabricated board, requiring software bit-bang I²C as a workaround</li>
+</ul>
+<h2 id="option-2-pic18f47q10">Option 2 — PIC18F47Q10</h2>
+<table>
+<thead>
+<tr>
+<th>Specification</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>8-bit PIC18</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>128 KB</td>
+</tr>
+<tr>
+<td>Package</td>
+<td>TQFP-44</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>≈ $2.60</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pros</strong> — TQFP package is hand-solderable; well documented</p>
+<p><strong>Cons</strong> — Fewer hardware peripherals than the 57K42; lower RAM headroom for framebuffer operations</p>
+<h2 id="option-3-atmega328p">Option 3 — ATmega328P</h2>
+<table>
+<thead>
+<tr>
+<th>Specification</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>8-bit AVR</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>32 KB</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>≈ $2.20</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pros</strong> — Extremely well documented; Arduino ecosystem</p>
+<p><strong>Cons</strong> — Not a PIC-family device; incompatible with course ICSP toolchain and MCC Melody; lower flash and RAM</p>
+<p><strong>Selected:</strong> PIC18F57K42</p>
+<p><strong>Rationale:</strong> The PIC18F57K42 was selected for its larger memory footprint, full peripheral set, and direct compatibility with the Microchip SNAP programmer and MCC Melody framework used throughout the course. Despite the hardware I²C issue encountered post-fabrication, all I²C communication was successfully handled via a software bit-bang implementation with no functional impact.</p>
+<hr>
+<h1 id="2-oled-display">2. OLED Display</h1>
+<h2 id="option-1-096-12864-ssd1306-i2c">Option 1 — 0.96" 128×64 SSD1306 (I²C)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../oled1.jpg" data-desc-position="bottom"><img alt="SSD1306 OLED" src="../oled1.jpg"></a></p>
 <table>
 <thead>
@@ -1383,11 +1497,11 @@
 </tr>
 <tr>
 <td>Interface</td>
-<td>SPI / I²C</td>
+<td>I²C / SPI</td>
 </tr>
 <tr>
 <td>Voltage</td>
-<td>3.3V compatible</td>
+<td>3.3 V compatible</td>
 </tr>
 <tr>
 <td>Price</td>
@@ -1395,25 +1509,13 @@
 </tr>
 <tr>
 <td>Product Page</td>
-<td>https://www.adafruit.com/product/326</td>
+<td><a href="https://www.adafruit.com/product/326">Adafruit #326</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros">Pros</h3>
-<ul>
-<li>Widely used with extensive software support</li>
-<li>Low power consumption</li>
-<li>Simple communication interface</li>
-<li>Small footprint</li>
-</ul>
-<h3 id="cons">Cons</h3>
-<ul>
-<li>Limited screen size reduces readability</li>
-<li>Basic monochrome graphics only</li>
-<li>Some versions default to I²C configuration</li>
-</ul>
-<hr>
-<h2 id="option-2-13-12864-sh1106-ssd1309-spi-oled">Option 2 — 1.3" 128×64 SH1106 / SSD1309 SPI OLED</h2>
+<p><strong>Pros</strong> — Extremely common; extensive library support; low power</p>
+<p><strong>Cons</strong> — 0.96" screen is difficult to read from arm's length during a demo; some modules default to I²C with limited SPI option</p>
+<h2 id="option-2-13-12864-sh1106-i2c-selected">Option 2 — 1.3" 128×64 SH1106 (I²C) ✅ Selected</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../oled2.jpg" data-desc-position="bottom"><img alt="1.3 OLED" src="../oled2.jpg"></a></p>
 <table>
 <thead>
@@ -1429,41 +1531,25 @@
 </tr>
 <tr>
 <td>Interface</td>
-<td>SPI</td>
+<td>I²C (software bit-bang, shared bus with BNO055)</td>
 </tr>
 <tr>
 <td>Voltage</td>
-<td>3.3V compatible</td>
+<td>3.3 V compatible</td>
 </tr>
 <tr>
 <td>Price</td>
 <td>≈ $6.50</td>
 </tr>
 <tr>
-<td>Product Page</td>
-<td>https://www.pololu.com/product/3760</td>
-</tr>
-<tr>
 <td>Datasheet</td>
-<td>https://www.pololu.com/file/0J1813/SH1106.pdf</td>
+<td><a href="https://www.pololu.com/file/0J1813/SH1106.pdf">SH1106</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros_1">Pros</h3>
-<ul>
-<li>Larger viewing area improves clarity</li>
-<li>Faster refresh rate via SPI</li>
-<li>No backlight required (lower power)</li>
-<li>High contrast for indoor use</li>
-</ul>
-<h3 id="cons_1">Cons</h3>
-<ul>
-<li>Slightly increased PCB area</li>
-<li>Requires driver compatibility verification</li>
-<li>Monochrome display</li>
-</ul>
-<hr>
-<h2 id="option-3-13-240135-st7789-spi-color-tft-ips">Option 3 — 1.3" 240×135 ST7789 SPI Color TFT (IPS)</h2>
+<p><strong>Pros</strong> — Larger 1.3" panel improves readability; I²C allows shared bus with BNO055; no backlight required; low power consumption</p>
+<p><strong>Cons</strong> — Monochrome only; slightly larger PCB footprint than 0.96" variant</p>
+<h2 id="option-3-114-240135-st7789-color-tft-spi">Option 3 — 1.14" 240×135 ST7789 Color TFT (SPI)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../oled3.jpg" data-desc-position="bottom"><img alt="ST7789 TFT" src="../oled3.jpg"></a></p>
 <table>
 <thead>
@@ -1483,7 +1569,7 @@
 </tr>
 <tr>
 <td>Voltage</td>
-<td>3.3V logic</td>
+<td>3.3 V logic</td>
 </tr>
 <tr>
 <td>Price</td>
@@ -1491,33 +1577,17 @@
 </tr>
 <tr>
 <td>Product Page</td>
-<td>https://www.adafruit.com/product/4313</td>
-</tr>
-<tr>
-<td>Library</td>
-<td>https://github.com/adafruit/Adafruit-ST7735-Library</td>
+<td><a href="https://www.adafruit.com/product/4313">Adafruit #4313</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros_2">Pros</h3>
-<ul>
-<li>Full-color graphical interface</li>
-<li>Higher resolution</li>
-<li>Wide viewing angles</li>
-</ul>
-<h3 id="cons_2">Cons</h3>
-<ul>
-<li>Increased power consumption</li>
-<li>Greater firmware complexity</li>
-<li>Higher overall cost</li>
-</ul>
+<p><strong>Pros</strong> — Full color; high resolution; wide viewing angles</p>
+<p><strong>Cons</strong> — Significantly higher cost; increased firmware complexity; higher current draw; SPI would consume additional GPIO pins</p>
+<p><strong>Selected:</strong> 1.3" SH1106 over software I²C</p>
+<p><strong>Rationale:</strong> The SH1106 provides a meaningfully larger viewing area than the SSD1306 at modest additional cost. Using I²C allows the display to share the same software bit-bang bus as the BNO055, keeping GPIO usage low. The monochrome limitation is acceptable given that the display only needs to render text-based telemetry and a hazard indicator.</p>
 <hr>
-<p><strong>Selected Display:</strong> Option 2 — 1.3" SPI OLED</p>
-<p><strong>Rationale:</strong><br>
-The 1.3" SPI OLED was selected because it provides improved readability for hazard and status information while maintaining low power consumption and firmware simplicity. It offers a good balance between visibility, cost, and implementation complexity.</p>
-<hr>
-<h1 id="2-imu-accelerometer-gyroscope-50-hz">2. IMU (Accelerometer + Gyroscope, ≥50 Hz)</h1>
-<h2 id="option-1-icm-42688-p-6-axis-imu">Option 1 — ICM-42688-P (6-Axis IMU)</h2>
+<h1 id="3-imu">3. IMU</h1>
+<h2 id="option-1-icm-42688-p-6-axis">Option 1 — ICM-42688-P (6-Axis)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../imu1.webp" data-desc-position="bottom"><img alt="ICM42688" src="../imu1.webp"></a></p>
 <table>
 <thead>
@@ -1529,7 +1599,7 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 <tbody>
 <tr>
 <td>Axes</td>
-<td>6 (Accel + Gyro)</td>
+<td>6-DOF (Accel + Gyro)</td>
 </tr>
 <tr>
 <td>Interface</td>
@@ -1537,7 +1607,7 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 </tr>
 <tr>
 <td>Sample Rate</td>
-<td>&gt;1 kHz</td>
+<td>&gt; 1 kHz</td>
 </tr>
 <tr>
 <td>Price</td>
@@ -1545,24 +1615,13 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 </tr>
 <tr>
 <td>Datasheet</td>
-<td>https://invensense.tdk.com/wp-content/uploads/2020/04/ds-000347_icm-42688-p-datasheet.pdf</td>
+<td><a href="https://invensense.tdk.com/wp-content/uploads/2020/04/ds-000347_icm-42688-p-datasheet.pdf">ICM-42688-P</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros_3">Pros</h3>
-<ul>
-<li>High sampling capability</li>
-<li>Low noise and precision sensing</li>
-<li>FIFO reduces processor overhead</li>
-<li>Power-efficient modes</li>
-</ul>
-<h3 id="cons_3">Cons</h3>
-<ul>
-<li>Small QFN package increases assembly difficulty</li>
-<li>Does not include magnetometer</li>
-</ul>
-<hr>
-<h2 id="option-2-bno055-9-dof-with-onboard-fusion">Option 2 — BNO055 (9-DOF with onboard fusion)</h2>
+<p><strong>Pros</strong> — Very high sample rate; low noise; FIFO buffer reduces CPU overhead; power-efficient</p>
+<p><strong>Cons</strong> — Small LGA package is difficult to hand-solder; no magnetometer; requires manual sensor fusion for orientation output</p>
+<h2 id="option-2-bno055-9-dof-with-onboard-fusion-selected">Option 2 — BNO055 (9-DOF with onboard fusion) ✅ Selected</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../9dofimu.jpg" data-desc-position="bottom"><img alt="BNO055" src="../9dofimu.jpg"></a></p>
 <table>
 <thead>
@@ -1574,11 +1633,19 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 <tbody>
 <tr>
 <td>Axes</td>
-<td>9-DOF</td>
+<td>9-DOF (Accel + Gyro + Mag)</td>
 </tr>
 <tr>
 <td>Interface</td>
 <td>I²C</td>
+</tr>
+<tr>
+<td>I²C Address</td>
+<td>0x28 (ADR pin = GND)</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Euler angles, quaternions, linear acceleration</td>
 </tr>
 <tr>
 <td>Price</td>
@@ -1586,25 +1653,13 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 </tr>
 <tr>
 <td>Datasheet</td>
-<td>https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf?1698865246</td>
+<td><a href="https://cdn-learn.adafruit.com/assets/assets/000/125/776/original/bst-bno055-ds000.pdf">BNO055</a></td>
 </tr>
 </tbody>
 </table>
-<h3 id="pros_4">Pros</h3>
-<ul>
-<li>Integrated sensor fusion</li>
-<li>Outputs orientation directly</li>
-<li>Reduces firmware development complexity</li>
-<li>Includes magnetometer for full 9-DOF capability</li>
-</ul>
-<h3 id="cons_4">Cons</h3>
-<ul>
-<li>Higher cost</li>
-<li>Larger footprint</li>
-<li>Startup calibration delay</li>
-</ul>
-<hr>
-<h2 id="option-3-mpu-6050-6-axis-imu">Option 3 — MPU-6050 (6-Axis IMU)</h2>
+<p><strong>Pros</strong> — Onboard ARM Cortex-M0 runs sensor fusion internally; delivers ready-to-use Euler angles and quaternions directly; eliminates need for Kalman or Madgwick filter in firmware; I²C interface integrates cleanly on shared bus</p>
+<p><strong>Cons</strong> — Highest cost of the three options; larger package footprint; requires a short calibration period after power-on</p>
+<h2 id="option-3-mpu-6050-6-axis">Option 3 — MPU-6050 (6-Axis)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../imu3.jpg" data-desc-position="bottom"><img alt="MPU6050" src="../imu3.jpg"></a></p>
 <table>
 <thead>
@@ -1628,25 +1683,13 @@ The 1.3" SPI OLED was selected because it provides improved readability for haza
 </tr>
 </tbody>
 </table>
-<h3 id="pros_5">Pros</h3>
-<ul>
-<li>Cost-effective</li>
-<li>Widely supported</li>
-<li>Simple interface</li>
-</ul>
-<h3 id="cons_5">Cons</h3>
-<ul>
-<li>Older architecture</li>
-<li>Higher noise levels</li>
-<li>Limited future support</li>
-</ul>
+<p><strong>Pros</strong> — Very low cost; widely supported; simple I²C interface</p>
+<p><strong>Cons</strong> — Older architecture with higher noise floor; no magnetometer; no onboard fusion — all orientation math must be implemented in firmware on the PIC</p>
+<p><strong>Selected:</strong> BNO055</p>
+<p><strong>Rationale:</strong> The BNO055's onboard sensor fusion processor offloads all orientation computation from the PIC18F57K42, delivering clean Euler angles directly over I²C. This significantly simplified firmware development and reduced the risk of computation errors in the hazard scoring pipeline. The cost premium is justified by the reduction in firmware complexity and the reliability of the fusion output during the showcase demonstration.</p>
 <hr>
-<p><strong>Selected IMU:</strong> BNO055 (9-DOF with onboard fusion)</p>
-<p><strong>Rationale:</strong><br>
-The BNO055 was selected because its built-in sensor fusion significantly simplifies orientation computation and hazard analysis. By providing processed orientation data directly, it reduces firmware complexity on the PIC microcontroller and improves overall system clarity during demonstration and testing.</p>
-<hr>
-<h1 id="3-temperature-humidity-sensor">3. Temperature &amp; Humidity Sensor</h1>
-<h2 id="option-1-hdc2080-ti">Option 1 — HDC2080 (TI)</h2>
+<h1 id="4-temperature-humidity-sensor">4. Temperature &amp; Humidity Sensor</h1>
+<h2 id="option-1-hdc2080-ti-selected">Option 1 — HDC2080 (TI) ✅ Selected</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../th1.webp" data-desc-position="bottom"><img alt="HDC2080" src="../th1.webp"></a></p>
 <table>
 <thead>
@@ -1661,8 +1704,16 @@ The BNO055 was selected because its built-in sensor fusion significantly simplif
 <td>I²C</td>
 </tr>
 <tr>
+<td>Temp Accuracy</td>
+<td>±0.2°C typical</td>
+</tr>
+<tr>
+<td>Humidity Accuracy</td>
+<td>±2% RH</td>
+</tr>
+<tr>
 <td>Voltage</td>
-<td>1.62–3.6V</td>
+<td>1.62–3.6 V</td>
 </tr>
 <tr>
 <td>Price</td>
@@ -1670,11 +1721,12 @@ The BNO055 was selected because its built-in sensor fusion significantly simplif
 </tr>
 <tr>
 <td>Datasheet</td>
-<td>https://www.ti.com/lit/ds/symlink/hdc2080.pdf</td>
+<td><a href="https://www.ti.com/lit/ds/symlink/hdc2080.pdf">HDC2080</a></td>
 </tr>
 </tbody>
 </table>
-<hr>
+<p><strong>Pros</strong> — High accuracy; I²C integrates on shared bus; interrupt output pin for threshold alerts; low current draw (&lt; 1 µA standby)</p>
+<p><strong>Cons</strong> — Slightly higher cost than DHT11/AHT21; WSON-6 package requires reflow</p>
 <h2 id="option-2-aht21">Option 2 — AHT21</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../th2.webp" data-desc-position="bottom"><img alt="AHT21" src="../th2.webp"></a></p>
 <table>
@@ -1695,11 +1747,12 @@ The BNO055 was selected because its built-in sensor fusion significantly simplif
 </tr>
 <tr>
 <td>Datasheet</td>
-<td>https://www.aosong.com/userfiles/files/media/Data%20Sheet%20AHT21.pdf</td>
+<td><a href="https://www.aosong.com/userfiles/files/media/Data%20Sheet%20AHT21.pdf">AHT21</a></td>
 </tr>
 </tbody>
 </table>
-<hr>
+<p><strong>Pros</strong> — Lower cost; I²C compatible</p>
+<p><strong>Cons</strong> — Lower accuracy than HDC2080; less mature driver ecosystem; fixed I²C address limits bus flexibility</p>
 <h2 id="option-3-dht11">Option 3 — DHT11</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../th3.jpg" data-desc-position="bottom"><img alt="DHT11" src="../th3.jpg"></a></p>
 <table>
@@ -1720,13 +1773,58 @@ The BNO055 was selected because its built-in sensor fusion significantly simplif
 </tr>
 </tbody>
 </table>
+<p><strong>Pros</strong> — Cheapest option; widely available</p>
+<p><strong>Cons</strong> — Single-wire protocol requires a separate bit-bang implementation distinct from I²C; low accuracy (±2°C, ±5% RH); slow 1 Hz maximum sample rate; through-hole only</p>
+<p><strong>Selected:</strong> HDC2080</p>
+<p><strong>Rationale:</strong> The HDC2080 provides the highest accuracy of the three options and communicates over I²C, allowing it to share the software bit-bang bus already in use for the BNO055 and SH1106. Its interrupt output pin was used to flag out-of-range temperature and humidity conditions for inclusion in the hazard score. The sensor was functional on the V1 board and contributed environmental data to the UART telemetry stream throughout the showcase.</p>
 <hr>
-<p><strong>Selected Sensor:</strong> HDC2080</p>
-<p><strong>Rationale:</strong><br>
-The HDC2080 provides higher accuracy and better long-term stability compared to low-cost alternatives. Its I²C interface integrates cleanly with the system and supports reliable environmental monitoring required for hazard evaluation.</p>
+<h1 id="5-33-v-switching-regulator">5. 3.3 V Switching Regulator</h1>
+<h2 id="ap63203wu-7-selected">AP63203WU-7 ✅ Selected</h2>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../3.31.jpg" data-desc-position="bottom"><img alt="AP63203" src="../3.31.jpg"></a></p>
+<table>
+<thead>
+<tr>
+<th>Specification</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output Voltage</td>
+<td>3.3 V fixed</td>
+</tr>
+<tr>
+<td>Max Output Current</td>
+<td>3 A</td>
+</tr>
+<tr>
+<td>Input Voltage Range</td>
+<td>3.8–32 V</td>
+</tr>
+<tr>
+<td>Switching Frequency</td>
+<td>1.5 MHz</td>
+</tr>
+<tr>
+<td>Package</td>
+<td>TSOT-26</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>≈ $1.50</td>
+</tr>
+<tr>
+<td>Datasheet</td>
+<td><a href="https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf">AP63203WU-7</a></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pros</strong> — Fixed 3.3 V output simplifies design; 3 A rating provides substantial headroom above subsystem load; high switching frequency allows small external inductors and capacitors; TSOT-26 package is compact and hand-solderable</p>
+<p><strong>Cons</strong> — Requires careful PCB layout to minimize switching noise; external inductor and bulk capacitors add component count</p>
+<p><strong>Rationale:</strong> The AP63203WU-7 was selected for its generous current headroom, fixed output voltage, and straightforward application circuit. With the PIC18F57K42, BNO055, SH1106, and HDC2080 drawing well under 200 mA combined, the 3 A rating ensures the regulator operates well within its thermal comfort zone during normal operation.</p>
 <hr>
-<h1 id="4-user-input-tactile-switch">4. User Input (Tactile Switch)</h1>
-<h2 id="66mm-smd-tactile-switch">6×6mm SMD Tactile Switch</h2>
+<h1 id="6-user-input-tactile-switch">6. User Input — Tactile Switch</h1>
+<h2 id="66-mm-smd-tactile-switch-selected">6×6 mm SMD Tactile Switch ✅ Selected</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../user1.jpg" data-desc-position="bottom"><img alt="TactSwitch" src="../user1.jpg"></a></p>
 <table>
 <thead>
@@ -1738,132 +1836,116 @@ The HDC2080 provides higher accuracy and better long-term stability compared to 
 <tbody>
 <tr>
 <td>Type</td>
-<td>Momentary pushbutton</td>
+<td>Momentary pushbutton, normally open</td>
 </tr>
 <tr>
 <td>Mounting</td>
 <td>Surface-mount</td>
 </tr>
 <tr>
-<td>Price</td>
-<td>≈ $0.30</td>
+<td>Actuation Force</td>
+<td>≈ 160 gF</td>
 </tr>
 <tr>
-<td>Datasheet</td>
-<td>https://www.schurter.com/en/datasheet/typ_6x6_mm_tact_switches.pdf</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Rationale:</strong><br>
-This tactile switch provides reliable mechanical feedback and supports interrupt-driven input handling for local interaction and emergency stop functionality.</p>
-<hr>
-<h1 id="5-33v-switching-regulator">5. 3.3V Switching Regulator</h1>
-<h2 id="ap63203wu-7-3a-buck-converter">AP63203WU-7 (3A Buck Converter)</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../3.31.jpg" data-desc-position="bottom"><img alt="AP63203" src="../3.31.jpg"></a></p>
-<table>
-<thead>
-<tr>
-<th>Specification</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Output</td>
-<td>3.3V</td>
-</tr>
-<tr>
-<td>Current</td>
-<td>3A</td>
+<td>Quantity on Board</td>
+<td>2</td>
 </tr>
 <tr>
 <td>Price</td>
-<td>≈ $1.50</td>
+<td>≈ $0.30 each</td>
 </tr>
 <tr>
 <td>Datasheet</td>
-<td>https://www.diodes.com/assets/Datasheets/AP63200-AP63201-AP63203-AP63205.pdf</td>
+<td><a href="https://www.schurter.com/en/datasheet/typ_6x6_mm_tact_switches.pdf">6×6 mm Tact Switch</a></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Selected Regulator:</strong> AP63203WU-7</p>
-<p><strong>Rationale:</strong><br>
-The AP63203WU-7 was selected because it provides a simple and cost-effective 3.3V solution with sufficient current capacity for system operation. Its fixed output simplifies design while maintaining reliable performance under typical operating loads.</p>
+<p><strong>Rationale:</strong> Two SMD tactile switches provide local operator input for mode selection and manual event triggering. Both are handled via interrupt-driven firmware with software debouncing. The SMD footprint keeps the board compact and consistent with the all-SMD assembly approach used across the subsystem.</p>
 <hr>
 <h1 id="final-component-selection-summary">Final Component Selection Summary</h1>
 <table>
 <thead>
 <tr>
-<th>Subsystem</th>
 <th>Component</th>
+<th>Part</th>
 <th>Manufacturer</th>
 <th>Key Specs</th>
-<th>Price</th>
+<th>Unit Price</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Microcontroller</td>
-<td>PIC18F47Q10</td>
+<td>PIC18F57K42</td>
 <td>Microchip</td>
-<td>8-bit MCU, 3.3V logic</td>
-<td>$2.60</td>
+<td>8-bit, 128 KB flash, 3.3 V</td>
+<td>$2.85</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
 <td>OLED Display</td>
-<td>1.3" SPI OLED</td>
-<td>TBD</td>
-<td>128×64, SPI</td>
+<td>SH1106 1.3"</td>
+<td>Sino Wealth</td>
+<td>128×64, I²C</td>
 <td>$6.50</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
 <td>IMU</td>
 <td>BNO055</td>
 <td>Bosch</td>
-<td>9-DOF, Fusion</td>
+<td>9-DOF, onboard fusion, I²C</td>
 <td>$35.00</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
 <td>Temp/Humidity</td>
 <td>HDC2080</td>
-<td>TI</td>
-<td>I²C, low power</td>
+<td>Texas Instruments</td>
+<td>I²C, ±0.2°C, interrupt output</td>
 <td>$3.75</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
 <td>Regulator</td>
 <td>AP63203WU-7</td>
 <td>Diodes Inc.</td>
-<td>3A Buck</td>
+<td>3.3 V, 3 A buck</td>
 <td>$1.50</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
-<td>Button</td>
-<td>6×6mm SMD</td>
+<td>Tactile Switch</td>
+<td>6×6 mm SMD</td>
 <td>TBD</td>
-<td>Momentary</td>
-<td>$0.30</td>
+<td>Momentary, NO</td>
+<td>$0.30 ×2</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
-<td>LEDs</td>
+<td>Status LEDs</td>
 <td>0805 SMD</td>
 <td>TBD</td>
-<td>3.3V compatible</td>
-<td>$0.10</td>
+<td>3.3 V compatible</td>
+<td>$0.10 ×2</td>
+<td>✅ Fabricated</td>
 </tr>
 <tr>
-<td>Interface</td>
+<td>UART Connector</td>
 <td>2×4 IDC Header</td>
 <td>TBD</td>
-<td>UART ribbon</td>
+<td>Ribbon cable interface</td>
 <td>$0.50</td>
+<td>✅ Fabricated</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="estimated-total-core-component-cost">Estimated Total Core Component Cost</h2>
-<p><strong>≈ <span class="arithmatex">\(20–\)</span>23 per board</strong><br>
-(excluding passives, PCB fabrication, and shipping)</p>
+<p><strong>Estimated Total Core Component Cost: ≈ <span class="arithmatex">\(51–\)</span>54 per board</strong>
+<em>(excluding passives, PCB fabrication, and shipping)</em></p>
+<blockquote>
+<p><strong>Note on I²C bus sharing:</strong> The BNO055, SH1106, and HDC2080 all share a single software bit-bang I²C bus on the PIC18F57K42. Each device has a unique I²C address (BNO055: 0x28, SH1106: 0x3C, HDC2080: 0x40), so no address conflicts exist. Bus transactions are arbitrated in firmware with the display framebuffer transfer scheduled between sensor read cycles to avoid contention.</p>
+</blockquote>
 
 
 
@@ -1919,13 +2001,13 @@ The AP63203WU-7 was selected because it provides a simple and cost-effective 3.3
         
         
           
-          <a href="../../04-%20Microcontroller%20Selection/mcs/" class="md-footer__link md-footer__link--next" aria-label="Next: PIC18F47K42 — Sensor + HMI Subsystem">
+          <a href="../../04-%20Microcontroller%20Selection/mcs/" class="md-footer__link md-footer__link--next" aria-label="Next: Schematic &amp; Pin Allocation">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                PIC18F47K42 — Sensor + HMI Subsystem
+                Schematic &amp; Pin Allocation
               </div>
             </div>
             <div class="md-footer__button md-icon">

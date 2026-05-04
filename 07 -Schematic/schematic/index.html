@@ -26,7 +26,7 @@
 
     
       
-        <title>Individual Subsystem Schematic - Lakshanand's 314 Data Sheet</title>
+        <title>Schematic - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#individual-subsystem-schematic" class="md-skip">
+        <a href="#sensor-hmi-subsystem-schematic" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Individual Subsystem Schematic
+              Schematic
             
           </span>
         </div>
@@ -925,15 +925,90 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Schematic
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Individual Subsystem Schematic
+    Schematic
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schematic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-decisions-visible-in-schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Design Decisions Visible in Schematic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1343,6 +1418,59 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Schematic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-decisions-visible-in-schematic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Design Decisions Visible in Schematic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1364,20 +1492,35 @@
   
 
 
-<h1 id="individual-subsystem-schematic">Individual Subsystem Schematic</h1>
-<p>This schematic shows the complete design for my <strong>Sensor &amp; HMI Subsystem</strong>. It includes the <strong>PIC18F57Q43 microcontroller</strong>, regulated <strong>3.3V (1.5A) power supply</strong>, <strong>128×64 SPI Graphical OLED Display</strong>, <strong>MPU6050 6-DoF IMU (I²C)</strong>, <strong>HDC2080 Temperature &amp; Humidity Sensor (I²C)</strong>, <strong>photoresistor (analog light sensing circuit)</strong>, <strong>status LEDs</strong>, <strong>pushbutton switches</strong>, and the <strong>Microchip SNAP ICSP programming interface</strong>.</p>
-<p>The schematic demonstrates all required power distribution, decoupling, reset circuitry, I²C and SPI communication routing, ADC configuration, sensor interface connections, and programming/debug support necessary for reliable subsystem operations and integration within the team architecture.</p>
+<h1 id="sensor-hmi-subsystem-schematic">Sensor &amp; HMI Subsystem — Schematic</h1>
+<p><strong>Lakshanand Sugumar — Team 302 — EGR314 Spring 2026</strong></p>
 <hr>
-<h1 id="sensor-hmi-subsystem-schematic">Sensor &amp; HMI Subsystem Schematic</h1>
-<p><strong>Figure 01: Sensor &amp; HMI Subsystem Schematic</strong></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../1.jpg" data-desc-position="bottom"><img alt="Sensor &amp; HMI Schematic" src="../1.jpg"></a></p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../2.jpg" data-desc-position="bottom"><img alt="Sensor &amp; HMI Schematic" src="../2.jpg"></a></p>
+<h2 id="overview">Overview</h2>
+<p>This schematic shows the complete design for the Sensor &amp; HMI subsystem of the R6 Recon Amphibot. It includes the <strong>PIC18F57K42 microcontroller</strong>, <strong>AP63203WU-7 3.3 V / 3 A buck regulator</strong>, <strong>SH1106 1.3" 128×64 OLED display (software I²C)</strong>, <strong>BNO055 9-DOF IMU (software I²C)</strong>, <strong>HDC2080 temperature and humidity sensor (software I²C)</strong>, <strong>status LEDs</strong>, <strong>debounced pushbutton switches</strong>, and the <strong>Microchip SNAP ICSP programming interface</strong>.</p>
+<p>All three I²C devices — BNO055, SH1106, and HDC2080 — share a single software bit-bang I²C bus on the PIC18F57K42. Hardware I²C (MSSP) was not used due to a peripheral conflict discovered post-fabrication. UART TX/RX connects this board to the upstream ESP32 board and the downstream actuator board as part of the three-node daisy chain.</p>
+<p>The schematic covers power distribution, bypass decoupling at every IC supply pin, reset circuitry, I²C bus pull-ups, UART routing, pushbutton pull-up networks, LED current limiting, and ICSP header wiring.</p>
 <hr>
-<h2 id="downloadable-files">Downloadable Files</h2>
+<h2 id="schematic">Schematic</h2>
+<p><strong>Figure 01: Sensor &amp; HMI Subsystem Schematic — Sheet 1</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0001.jpg" data-desc-position="bottom"><img alt="Schematic Sheet 1" src="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0001.jpg"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0002.jpg" data-desc-position="bottom"><img alt="Schematic Sheet 2" src="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0002.jpg"></a></p>
+<h2 id="_1"><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg" data-desc-position="bottom"><img alt="Schematic Sheet 3" src="/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg"></a></h2>
+<h2 id="key-design-decisions-visible-in-schematic">Key Design Decisions Visible in Schematic</h2>
 <ul>
-<li>📦 <a href="../EGR314_Design_Review.zip">Download Cadence Project</a></li>
-<li>📦 <a href="../symbols_design_review.zip">Download Cadence Symbols</a></li>
-<li>📦 <a href="../finalschematics.pdf">Download Cadence schematics pdf</a></li>
+<li><strong>Software I²C bus:</strong> SDA and SCL routed to RC3 and RC4 as GPIO. 4.7 kΩ pull-ups to 3.3 V shared across BNO055, SH1106, and HDC2080. Each device has a unique address (0x28, 0x3C, 0x40).</li>
+<li><strong>BNO055 mode pins:</strong> PS0, PS1, and ADR all tied to GND, selecting I²C mode and address 0x28.</li>
+<li><strong>UART daisy-chain:</strong> RC6 (TX) routes to downstream actuator board RX; RC7 (RX) receives from upstream ESP32 TX. 9600 baud, 8N1.</li>
+<li><strong>ICSP header:</strong> PGC → RB6, PGD → RB7, MCLR → Pin 1. LVP disabled in configuration bits.</li>
+<li><strong>Bypass capacitors:</strong> 0.1 µF ceramic at every VDD pin on the PIC18F57K42, BNO055, SH1106, and HDC2080. 22 µF bulk capacitor at regulator output.</li>
+<li><strong>LED current limiting:</strong> 220 Ω series resistors on LED1 (RA2) and LED2 (RA3).</li>
+<li><strong>Switch pull-ups:</strong> 10 kΩ to 3.3 V on SW1 (RB0) and SW2 (RB1), active-low logic.</li>
+</ul>
+<hr>
+<h2 id="downloads">Downloads</h2>
+<ul>
+<li><a href="../EGR314_Design_Review.zip">Cadence Project (.zip)</a></li>
+<li><a href="../symbols_design_review.zip">Cadence Symbols (.zip)</a></li>
+<li><a href="/docs/08%20-PCB/mosfet_hbridge.pdf">Schematic (PDF)</a></li>
 </ul>
 
 
@@ -1385,6 +1528,9 @@
 
 
 
+
+  
+  
 
 
 
