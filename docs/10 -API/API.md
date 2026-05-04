@@ -1,226 +1,248 @@
-# API
+---
+title: API & UART Protocol
+---
+
+# Sensor & HMI Subsystem — API & UART Protocol
+
+**Lakshanand Sugumar — Team 302 — EGR314 Spring 2026**
+
+---
 
 ## Overview
 
-This page defines the messaging interface for the **Sensor + Human–Machine Interface (HMI) subsystem** in the Amphibot V1 system.
+This page defines the messaging interface for the Sensor & HMI subsystem of the R6 Recon Amphibot. The subsystem runs on an **ESP32-S3** (firmware) backed by a **PIC18F57Q83** (PCB), and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.
 
-This subsystem is responsible for:
-
-- Collecting sensor data (IMU and environmental)
-- Processing hazard-related information
-- Providing user interaction through buttons and display
-- Communicating with other subsystems via UART
-
-All communication uses a **standardized 64-byte UART packet structure**, where message-specific data is contained in the payload.
+All packets use the team-standardized AZ/YB framing with ASCII payloads. The packet structure, node IDs, and payload formats on this page are consistent with the full team API reference.
 
 ---
 
-## Subsystem Components
+## Node IDs
 
-- **BNO055 IMU**
-- **HDC2080 Temperature/Humidity Sensor**
-- **OLED Display (SPI)**
-- **Pushbuttons**
-- **Status LEDs**
-- **PIC18F47K42 Microcontroller**
-- **UART Communication Interface**
-- **Microchip Snap (Programming/Debugging)**
+| Node                      | ID char | Hex    | Role       |
+| ------------------------- | ------- | ------ | ---------- |
+| Lakshanand — Sensor + HMI | `L`     | `0x4C` | This board |
+| Mihir — WiFi Gateway      | `M`     | `0x4D` | Upstream   |
+| Raunak — Actuator         | `R`     | `0x52` | Downstream |
+| Broadcast — all nodes     | `X`     | `0x58` | Broadcast  |
 
 ---
 
-## Board ID Assignment
+## UART Configuration
 
-| Device           | ID     |
-| ---------------- | ------ |
-| ESP32 Gateway    | `0x01` |
-| Sensor + HMI PIC | `0x02` |
-| Actuator PIC     | `0x03` |
-| Broadcast        | `0xFF` |
-
----
-
-## UART Packet Structure (64 Bytes)
-
-| Byte(s) | Field          | Size | Type      | Description             |
-| ------- | -------------- | ---- | --------- | ----------------------- |
-| 0       | Start Byte     | 1    | `uint8_t` | `0xAA`                  |
-| 1       | Message Type   | 1    | `uint8_t` | Defines message         |
-| 2       | Sender ID      | 1    | `uint8_t` | Origin device           |
-| 3       | Receiver ID    | 1    | `uint8_t` | Destination device      |
-| 4       | Payload Length | 1    | `uint8_t` | Number of payload bytes |
-| 5–60    | Payload        | 56   | byte[]    | Message data            |
-| 61      | Checksum       | 1    | `uint8_t` | Error detection         |
-| 62      | Reserved       | 1    | `uint8_t` | Unused                  |
-| 63      | End Byte       | 1    | `uint8_t` | `0x55`                  |
+| Parameter          | Value                                                      |
+| ------------------ | ---------------------------------------------------------- |
+| Baud rate          | 9600 bps                                                   |
+| Data bits          | 8                                                          |
+| Parity             | None                                                       |
+| Stop bits          | 1                                                          |
+| Packet length      | Variable (6 bytes minimum, 64 bytes maximum)               |
+| Header             | `0x41 0x5A` ('A' 'Z')                                      |
+| Footer             | `0x59 0x42` ('Y' 'B')                                      |
+| Inter-packet gap   | ≥ 100 ms between transmissions                             |
+| Inter-byte timeout | 2 ms (Raunak's receiver uses this to detect end of packet) |
 
 ---
 
-## Message Types
+## Packet Structure
 
-| Name            | Value  | Description           |
-| --------------- | ------ | --------------------- |
-| IMU_DATA        | `0x03` | Orientation data      |
-| TEMP_HUMIDITY   | `0x05` | Environmental data    |
-| BUTTON_EVENT    | `0x08` | Button press          |
-| DISPLAY_UPDATE  | `0x07` | Update OLED           |
-| STATUS_REQUEST  | `0x09` | Request system status |
-| STATUS_RESPONSE | `0x0A` | Return system status  |
-| EMERGENCY_STOP  | `0x0C` | Immediate stop        |
-| ACK             | `0x0F` | Acknowledgement       |
+[ 0x41 | 0x5A | src_id | dest_id | payload bytes | 0x59 | 0x42 ]
 
----
+| Field   | Size     | Description                                         |
+| ------- | -------- | --------------------------------------------------- |
+| Header  | 2 bytes  | Always `0x41 0x5A` (AZ)                             |
+| src_id  | 1 byte   | ASCII ID of sending node                            |
+| dest_id | 1 byte   | ASCII ID of destination node (or `X` for broadcast) |
+| Payload | Variable | ASCII command string or sensor data string          |
+| Footer  | 2 bytes  | Always `0x59 0x42` (YB)                             |
 
-## Message Specifications
+Packets where `src_id == MY_ID` are discarded (bus echo). Packets where `dest_id != 'L'` and `dest_id != 'X'` are forwarded without processing.
 
 ---
 
-### IMU_DATA (0x03)
+## Message Responsibility Summary
 
-- **Direction:** Sent (Broadcast)
-- **Units:** Degrees
+### Sent by This Board
 
-| Byte(s) | Field | Type      | Min  | Max | Example |
-| ------- | ----- | --------- | ---- | --- | ------- |
-| 0–1     | roll  | `int16_t` | -180 | 180 | 10      |
-| 2–3     | pitch | `int16_t` | -180 | 180 | -5      |
-| 4–5     | yaw   | `int16_t` | -180 | 180 | 45      |
+| Dest | Payload        | Trigger                          | Description                   |
+| ---- | -------------- | -------------------------------- | ----------------------------- |
+| `R`  | `FWD`          | On receipt of FWD from Mihir     | Relay motor forward to Raunak |
+| `R`  | `RES`          | On receipt of RES from Mihir     | Relay motor reverse to Raunak |
+| `R`  | `STP`          | On receipt of STP from Mihir     | Relay motor stop to Raunak    |
+| `M`  | `H:xR:xP:xT:x` | Every 5 s, and on `DATA` request | IMU sensor data string        |
+| `M`  | `PAGE{n}`      | On button press                  | OLED page changed to n        |
+| `M`  | `ACK`          | On receipt of `ESTOP` broadcast  | Acknowledge emergency stop    |
 
-- Payload Size: 6 bytes
+### Received and Acted On
 
----
-
-### TEMP_HUMIDITY (0x05)
-
-- **Direction:** Sent (Broadcast)
-- **Units:** °C and %
-
-| Byte(s) | Field       | Type       | Min | Max | Example |
-| ------- | ----------- | ---------- | --- | --- | ------- |
-| 0–1     | temperature | `int16_t`  | -40 | 125 | 25      |
-| 2–3     | humidity    | `uint16_t` | 0   | 100 | 60      |
-
-- Payload Size: 4 bytes
+| Src | Payload | Action                                                  |
+| --- | ------- | ------------------------------------------------------- |
+| `M` | `FWD`   | Build and send `L→R FWD` packet                         |
+| `M` | `RES`   | Build and send `L→R RES` packet                         |
+| `M` | `STP`   | Build and send `L→R STP` packet                         |
+| `M` | `DATA`  | Read BNO055 + HDC2080, send sensor data string to Mihir |
+| `X` | `ESTOP` | Display ESTOP screen on OLED, send ACK to Mihir         |
 
 ---
 
-### BUTTON_EVENT (0x08)
-
-- **Direction:** Sent (Broadcast)
-
-| Byte(s) | Field     | Type      | Min | Max | Example |
-| ------- | --------- | --------- | --- | --- | ------- |
-| 0       | button_id | `uint8_t` | 1   | 4   | 2       |
-| 1       | state     | `uint8_t` | 0   | 1   | 1       |
-
-- Payload Size: 2 bytes
+## Payload Specifications
 
 ---
 
-### DISPLAY_UPDATE (0x07)
+### Sensor Data — `H:xR:xP:xT:x`
 
-- **Direction:** Received / Acted On
+**Direction:** Sent to Mihir (`M`)  
+**Trigger:** Every 5 seconds, and immediately on `DATA` request  
+**Format:** ASCII string
+H:{heading}R:{roll}P:{pitch}T:{temp}
 
-| Byte(s) | Field        | Type         | Min | Max | Example |
-| ------- | ------------ | ------------ | --- | --- | ------- |
-| 0       | display_mode | `uint8_t`    | 0   | 5   | 1       |
-| 1–5     | data         | `uint8_t[5]` | 0   | 255 | 10      |
+| Field | Source                         | Units               | Example  |
+| ----- | ------------------------------ | ------------------- | -------- |
+| H     | BNO055 EULER_H register (0x1A) | Degrees (raw ÷ 16)  | `H:45.2` |
+| R     | BNO055 EULER_R register (0x1C) | Degrees (raw ÷ 16)  | `R:1.3`  |
+| P     | BNO055 EULER_P register (0x1E) | Degrees (raw ÷ 16)  | `P:-2.5` |
+| T     | BNO055 TEMP register (0x34)    | °C (1 byte, direct) | `T:28`   |
 
-- Payload Size: 6 bytes
+**Full example packet (hex):**
+41 5A 4C 4D 48 3A 34 35 2E 32 52 3A 31 2E 33 50 3A 2D 32 2E 35 54 3A 32 38 59 42
+Decoded: `AZ L M H:45.2R:1.3P:-2.5T:28 YB`
 
----
-
-### STATUS_REQUEST (0x09)
-
-- **Direction:** Received
-
-| Byte(s) | Field        | Type |
-| ------- | ------------ | ---- |
-| —       | (no payload) | —    |
-
-- Payload Size: 0 bytes
+> Mihir parses this string and publishes JSON to `egr314/team302/sensor` over MQTT.
 
 ---
 
-### STATUS_RESPONSE (0x0A)
+### Motor Relay — `FWD` / `RES` / `STP`
 
-- **Direction:** Sent
+**Direction:** Received from Mihir (`M`), relayed to Raunak (`R`)  
+**This board's role:** Relay only — does not drive motors directly
 
-| Byte(s) | Field       | Type      | Min | Max | Example |
-| ------- | ----------- | --------- | --- | --- | ------- |
-| 0       | status_code | `uint8_t` | 0   | 5   | 1       |
-| 1       | error_flag  | `uint8_t` | 0   | 1   | 0       |
-
-- Payload Size: 2 bytes
-
----
-
-### EMERGENCY_STOP (0x0C)
-
-- **Direction:** Received / Acted On
-
-| Byte(s) | Field        | Type |
-| ------- | ------------ | ---- |
-| —       | (no payload) | —    |
-
-- Payload Size: 0 bytes
+| Payload | Mihir → Laksh   | Laksh → Raunak  | Raunak SPI byte |
+| ------- | --------------- | --------------- | --------------- |
+| `FWD`   | `AZ M L FWD YB` | `AZ L R FWD YB` | `0xEF`          |
+| `RES`   | `AZ M L RES YB` | `AZ L R RES YB` | `0xED`          |
+| `STP`   | `AZ M L STP YB` | `AZ L R STP YB` | `0xFF`          |
 
 ---
 
-### ACK (0x0F)
+### Page Change — `PAGE{n}`
 
-- **Direction:** Sent
+**Direction:** Sent to Mihir (`M`)  
+**Trigger:** BTN_PAGE (GPIO11) press cycles OLED page
 
-| Byte(s) | Field      | Type      | Example |
-| ------- | ---------- | --------- | ------- |
-| 0       | acked_type | `uint8_t` | 0x03    |
-| 1       | status     | `uint8_t` | 0x00    |
-
-- Payload Size: 2 bytes
-
----
-
-## Message Routing Rules
-
-- If `receiver_id == 0x02` → process message
-- If `receiver_id != 0x02` → forward message
-- If `receiver_id == 0xFF` → process as broadcast
-- Messages always continue through the daisy chain
+| Value | Payload | OLED Content                                                  |
+| ----- | ------- | ------------------------------------------------------------- |
+| 0     | `PAGE0` | Heading, Roll, Pitch in degrees                               |
+| 1     | `PAGE1` | Temperature °C from BNO055                                    |
+| 2     | `PAGE2` | Accelerometer (Ax Ay Az) and Gyroscope (Gx Gy Gz)             |
+| 3     | `PAGE3` | System status — Mihir/Raunak online or offline (15 s timeout) |
 
 ---
 
-## Receiver Behavior
+### Emergency Stop — `ESTOP`
 
-The receiver:
+**Direction:** Received — broadcast from any node (`X`)  
+**Trigger:** Remote dashboard command or WiFi loss on Mihir's side
 
-- Validates start (`0xAA`) and end (`0x55`) bytes
-- Checks checksum
-- Discards malformed or oversized messages
-- Ignores self-originated messages
-- Processes valid messages addressed to this board
-- Forwards all other messages
-- Sends ACK for valid processed messages
+On receipt:
 
----
+1. Display ESTOP screen on OLED immediately
+2. Send `AZ L M ACK YB` to Mihir
+3. Do not re-forward — Raunak receives the broadcast directly on the shared bus
 
-## Sender Behavior
-
-The sender:
-
-- Constructs valid packets using defined format
-- Uses correct sender ID (`0x02`)
-- Fills payload correctly
-- Computes checksum
-- Sends periodic sensor data
-- Sends event-driven button messages
-- Prioritizes forwarding over sending
-- Uses non-blocking timing
+**Example packet (hex):**
+41 5A 4D 58 45 53 54 4F 50 59 42
+Decoded: `AZ M X ESTOP YB`
 
 ---
 
-## Example Packet
+### Data Request — `DATA`
 
-Example IMU message:
+**Direction:** Received from Mihir (`M`)  
+**Trigger:** Mihir requests latest sensor reading on demand
 
-```text
-AA 03 02 FF 06 00 0A FF FB 00 2D CS 00 55
-```
+On receipt: immediately read BNO055 and HDC2080, build and send `H:xR:xP:xT:x` string to Mihir.
+
+---
+
+## Hardware Pin Reference
+
+### ESP32-S3 (Firmware)
+
+| GPIO    | Signal          | Direction | Connected To                               |
+| ------- | --------------- | --------- | ------------------------------------------ |
+| GPIO 8  | I²C SCL (bus 0) | Output    | SSD1306 OLED clock                         |
+| GPIO 16 | I²C SDA (bus 0) | Bidir     | SSD1306 OLED data                          |
+| GPIO 14 | I²C SCL (bus 1) | Output    | BNO055 IMU clock                           |
+| GPIO 4  | I²C SDA (bus 1) | Bidir     | BNO055 IMU data                            |
+| GPIO 43 | UART2 TX        | Output    | Shared bus transmit                        |
+| GPIO 44 | UART2 RX        | Input     | Shared bus receive                         |
+| GPIO 11 | BTN_PAGE        | Input     | Cycle OLED pages (pull-up, active LOW)     |
+| GPIO 6  | BTN_CAL         | Input     | Recalibrate IMU zero (pull-up, active LOW) |
+
+### PIC18F57Q83 (PCB)
+
+| Pin | Signal   | Direction | Connected To           |
+| --- | -------- | --------- | ---------------------- |
+| RC3 | I²C1 SCL | Output    | OLED clock             |
+| RC4 | I²C1 SDA | Bidir     | OLED data              |
+| RC6 | UART1 TX | Output    | Shared bus transmit    |
+| RC7 | UART1 RX | Input     | Shared bus receive     |
+| RB7 | PGD      | Bidir     | SNAP programmer data   |
+| RB6 | PGC      | Input     | SNAP programmer clock  |
+| RE3 | MCLR     | Input     | 10 kΩ pull-up to 3.3 V |
+
+---
+
+## BNO055 Register Reference
+
+| Register | Address | Description                             |
+| -------- | ------- | --------------------------------------- |
+| CHIP_ID  | 0x00    | Always 0xA0 — verify on init            |
+| OPR_MODE | 0x3D    | Set to 0x0C for NDOF fusion mode        |
+| PWR_MODE | 0x3E    | Set to 0x00 for normal power            |
+| SYS_TRIG | 0x3F    | Write 0x20 to reset                     |
+| EULER_H  | 0x1A    | Heading LSB (raw ÷ 16 = degrees)        |
+| EULER_R  | 0x1C    | Roll LSB (raw ÷ 16 = degrees)           |
+| EULER_P  | 0x1E    | Pitch LSB (raw ÷ 16 = degrees)          |
+| ACCEL    | 0x08    | Linear accel X/Y/Z (raw ÷ 100 = m/s²)   |
+| GYRO     | 0x14    | Angular velocity X/Y/Z (raw ÷ 16 = °/s) |
+| TEMP     | 0x34    | Temperature in °C (1 byte, direct)      |
+
+---
+
+## Routing Rules
+
+| Condition                                         | Action                             |
+| ------------------------------------------------- | ---------------------------------- |
+| `src_id == 'L'` (own echo)                        | Discard immediately                |
+| `dest_id == 'L'`                                  | Process locally                    |
+| `dest_id == 'X'` (broadcast)                      | Process locally, do not re-forward |
+| `dest_id == 'R'` and payload is `FWD`/`RES`/`STP` | Build new packet `L→R`, send       |
+| `dest_id` is anything else                        | Forward without modification       |
+| Bad header or footer                              | Discard                            |
+| Packet length > 64 bytes                          | Discard                            |
+
+---
+
+## Communication Flow Examples
+
+### Motor Forward (Cloud → Motor)
+
+Dashboard → MQTT: egr314/team302/motor = "FWD"
+Mihir builds: AZ M L FWD YB → sends on UART bus
+Laksh receives, dest=L, payload=FWD
+Laksh builds: AZ L R FWD YB → sends on UART bus
+Raunak receives, sends SPI 0xEF → motor drives forward
+
+### Sensor Data (IMU → Cloud)
+
+Laksh reads BNO055 every 200 ms, caches values
+Every 5 s: Laksh builds AZ L M H:45.2R:1.3P:-2.5T:28 YB
+Mihir receives, parses string, publishes JSON to egr314/team302/sensor
+Dashboard receives sensor data via MQTT subscription
+
+### Emergency Stop
+
+Dashboard → MQTT: egr314/team302/estop
+Mihir builds: AZ M X ESTOP YB (broadcast)
+Laksh receives broadcast: shows ESTOP on OLED, sends AZ L M ACK YB
+Raunak receives broadcast: sends SPI 0xFF, motor stops
