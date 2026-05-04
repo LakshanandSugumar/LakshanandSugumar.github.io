@@ -6,8 +6,29 @@ article{
 
 blockquote{
     background: #ffc;
-    p,li{
-        color: var(--md-typeset-color);
-    }
+}
+
+blockquote p,
+blockquote li {
+    color: var(--md-typeset-color);
+}
+
+/* Allow the top navigation tabs to scroll horizontally when there are too many items */
+.md-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.md-tabs__list {
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+.md-tabs__item {
+    flex: 0 0 auto;
+}
+
+.md-tabs__link {
+    white-space: nowrap;
 }
 
