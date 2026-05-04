@@ -15,7 +15,7 @@
         <link rel="prev" href="../../07%20-Schematic/schematic/">
       
       
-        <link rel="next" href="../../10%20-API/API/">
+        <link rel="next" href="../../09%20-Reflection/Reflection/">
       
       
       <link rel="icon" href="../../static/logo314.png">
@@ -26,7 +26,7 @@
 
     
       
-        <title>Module's PCB - Lakshanand's 314 Data Sheet</title>
+        <title>PCB Design - Lakshanand's 314 Data Sheet</title>
       
     
     
@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pcb" class="md-skip">
+        <a href="#sensor-hmi-subsystem-pcb-design" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module's PCB
+              PCB Design
             
           </span>
         </div>
@@ -381,12 +381,112 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../09%20-Reflection/Reflection/" class="md-tabs__link">
+          
+  
+    
+  
+  09  Reflection
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../10%20-API/API/" class="md-tabs__link">
           
   
     
   
   10  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../11%20-Hardware%20V2/hardwarev2/" class="md-tabs__link">
+          
+  
+    
+  
+  11  Hardware V2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../12%20-Lesson%20Learned/lessonlearned/" class="md-tabs__link">
+          
+  
+    
+  
+  12  Lesson Learned
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../13%20-%20Recommendation%20of%20Future%20Students/Recommendation/" class="md-tabs__link">
+          
+  
+    
+  
+  13   Recommendation of Future Students
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../14%20-Resources/resource/" class="md-tabs__link">
+          
+  
+    
+  
+  14  Resources
 
         </a>
       </li>
@@ -868,12 +968,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    Module's PCB
+    PCB Design
   </span>
   
 
@@ -884,7 +986,7 @@
         
   
   <span class="md-ellipsis">
-    Module's PCB
+    PCB Design
   </span>
   
 
@@ -896,6 +998,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -904,9 +1008,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#pcb" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      PCB
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcb-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCB Layers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PCB Layers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-copper-art-film-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top Copper — Art Film TOP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-copper-art-film-bottom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom Copper — Art Film BOTTOM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soldermask-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soldermask Top
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soldermask-bottom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soldermask Bottom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#board-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Board Outline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Decisions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
     </span>
   </a>
   
@@ -955,11 +1137,241 @@
         
   
   
+    <a href="../../09%20-Reflection/Reflection/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    09  Reflection
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
     <a href="../../10%20-API/API/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
     10  API
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../11%20-Hardware%20V2/hardwarev2/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    11  Hardware V2
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../12%20-Lesson%20Learned/lessonlearned/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    12  Lesson Learned
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../13%20-%20Recommendation%20of%20Future%20Students/Recommendation/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    13   Recommendation of Future Students
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../14%20-Resources/resource/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    14  Resources
   </span>
   
 
@@ -1045,6 +1457,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1053,9 +1467,87 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#pcb" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      PCB
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcb-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCB Layers
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PCB Layers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#top-copper-art-film-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      Top Copper — Art Film TOP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottom-copper-art-film-bottom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bottom Copper — Art Film BOTTOM
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soldermask-top" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soldermask Top
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soldermask-bottom" class="md-nav__link">
+    <span class="md-ellipsis">
+      Soldermask Bottom
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#board-outline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Board Outline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Decisions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
     </span>
   </a>
   
@@ -1084,15 +1576,59 @@
   
 
 
-  <h1>Module's PCB</h1>
-
-<h2 id="pcb">PCB</h2>
-<p>Below are the PCB design images for the Sensor &amp; HMI Module.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0001.jpg" data-desc-position="bottom"><img alt="PCB Image 1" src="../314_page-0001.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0002.jpg" data-desc-position="bottom"><img alt="PCB Image 2" src="../314_page-0002.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0003.jpg" data-desc-position="bottom"><img alt="PCB Image 3" src="../314_page-0003.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0004.jpg" data-desc-position="bottom"><img alt="PCB Image 4" src="../314_page-0004.jpg"></a>
-<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../314_page-0005.jpg" data-desc-position="bottom"><img alt="PCB Image 5" src="../314_page-0005.jpg"></a></p>
+<h1 id="sensor-hmi-subsystem-pcb-design">Sensor &amp; HMI Subsystem — PCB Design</h1>
+<p><strong>Lakshanand Sugumar — Team 302 — EGR314 Spring 2026</strong></p>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>This page documents the PCB design for the Sensor &amp; HMI subsystem. The board is a two-layer design fabricated through the course PCB fabrication process. All components are surface-mount and placed on the top layer. The board operates entirely from a single 3.3 V rail.</p>
+<hr>
+<h2 id="pcb-layers">PCB Layers</h2>
+<h3 id="top-copper-art-film-top">Top Copper — Art Film TOP</h3>
+<p><strong>Figure 01: Top Copper Layer</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../attempt/attempt_page-0001.jpg" data-desc-position="bottom"><img alt="Top Copper" src="../attempt/attempt_page-0001.jpg"></a></p>
+<p>The top copper layer carries all signal routing and power distribution. Key design features visible in this layer:</p>
+<ul>
+<li><strong>PIC18F57K42 (U22, center)</strong> — QFN-48 package placed at the center of the board. All peripheral signal traces fan out from the QFN pad ring. Power and ground pins connect directly to short traces leading to bypass capacitors placed immediately adjacent to the IC.</li>
+<li><strong>Voltage regulator (VOLTAGE_REGULATOR_LS1, bottom left)</strong> — AP63203WU-7 buck converter placed in the lower-left corner with the inductor and output capacitors in close proximity to minimize switching loop area.</li>
+<li><strong>Switches (SW11–SW14, top left)</strong> — Four tactile switches grouped along the left edge for easy operator access. Each switch has a dedicated pull-up resistor placed immediately adjacent.</li>
+<li><strong>LEDs and current-limiting resistors (D9–D12, R10–R13, center left)</strong> — Status LEDs grouped together with series resistors placed in-line between the MCU GPIO and the LED anode.</li>
+<li><strong>Connectors (J81–J87)</strong> — Ribbon cable connectors and expansion headers placed along the board edges for clean cable routing away from signal traces.</li>
+<li><strong>I²C pull-up resistors (RF1, R11)</strong> — Placed close to the SDA and SCL lines to minimize stub length on the shared bus.</li>
+</ul>
+<hr>
+<h3 id="bottom-copper-art-film-bottom">Bottom Copper — Art Film BOTTOM</h3>
+<p><strong>Figure 02: Bottom Copper Layer</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../attempt/attempt_page-0002.jpg" data-desc-position="bottom"><img alt="Bottom Copper" src="../attempt/attempt_page-0002.jpg"></a></p>
+<p>The bottom copper layer is used primarily for through-hole via connections and connector pads. Signal routing is concentrated on the top layer. The sparse bottom layer reflects the all-SMD top-side assembly approach and keeps the board manufacturable with single-side reflow.</p>
+<hr>
+<h3 id="soldermask-top">Soldermask Top</h3>
+<p><strong>Figure 03: Soldermask Top Layer</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../attempt/attempt_page-0003.jpg" data-desc-position="bottom"><img alt="Soldermask Top" src="../attempt/attempt_page-0003.jpg"></a></p>
+<p>The soldermask top layer exposes all SMD pads and connector through-holes. The PIC18F57K42 QFN pad pattern is clearly visible at center. All component pads are correctly opened with no soldermask slivers between fine-pitch QFN pads.</p>
+<hr>
+<h3 id="soldermask-bottom">Soldermask Bottom</h3>
+<p><strong>Figure 04: Soldermask Bottom Layer</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../attempt/attempt_page-0004.jpg" data-desc-position="bottom"><img alt="Soldermask Bottom" src="../attempt/attempt_page-0004.jpg"></a></p>
+<p>The soldermask bottom layer exposes through-hole connector pads and vias. The via pattern matches the top copper layer via placement.</p>
+<hr>
+<h3 id="board-outline">Board Outline</h3>
+<p><strong>Figure 05: Board Outline</strong></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../attempt/attempt_page-0005.jpg" data-desc-position="bottom"><img alt="Board Outline" src="../attempt/attempt_page-0005.jpg"></a></p>
+<p>The board outline defines the physical dimensions of the PCB. The design fits within the course-specified board size constraint.</p>
+<hr>
+<h2 id="design-decisions">Design Decisions</h2>
+<p><strong>Component placement.</strong> All active ICs are placed on the top layer to allow single-sided reflow assembly. The PIC18F57K42 is centered on the board so that signal traces to all peripherals are approximately equal length and no one group of peripherals requires long routing detours.</p>
+<p><strong>Power regulation placement.</strong> The AP63203WU-7 buck converter and its associated inductor and capacitors are placed in the lower-left corner, away from the IMU and I²C signal traces. This minimizes switching noise coupling into sensitive sensor lines.</p>
+<p><strong>Bypass capacitor placement.</strong> 0.1 µF ceramic bypass capacitors are placed immediately adjacent to each VDD pin on the PIC18F57K42, BNO055, SH1106, and HDC2080. The 22 µF bulk capacitor is placed at the regulator output.</p>
+<p><strong>I²C bus routing.</strong> SDA and SCL traces are kept short and routed together as a pair from the PIC to the sensor and display connectors. Pull-up resistors are placed close to the MCU end of the bus to minimize the stub that the pull-up sees.</p>
+<p><strong>ICSP header placement.</strong> The SNAP programming header is placed along the board edge for easy access during bring-up without requiring the board to be removed from the chassis.</p>
+<p><strong>Switch and LED grouping.</strong> Switches are grouped along the left edge and LEDs are grouped in the center-left area so that operator-facing interface elements are physically separated from the communication and power circuitry on the right and bottom portions of the board.</p>
+<hr>
+<h2 id="downloads">Downloads</h2>
+<ul>
+<li><a href="/docs/08%20-PCB/mosfet_hbridge.pdf">Schematic PDF</a></li>
+<li><a href="/docs/08%20-PCB/attempt.pdf">PCB PDF</a></li>
+</ul>
 
 
 
@@ -1148,13 +1684,13 @@
         
         
           
-          <a href="../../10%20-API/API/" class="md-footer__link md-footer__link--next" aria-label="Next: API &amp; UART Protocol">
+          <a href="../../09%20-Reflection/Reflection/" class="md-footer__link md-footer__link--next" aria-label="Next: Reflection">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                API &amp; UART Protocol
+                Reflection
               </div>
             </div>
             <div class="md-footer__button md-icon">
