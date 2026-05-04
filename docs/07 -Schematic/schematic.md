@@ -26,7 +26,7 @@ The schematic covers power distribution, bypass decoupling at every IC supply pi
 
 ![Schematic Sheet 2](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0002.jpg)
 
-## ![Schematic Sheet 3](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg)
+![Schematic Sheet 3](/docs/07%20-Schematic/mosfet_hbridge/mosfet_hbridge_page-0003.jpg)
 
 ## Key Design Decisions Visible in Schematic
 
