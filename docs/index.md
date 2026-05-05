@@ -69,20 +69,20 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 
 ## Navigation
 
-- [Requirements](https://lakshanandsugumar.github.io/01-Requirements/Requirements/)
-- [Block Diagram](https://lakshanandsugumar.github.io/02-Block-Diagram/Block-Diagram/)
-- [Component Selection](https://lakshanandsugumar.github.io/03-Component-Selection/Component-Selection/)
-- [Schematic & Pin Allocation](https://lakshanandsugumar.github.io/04-Microcontroller-Selection/mcs/)
-- [Power Budget](https://lakshanandsugumar.github.io/05-Power-Budget/power/)
-- [Bill of Materials](https://lakshanandsugumar.github.io/06-BOM/BOM/)
-- [Schematic](https://lakshanandsugumar.github.io/07-Schematic/schematic/)
-- [PCB](https://lakshanandsugumar.github.io/08-PCB/pcb/)
-- [Reflection](https://lakshanandsugumar.github.io/09-Reflection/Reflection/)
-- [API & UART Protocol](https://lakshanandsugumar.github.io/10-API/API/)
-- [Hardware Version 2.0](https://lakshanandsugumar.github.io/11-Hardware V2/hardwarev2/)
-- [Lessons Learned](https://lakshanandsugumar.github.io/12-Lesson Learned/lessonlearned/)
-- [Recommendations](https://lakshanandsugumar.github.io/13 - Recommendation of Future Students/Recommendation/)
-- [Resources](https://lakshanandsugumar.github.io/14-Resources/resource/)
+- [Requirements](../01-Requirements/Requirements.md)
+- [Block Diagram](../02-Block-Diagram/Block-Diagram.md)
+- [Component Selection](../03-Component-Selection/Component-Selection.md)
+- [Schematic & Pin Allocation](../04-%20Microcontroller%20Selection/mcs.md)
+- [Power Budget](../05-%20Power%20Budget/power.md)
+- [Bill of Materials](../06%20-BOM/BOM.md)
+- [Schematic](../07%20-Schematic/schematic.md)
+- [PCB](../08%20-PCB/pcb.md)
+- [Reflection](../09%20-Reflection/Reflection.md)
+- [API & UART Protocol](../10%20-API/API.md)
+- [Hardware Version 2.0](../11%20-Hardware%20V2/hardwarev2.md)
+- [Lessons Learned](../12%20-Lesson%20Learned/lessonlearned.md)
+- [Recommendations](../13%20-%20Recommendation%20of%20Future%20Students/Recommendation.md)
+- [Resources](../14%20-Resources/resource.md)
 
 ---
 
