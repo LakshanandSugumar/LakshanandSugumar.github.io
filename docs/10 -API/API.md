@@ -10,7 +10,7 @@ title: API & UART Protocol
 
 ## Overview
 
-This page defines the messaging interface for the Sensor & HMI subsystem of the R6 Recon Amphibot. The subsystem runs on an **ESP32-S3** (firmware) backed by a **PIC18F57Q83** (PCB), and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.
+This page defines the messaging interface for the Sensor & HMI subsystem of the R6 Recon Amphibot. The subsystem is built around a **PIC18F57Q83** and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.
 
 All packets use the team-standardized AZ/YB framing with ASCII payloads. The packet structure, node IDs, and payload formats on this page are consistent with the full team API reference.
 
@@ -45,7 +45,9 @@ All packets use the team-standardized AZ/YB framing with ASCII payloads. The pac
 
 ## Packet Structure
 
+```
 [ 0x41 | 0x5A | src_id | dest_id | payload bytes | 0x59 | 0x42 ]
+```
 
 | Field   | Size     | Description                                         |
 | ------- | -------- | --------------------------------------------------- |
@@ -86,14 +88,15 @@ Packets where `src_id == MY_ID` are discarded (bus echo). Packets where `dest_id
 
 ## Payload Specifications
 
----
-
 ### Sensor Data — `H:xR:xP:xT:x`
 
 **Direction:** Sent to Mihir (`M`)  
 **Trigger:** Every 5 seconds, and immediately on `DATA` request  
 **Format:** ASCII string
+
+```
 H:{heading}R:{roll}P:{pitch}T:{temp}
+```
 
 | Field | Source                         | Units               | Example  |
 | ----- | ------------------------------ | ------------------- | -------- |
@@ -102,11 +105,15 @@ H:{heading}R:{roll}P:{pitch}T:{temp}
 | P     | BNO055 EULER_P register (0x1E) | Degrees (raw ÷ 16)  | `P:-2.5` |
 | T     | BNO055 TEMP register (0x34)    | °C (1 byte, direct) | `T:28`   |
 
-**Full example packet (hex):**
+Full example packet (hex):
+
+```
 41 5A 4C 4D 48 3A 34 35 2E 32 52 3A 31 2E 33 50 3A 2D 32 2E 35 54 3A 32 38 59 42
+```
+
 Decoded: `AZ L M H:45.2R:1.3P:-2.5T:28 YB`
 
-> Mihir parses this string and publishes JSON to `egr314/team302/sensor` over MQTT.
+Mihir parses this string and publishes JSON to `egr314/team302/sensor` over MQTT.
 
 ---
 
@@ -126,7 +133,7 @@ Decoded: `AZ L M H:45.2R:1.3P:-2.5T:28 YB`
 ### Page Change — `PAGE{n}`
 
 **Direction:** Sent to Mihir (`M`)  
-**Trigger:** BTN_PAGE (GPIO11) press cycles OLED page
+**Trigger:** BTN_PAGE press cycles OLED page
 
 | Value | Payload | OLED Content                                                  |
 | ----- | ------- | ------------------------------------------------------------- |
@@ -148,8 +155,12 @@ On receipt:
 2. Send `AZ L M ACK YB` to Mihir
 3. Do not re-forward — Raunak receives the broadcast directly on the shared bus
 
-**Example packet (hex):**
+Example packet (hex):
+
+```
 41 5A 4D 58 45 53 54 4F 50 59 42
+```
+
 Decoded: `AZ M X ESTOP YB`
 
 ---
@@ -163,32 +174,21 @@ On receipt: immediately read BNO055 and HDC2080, build and send `H:xR:xP:xT:x` s
 
 ---
 
-## Hardware Pin Reference
+## Hardware Pin Reference — PIC18F57Q83
 
-### ESP32-S3 (Firmware)
-
-| GPIO    | Signal          | Direction | Connected To                               |
-| ------- | --------------- | --------- | ------------------------------------------ |
-| GPIO 8  | I²C SCL (bus 0) | Output    | SSD1306 OLED clock                         |
-| GPIO 16 | I²C SDA (bus 0) | Bidir     | SSD1306 OLED data                          |
-| GPIO 14 | I²C SCL (bus 1) | Output    | BNO055 IMU clock                           |
-| GPIO 4  | I²C SDA (bus 1) | Bidir     | BNO055 IMU data                            |
-| GPIO 43 | UART2 TX        | Output    | Shared bus transmit                        |
-| GPIO 44 | UART2 RX        | Input     | Shared bus receive                         |
-| GPIO 11 | BTN_PAGE        | Input     | Cycle OLED pages (pull-up, active LOW)     |
-| GPIO 6  | BTN_CAL         | Input     | Recalibrate IMU zero (pull-up, active LOW) |
-
-### PIC18F57Q83 (PCB)
-
-| Pin | Signal   | Direction | Connected To           |
-| --- | -------- | --------- | ---------------------- |
-| RC3 | I²C1 SCL | Output    | OLED clock             |
-| RC4 | I²C1 SDA | Bidir     | OLED data              |
-| RC6 | UART1 TX | Output    | Shared bus transmit    |
-| RC7 | UART1 RX | Input     | Shared bus receive     |
-| RB7 | PGD      | Bidir     | SNAP programmer data   |
-| RB6 | PGC      | Input     | SNAP programmer clock  |
-| RE3 | MCLR     | Input     | 10 kΩ pull-up to 3.3 V |
+| Pin | Signal             | Direction | Connected To                                     |
+| --- | ------------------ | --------- | ------------------------------------------------ |
+| RC3 | I²C SCL (bit-bang) | Output    | BNO055 clock, SH1106 clock, HDC2080 clock        |
+| RC4 | I²C SDA (bit-bang) | Bidir     | BNO055 data, SH1106 data, HDC2080 data           |
+| RC6 | UART1 TX           | Output    | Shared bus transmit                              |
+| RC7 | UART1 RX           | Input     | Shared bus receive                               |
+| RB0 | BTN_PAGE           | Input     | Cycle OLED pages (10 kΩ pull-up, active LOW)     |
+| RB1 | BTN_CAL            | Input     | Recalibrate IMU zero (10 kΩ pull-up, active LOW) |
+| RA2 | LED1               | Output    | Status LED 1 (220 Ω series resistor)             |
+| RA3 | LED2               | Output    | Status LED 2 (220 Ω series resistor)             |
+| RB6 | PGC                | Input     | SNAP programmer clock                            |
+| RB7 | PGD                | Bidir     | SNAP programmer data                             |
+| RE3 | MCLR               | Input     | 10 kΩ pull-up to 3.3 V                           |
 
 ---
 
@@ -227,22 +227,35 @@ On receipt: immediately read BNO055 and HDC2080, build and send `H:xR:xP:xT:x` s
 
 ### Motor Forward (Cloud → Motor)
 
+```
 Dashboard → MQTT: egr314/team302/motor = "FWD"
-Mihir builds: AZ M L FWD YB → sends on UART bus
+Mihir builds:  AZ M L FWD YB  → sends on UART bus
 Laksh receives, dest=L, payload=FWD
-Laksh builds: AZ L R FWD YB → sends on UART bus
+Laksh builds:  AZ L R FWD YB  → sends on UART bus
 Raunak receives, sends SPI 0xEF → motor drives forward
+```
 
 ### Sensor Data (IMU → Cloud)
 
+```
 Laksh reads BNO055 every 200 ms, caches values
 Every 5 s: Laksh builds AZ L M H:45.2R:1.3P:-2.5T:28 YB
 Mihir receives, parses string, publishes JSON to egr314/team302/sensor
 Dashboard receives sensor data via MQTT subscription
+```
 
 ### Emergency Stop
 
+```
 Dashboard → MQTT: egr314/team302/estop
 Mihir builds: AZ M X ESTOP YB (broadcast)
 Laksh receives broadcast: shows ESTOP on OLED, sends AZ L M ACK YB
 Raunak receives broadcast: sends SPI 0xFF, motor stops
+```
+
+---
+
+## Downloads
+
+- [Team API Reference (.docx)](EGR314_Team302_API_Reference.docx)
+- [Firmware Source — main.c](main.c)

@@ -25,9 +25,9 @@ nav:
   - 10 API:
       - API & UART Protocol: 10 -API/API.md
   - 11 Hardware V2:
-      - Hardware Version 2.0: 11 -Hardware V2/Hardware-V2.md
+      - Hardware Version 2.0: 11 -Hardware V2/hardwarev2.md
   - 12 Lessons Learned:
-      - Lessons Learned: 12 -Lesson Learned/Lessons-Learned.md
+      - Lessons Learned: 12 -Lesson Learned/lessonlearned.md
   - 13 Recommendations:
       - Recommendations for Future Students: 13 - Recommendation of Future Students/Recommendation.md
   - 14 Resources:

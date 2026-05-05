@@ -41,7 +41,7 @@ title: Resources
 - MPLAB X IDE v6.x — Microchip PIC firmware development
 - MCC Melody — Peripheral configuration and code generation
 - Microchip SNAP — In-circuit serial programming and debugging
-- KiCad — PCB schematic capture and layout
+- Cadence — PCB schematic capture and layout
 - Thonny / MicroPython — ESP32-S3 firmware development
 - HiveMQ MQTT Broker — Cloud messaging for system telemetry
 - draw.io — Block diagram and system architecture diagrams

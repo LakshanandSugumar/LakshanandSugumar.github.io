@@ -31,7 +31,7 @@ It provides a standalone technical record of my subsystem's hardware design, fir
 
 The R6 Recon Amphibot is a three-board modular reconnaissance robot. The three subsystems are:
 
-- **Sensor + HMI Board** — Lakshanand (this datasheet) — ESP32-S3 + PIC18F57Q83
+- **Sensor + HMI Board** — Lakshanand (this datasheet) — PIC18F57Q83
 - **Wireless Gateway Board** — Mihir — ESP32 with WiFi, MQTT, and camera
 - **Actuator Control Board** — Raunak — PIC18F with SPI motor driver
 
@@ -64,6 +64,27 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 - UART packet construction, parsing, routing, and relay firmware
 - Emergency stop handling and ACK response
 - Power budget analysis and regulator selection
+
+---
+
+## Navigation
+
+- [Requirements](https://lakshanandsugumar.github.io/01-Requirements/Requirements/)
+- [Block Diagram](https://lakshanandsugumar.github.io/02-Block-Diagram/Block-Diagram/)
+- [Component Selection](https://lakshanandsugumar.github.io/03-Component-Selection/Component-Selection/)
+- [Schematic & Pin Allocation](https://lakshanandsugumar.github.io/04-Microcontroller-Selection/mcs/)
+- [Power Budget](https://lakshanandsugumar.github.io/05-Power-Budget/power/)
+- [Bill of Materials](https://lakshanandsugumar.github.io/06-BOM/BOM/)
+- [Schematic](https://lakshanandsugumar.github.io/07-Schematic/schematic/)
+- [PCB](https://lakshanandsugumar.github.io/08-PCB/pcb/)
+- [API & UART Protocol](https://lakshanandsugumar.github.io/09-API/api/)
+- [Hardware Version 2.0](https://lakshanandsugumar.github.io/10-Hardware-V2/hardwarev2/)
+- [Resources](https://lakshanandsugumar.github.io/11-Resources/resources/)
+- [Lessons Learned](https://lakshanandsugumar.github.io/12-Lessons-Learned/lessons/)
+- [Recommendations](https://lakshanandsugumar.github.io/13-Recommendations/recommendations/)
+- [Reflection](https://lakshanandsugumar.github.io/14-Reflection/reflection/)
+
+---
 
 ## Downloads
 
