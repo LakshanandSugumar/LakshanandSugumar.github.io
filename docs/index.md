@@ -65,12 +65,6 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 - Emergency stop handling and ACK response
 - Power budget analysis and regulator selection
 
----
-
-[Requirements](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/01-requirements/) | [Block Diagram](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/02-block-diagram/) | [Component Selection](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/03-component-selection/) | [Schematic & Pin Allocation](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-microcontroller-selection/) | [Power Budget](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/05-power-budget/) | [Bill of Materials](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/06-bom/) | [Schematic](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/07-schematic/) | [PCB](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/08-pcb/) | [Reflection](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/09-reflection/) | [API & UART Protocol](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/10-api/) | [Hardware Version 2.0](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/11-hardware-v2/) | [Lessons Learned](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/12-lessons-learned/) | [Recommendations](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/13-recommendations/) | [Resources](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/14-resources/)
-
----
-
 ## Downloads
 
 - [Schematic Project (.zip)](../07-Schematic/EGR314_Design_Review.zip)
