@@ -2,18 +2,18 @@
 title: Welcome
 tags:
   - EGR314
-  - Amphibot
+  - R6ReconAmphibot
   - SensorSubsystem
 ---
 
 <center>
-<font size= "6">Lakshanand's Datasheet</font><br>
+<font size="6">Lakshanand Sugumar — Individual Datasheet</font><br>
 as part of<br>
-<font size= "8"> Amphibot V1</font><br>
+<font size="8">R6 Recon Amphibot</font><br>
 for<br>
-<font size= "5"> Team 302 </font><br>
+<font size="5">Team 302 — EGR314 Spring 2026</font><br>
 
-**Last Updated: March 6, 2026**
+**Last Updated: May 2026**
 
 </center>
 
@@ -21,61 +21,52 @@ for<br>
 
 ## Introduction
 
-This datasheet presents the design and implementation of the **Sensor + Human–Machine Interface (HMI) subsystem** for Amphibot V1 (EGR 314 – Spring 2026).
+This datasheet presents the design and implementation of the **Sensor + Human–Machine Interface (HMI) subsystem** for the R6 Recon Amphibot (EGR314 – Spring 2026).
 
-It provides a standalone overview of my subsystem’s purpose, hardware design, firmware architecture, and role within the team’s UART daisy-chained robot platform.
+It provides a standalone technical record of my subsystem's hardware design, firmware architecture, component selection, and role within the team's three-node shared UART bus platform.
 
 ---
 
 ## Project Summary
 
-Amphibot V1 is a three-PCB modular reconnaissance robot inspired by R6 drone mechanics. The system includes:
+The R6 Recon Amphibot is a three-board modular reconnaissance robot. The three subsystems are:
 
-- PIC 18F47K42 microcontroller
-- Sensor + HMI Board (PIC-based)
-- Actuator Control Board
+- **Sensor + HMI Board** — Lakshanand (this datasheet) — ESP32-S3 + PIC18F57Q83
+- **Wireless Gateway Board** — Mihir — ESP32 with WiFi, MQTT, and camera
+- **Actuator Control Board** — Raunak — PIC18F with SPI motor driver
 
-The boards communicate using a standardized 64-byte UART packet structure in a daisy-chain configuration.
+All three boards communicate over a shared UART bus at 9600 baud using AZ/YB framed ASCII packets.
 
 The Sensor + HMI subsystem:
 
-- Collects IMU and environmental data
-- Computes a simplified hazard score
-- Displays system status on an SPI OLED
-- Handles local button input and emergency stop
-- Forwards structured UART messages between boards
+- Acquires orientation data from a BNO055 9-DOF IMU over software I²C
+- Reads temperature and humidity from an HDC2080 sensor
+- Displays real-time telemetry across four pages on an SH1106 OLED
+- Handles local pushbutton input and page switching
+- Publishes sensor data to the wireless gateway every 5 seconds
+- Relays motor commands from the gateway to the actuator board
+- Acts on emergency stop broadcasts immediately
 
-For the complete team documentation, click [Team Report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/)
+For complete team documentation: [Team 302 Project Report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/)
 
 ---
 
 ## My Contribution
 
-I designed and implemented the complete **Sensor + HMI subsystem**, including:
+I designed and implemented the complete Sensor + HMI subsystem, including:
 
-- Component selection and PCB design
-- PIC-based firmware (interrupt-driven)
-- Sensor integration (IMU + temp/humidity)
-- OLED display interface
-- UART packet parsing and forwarding
-- Emergency stop handling
-
----
-
-You can navigate to the main sections of our report using the links below:
-
-- [Requirements](https://lakshanandsugumar.github.io/01-Requirements/Requirements/)
-- [Block Diagram](https://lakshanandsugumar.github.io/02-Block-Diagram/Block-Diagram/)
-- [Component Selection](https://lakshanandsugumar.github.io/03-Component-Selection/Component-Selection/)
-- [Microcontroller Selection](https://lakshanandsugumar.github.io/04-%20Microcontroller%20Selection/mcs/)
-- [Power Budget](https://lakshanandsugumar.github.io/05-%20Power%20Budget/power/)
-- [Bill Of Material](https://lakshanandsugumar.github.io/06%20-BOM/BOM/)
-- [Schematics](https://lakshanandsugumar.github.io/07%20-Schematic/schematic/)
-- [PCB](https://lakshanandsugumar.github.io/08%20-PCB/pcb/)
-
----
+- Component selection for all ICs, passives, and connectors
+- PCB schematic capture and layout in KiCad
+- Software bit-bang I²C library for BNO055, SH1106, and HDC2080
+- BNO055 NDOF fusion mode driver and Euler angle parsing
+- SH1106 OLED framebuffer driver with four switchable display pages
+- HDC2080 temperature and humidity driver
+- UART packet construction, parsing, routing, and relay firmware
+- Emergency stop handling and ACK response
+- Power budget analysis and regulator selection
 
 ## Downloads
 
-- 📦 [Download Cadence Project](/07%20-Schematic/EGR314_Design_Review.zip)
-- 📦 [Download Cadence Symbols](/07%20-Schematic/symbols_design_review.zip)
+- [Cadence Project (.zip)](./07-Schematic/EGR314_Design_Review.zip)
+- [Cadence Symbols (.zip)](./07-Schematic/symbols_design_review.zip)
+- [Team API Reference (.docx)](./09-API/EGR314_Team302_API_Reference.docx)
