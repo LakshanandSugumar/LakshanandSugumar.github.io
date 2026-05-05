@@ -77,12 +77,12 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 - [Bill of Materials](https://lakshanandsugumar.github.io/06-BOM/BOM/)
 - [Schematic](https://lakshanandsugumar.github.io/07-Schematic/schematic/)
 - [PCB](https://lakshanandsugumar.github.io/08-PCB/pcb/)
-- [API & UART Protocol](https://lakshanandsugumar.github.io/09-API/api/)
-- [Hardware Version 2.0](https://lakshanandsugumar.github.io/10-Hardware-V2/hardwarev2/)
-- [Resources](https://lakshanandsugumar.github.io/11-Resources/resources/)
-- [Lessons Learned](https://lakshanandsugumar.github.io/12-Lessons-Learned/lessons/)
-- [Recommendations](https://lakshanandsugumar.github.io/13-Recommendations/recommendations/)
-- [Reflection](https://lakshanandsugumar.github.io/14-Reflection/reflection/)
+- [Reflection](https://lakshanandsugumar.github.io/09-Reflection/Reflection/)
+- [API & UART Protocol](https://lakshanandsugumar.github.io/10-API/API/)
+- [Hardware Version 2.0](https://lakshanandsugumar.github.io/11-Hardware V2/hardwarev2/)
+- [Lessons Learned](https://lakshanandsugumar.github.io/12-Lesson Learned/lessonlearned/)
+- [Recommendations](https://lakshanandsugumar.github.io/13 - Recommendation of Future Students/Recommendation/)
+- [Resources](https://lakshanandsugumar.github.io/14-Resources/resource/)
 
 ---
 
