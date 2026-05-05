@@ -56,7 +56,7 @@ For complete team documentation: [Team 302 Project Report](https://egr314-s-2026
 I designed and implemented the complete Sensor + HMI subsystem, including:
 
 - Component selection for all ICs, passives, and connectors
-- PCB schematic capture and layout in KiCad
+- PCB schematic capture and layout
 - Software bit-bang I²C library for BNO055, SH1106, and HDC2080
 - BNO055 NDOF fusion mode driver and Euler angle parsing
 - SH1106 OLED framebuffer driver with four switchable display pages
@@ -69,25 +69,25 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 
 ## Navigation
 
-- [Requirements](01-Requirements/Requirements.md)
-- [Block Diagram](02-Block-Diagram/Block-Diagram.md)
-- [Component Selection](03-Component-Selection/Component-Selection.md)
-- [Schematic & Pin Allocation](04-%20Microcontroller%20Selection/mcs.md)
-- [Power Budget](05-%20Power%20Budget/power.md)
-- [Bill of Materials](06%20-BOM/BOM.md)
-- [Schematic](07%20-Schematic/schematic.md)
-- [PCB](08%20-PCB/pcb.md)
-- [Reflection](09%20-Reflection/Reflection.md)
-- [API & UART Protocol](10%20-API/API.md)
-- [Hardware Version 2.0](11%20-Hardware%20V2/hardwarev2.md)
-- [Lessons Learned](12%20-Lesson%20Learned/lessonlearned.md)
-- [Recommendations](13%20-%20Recommendation%20of%20Future%20Students/Recommendation.md)
-- [Resources](14%20-Resources/resource.md)
+- [Requirements](../01-Requirements/Requirements.md)
+- [Block Diagram](../02-Block-Diagram/Block-Diagram.md)
+- [Component Selection](../03-Component-Selection/Component-Selection.md)
+- [Microcontroller Selection](../04-Microcontroller-Selection/mcs.md)
+- [Power Budget](../05-Power-Budget/power.md)
+- [Bill of Materials](../06-BOM/BOM.md)
+- [Schematic](../07-Schematic/schematic.md)
+- [PCB](../08-PCB/pcb.md)
+- [API & UART Protocol](../10-API/API.md)
+- [Hardware Version 2.0](../11-Hardware-V2/hardwarev2.md)
+- [Lessons Learned](../12-Lesson-Learned/lessonlearned.md)
+- [Recommendations](../13-Recommendation-of-Future-Students/Recommendation.md)
+- [Resources](../14-Resources/resource.md)
+- [Reflection](../09-Reflection/Reflection.md)
 
 ---
 
 ## Downloads
 
-- [Cadence Project (.zip)](./07-Schematic/EGR314_Design_Review.zip)
-- [Cadence Symbols (.zip)](./07-Schematic/symbols_design_review.zip)
-- [Team API Reference (.docx)](./09-API/EGR314_Team302_API_Reference.docx)
+- [Schematic Project (.zip)](../07-Schematic/EGR314_Design_Review.zip)
+- [Cadence Symbols (.zip)](../07-Schematic/symbols_design_review.zip)
+- [Team API Reference (.docx)](../10-API/EGR314_Team302_API_Reference.docx)
