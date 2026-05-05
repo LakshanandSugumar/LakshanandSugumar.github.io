@@ -67,22 +67,7 @@ I designed and implemented the complete Sensor + HMI subsystem, including:
 
 ---
 
-## Navigation
-
-- [Requirements](./01-Requirements/Requirements.md)
-- [Block Diagram](./02-Block-Diagram/Block-Diagram.md)
-- [Component Selection](./03-Component-Selection/Component-Selection.md
-- [Microcontroller Selection](./04-%20Microcontroller%20Selection/mcs.md)
-- [Power Budget](./05-%20Power%20Budget/power.md)
-- [Bill of Materials](./06%20-BOM/BOM.md)
-- [Schematic](./07%20-Schematic/schematic.md)
-- [PCB](./08%20-PCB/pcb.md)
-- [API & UART Protocol](./10%20-API/API.md)
-- [Hardware Version 2.0](./11%20-Hardware%20V2/hardwarev2.md)
-- [Lessons Learned](./12%20-Lesson%20Learned/lessonlearned.md)
-- [Recommendations](./13%20-%20Recommendation%20of%20Future%20Students//Recommendation.md
-- [Resources](./14%20-Resources/resource.md)
-- [Reflection](./09%20-Reflection/Reflection.md)
+[Requirements](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/01-requirements/) | [Block Diagram](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/02-block-diagram/) | [Component Selection](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/03-component-selection/) | [Schematic & Pin Allocation](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-microcontroller-selection/) | [Power Budget](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/05-power-budget/) | [Bill of Materials](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/06-bom/) | [Schematic](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/07-schematic/) | [PCB](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/08-pcb/) | [Reflection](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/09-reflection/) | [API & UART Protocol](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/10-api/) | [Hardware Version 2.0](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/11-hardware-v2/) | [Lessons Learned](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/12-lessons-learned/) | [Recommendations](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/13-recommendations/) | [Resources](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/14-resources/)
 
 ---
 
