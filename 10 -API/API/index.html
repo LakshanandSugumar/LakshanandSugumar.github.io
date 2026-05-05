@@ -15,7 +15,7 @@
         <link rel="prev" href="../../09%20-Reflection/Reflection/">
       
       
-        <link rel="next" href="../../13%20-%20Recommendation%20of%20Future%20Students/Recommendation/">
+        <link rel="next" href="../../11%20-Hardware%20V2/hardwarev2/">
       
       
       <link rel="icon" href="../../static/logo314.png">
@@ -421,7 +421,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../11 -Hardware V2/Hardware-V2.md" class="md-tabs__link">
+        <a href="../../11%20-Hardware%20V2/hardwarev2/" class="md-tabs__link">
           
   
     
@@ -441,7 +441,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../12 -Lesson Learned/Lessons-Learned.md" class="md-tabs__link">
+        <a href="../../12%20-Lesson%20Learned/lessonlearned/" class="md-tabs__link">
           
   
     
@@ -1229,35 +1229,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-pin-reference" class="md-nav__link">
+  <a href="#hardware-pin-reference-pic18f57q83" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Pin Reference
+      Hardware Pin Reference — PIC18F57Q83
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Hardware Pin Reference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#esp32-s3-firmware" class="md-nav__link">
-    <span class="md-ellipsis">
-      ESP32-S3 (Firmware)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pic18f57q83-pcb" class="md-nav__link">
-    <span class="md-ellipsis">
-      PIC18F57Q83 (PCB)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1321,6 +1297,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1364,7 +1349,7 @@
         
   
   
-    <a href="../../11 -Hardware V2/Hardware-V2.md" class="md-nav__link">
+    <a href="../../11%20-Hardware%20V2/hardwarev2/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1410,7 +1395,7 @@
         
   
   
-    <a href="../../12 -Lesson Learned/Lessons-Learned.md" class="md-nav__link">
+    <a href="../../12%20-Lesson%20Learned/lessonlearned/" class="md-nav__link">
       
   
   <span class="md-ellipsis">
@@ -1733,35 +1718,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hardware-pin-reference" class="md-nav__link">
+  <a href="#hardware-pin-reference-pic18f57q83" class="md-nav__link">
     <span class="md-ellipsis">
-      Hardware Pin Reference
+      Hardware Pin Reference — PIC18F57Q83
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Hardware Pin Reference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#esp32-s3-firmware" class="md-nav__link">
-    <span class="md-ellipsis">
-      ESP32-S3 (Firmware)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pic18f57q83-pcb" class="md-nav__link">
-    <span class="md-ellipsis">
-      PIC18F57Q83 (PCB)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1825,6 +1786,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#downloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Downloads
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1852,7 +1822,7 @@
 <p><strong>Lakshanand Sugumar — Team 302 — EGR314 Spring 2026</strong></p>
 <hr>
 <h2 id="overview">Overview</h2>
-<p>This page defines the messaging interface for the Sensor &amp; HMI subsystem of the R6 Recon Amphibot. The subsystem runs on an <strong>ESP32-S3</strong> (firmware) backed by a <strong>PIC18F57Q83</strong> (PCB), and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.</p>
+<p>This page defines the messaging interface for the Sensor &amp; HMI subsystem of the R6 Recon Amphibot. The subsystem is built around a <strong>PIC18F57Q83</strong> and sits in the middle of the three-node shared UART bus. It reads IMU and environmental data, displays telemetry on the OLED, relays motor commands from Mihir to Raunak, and publishes sensor data back to Mihir for MQTT forwarding to the cloud dashboard.</p>
 <p>All packets use the team-standardized AZ/YB framing with ASCII payloads. The packet structure, node IDs, and payload formats on this page are consistent with the full team API reference.</p>
 <hr>
 <h2 id="node-ids">Node IDs</h2>
@@ -1942,7 +1912,8 @@
 </table>
 <hr>
 <h2 id="packet-structure">Packet Structure</h2>
-<p>[ 0x41 | 0x5A | src_id | dest_id | payload bytes | 0x59 | 0x42 ]</p>
+<div class="highlight"><pre><span></span><code>[ 0x41 | 0x5A | src_id | dest_id | payload bytes | 0x59 | 0x42 ]
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2070,12 +2041,12 @@
 </table>
 <hr>
 <h2 id="payload-specifications">Payload Specifications</h2>
-<hr>
 <h3 id="sensor-data-hxrxpxtx">Sensor Data — <code>H:xR:xP:xT:x</code></h3>
 <p><strong>Direction:</strong> Sent to Mihir (<code>M</code>)<br>
 <strong>Trigger:</strong> Every 5 seconds, and immediately on <code>DATA</code> request<br>
-<strong>Format:</strong> ASCII string
-H:{heading}R:{roll}P:{pitch}T:{temp}</p>
+<strong>Format:</strong> ASCII string</p>
+<div class="highlight"><pre><span></span><code>H:{heading}R:{roll}P:{pitch}T:{temp}
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -2112,12 +2083,11 @@ H:{heading}R:{roll}P:{pitch}T:{temp}</p>
 </tr>
 </tbody>
 </table>
-<p><strong>Full example packet (hex):</strong>
-41 5A 4C 4D 48 3A 34 35 2E 32 52 3A 31 2E 33 50 3A 2D 32 2E 35 54 3A 32 38 59 42
-Decoded: <code>AZ L M H:45.2R:1.3P:-2.5T:28 YB</code></p>
-<blockquote>
+<p>Full example packet (hex):</p>
+<div class="highlight"><pre><span></span><code>41 5A 4C 4D 48 3A 34 35 2E 32 52 3A 31 2E 33 50 3A 2D 32 2E 35 54 3A 32 38 59 42
+</code></pre></div>
+<p>Decoded: <code>AZ L M H:45.2R:1.3P:-2.5T:28 YB</code></p>
 <p>Mihir parses this string and publishes JSON to <code>egr314/team302/sensor</code> over MQTT.</p>
-</blockquote>
 <hr>
 <h3 id="motor-relay-fwd-res-stp">Motor Relay — <code>FWD</code> / <code>RES</code> / <code>STP</code></h3>
 <p><strong>Direction:</strong> Received from Mihir (<code>M</code>), relayed to Raunak (<code>R</code>)<br>
@@ -2155,7 +2125,7 @@ Decoded: <code>AZ L M H:45.2R:1.3P:-2.5T:28 YB</code></p>
 <hr>
 <h3 id="page-change-pagen">Page Change — <code>PAGE{n}</code></h3>
 <p><strong>Direction:</strong> Sent to Mihir (<code>M</code>)<br>
-<strong>Trigger:</strong> BTN_PAGE (GPIO11) press cycles OLED page</p>
+<strong>Trigger:</strong> BTN_PAGE press cycles OLED page</p>
 <table>
 <thead>
 <tr>
@@ -2197,78 +2167,17 @@ Decoded: <code>AZ L M H:45.2R:1.3P:-2.5T:28 YB</code></p>
 <li>Send <code>AZ L M ACK YB</code> to Mihir</li>
 <li>Do not re-forward — Raunak receives the broadcast directly on the shared bus</li>
 </ol>
-<p><strong>Example packet (hex):</strong>
-41 5A 4D 58 45 53 54 4F 50 59 42
-Decoded: <code>AZ M X ESTOP YB</code></p>
+<p>Example packet (hex):</p>
+<div class="highlight"><pre><span></span><code>41 5A 4D 58 45 53 54 4F 50 59 42
+</code></pre></div>
+<p>Decoded: <code>AZ M X ESTOP YB</code></p>
 <hr>
 <h3 id="data-request-data">Data Request — <code>DATA</code></h3>
 <p><strong>Direction:</strong> Received from Mihir (<code>M</code>)<br>
 <strong>Trigger:</strong> Mihir requests latest sensor reading on demand</p>
 <p>On receipt: immediately read BNO055 and HDC2080, build and send <code>H:xR:xP:xT:x</code> string to Mihir.</p>
 <hr>
-<h2 id="hardware-pin-reference">Hardware Pin Reference</h2>
-<h3 id="esp32-s3-firmware">ESP32-S3 (Firmware)</h3>
-<table>
-<thead>
-<tr>
-<th>GPIO</th>
-<th>Signal</th>
-<th>Direction</th>
-<th>Connected To</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPIO 8</td>
-<td>I²C SCL (bus 0)</td>
-<td>Output</td>
-<td>SSD1306 OLED clock</td>
-</tr>
-<tr>
-<td>GPIO 16</td>
-<td>I²C SDA (bus 0)</td>
-<td>Bidir</td>
-<td>SSD1306 OLED data</td>
-</tr>
-<tr>
-<td>GPIO 14</td>
-<td>I²C SCL (bus 1)</td>
-<td>Output</td>
-<td>BNO055 IMU clock</td>
-</tr>
-<tr>
-<td>GPIO 4</td>
-<td>I²C SDA (bus 1)</td>
-<td>Bidir</td>
-<td>BNO055 IMU data</td>
-</tr>
-<tr>
-<td>GPIO 43</td>
-<td>UART2 TX</td>
-<td>Output</td>
-<td>Shared bus transmit</td>
-</tr>
-<tr>
-<td>GPIO 44</td>
-<td>UART2 RX</td>
-<td>Input</td>
-<td>Shared bus receive</td>
-</tr>
-<tr>
-<td>GPIO 11</td>
-<td>BTN_PAGE</td>
-<td>Input</td>
-<td>Cycle OLED pages (pull-up, active LOW)</td>
-</tr>
-<tr>
-<td>GPIO 6</td>
-<td>BTN_CAL</td>
-<td>Input</td>
-<td>Recalibrate IMU zero (pull-up, active LOW)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="pic18f57q83-pcb">PIC18F57Q83 (PCB)</h3>
+<h2 id="hardware-pin-reference-pic18f57q83">Hardware Pin Reference — PIC18F57Q83</h2>
 <table>
 <thead>
 <tr>
@@ -2281,15 +2190,15 @@ Decoded: <code>AZ M X ESTOP YB</code></p>
 <tbody>
 <tr>
 <td>RC3</td>
-<td>I²C1 SCL</td>
+<td>I²C SCL (bit-bang)</td>
 <td>Output</td>
-<td>OLED clock</td>
+<td>BNO055 clock, SH1106 clock, HDC2080 clock</td>
 </tr>
 <tr>
 <td>RC4</td>
-<td>I²C1 SDA</td>
+<td>I²C SDA (bit-bang)</td>
 <td>Bidir</td>
-<td>OLED data</td>
+<td>BNO055 data, SH1106 data, HDC2080 data</td>
 </tr>
 <tr>
 <td>RC6</td>
@@ -2304,16 +2213,40 @@ Decoded: <code>AZ M X ESTOP YB</code></p>
 <td>Shared bus receive</td>
 </tr>
 <tr>
-<td>RB7</td>
-<td>PGD</td>
-<td>Bidir</td>
-<td>SNAP programmer data</td>
+<td>RB0</td>
+<td>BTN_PAGE</td>
+<td>Input</td>
+<td>Cycle OLED pages (10 kΩ pull-up, active LOW)</td>
+</tr>
+<tr>
+<td>RB1</td>
+<td>BTN_CAL</td>
+<td>Input</td>
+<td>Recalibrate IMU zero (10 kΩ pull-up, active LOW)</td>
+</tr>
+<tr>
+<td>RA2</td>
+<td>LED1</td>
+<td>Output</td>
+<td>Status LED 1 (220 Ω series resistor)</td>
+</tr>
+<tr>
+<td>RA3</td>
+<td>LED2</td>
+<td>Output</td>
+<td>Status LED 2 (220 Ω series resistor)</td>
 </tr>
 <tr>
 <td>RB6</td>
 <td>PGC</td>
 <td>Input</td>
 <td>SNAP programmer clock</td>
+</tr>
+<tr>
+<td>RB7</td>
+<td>PGD</td>
+<td>Bidir</td>
+<td>SNAP programmer data</td>
 </tr>
 <tr>
 <td>RE3</td>
@@ -2429,21 +2362,30 @@ Decoded: <code>AZ M X ESTOP YB</code></p>
 <hr>
 <h2 id="communication-flow-examples">Communication Flow Examples</h2>
 <h3 id="motor-forward-cloud-motor">Motor Forward (Cloud → Motor)</h3>
-<p>Dashboard → MQTT: egr314/team302/motor = "FWD"
-Mihir builds: AZ M L FWD YB → sends on UART bus
+<div class="highlight"><pre><span></span><code>Dashboard → MQTT: egr314/team302/motor = "FWD"
+Mihir builds:  AZ M L FWD YB  → sends on UART bus
 Laksh receives, dest=L, payload=FWD
-Laksh builds: AZ L R FWD YB → sends on UART bus
-Raunak receives, sends SPI 0xEF → motor drives forward</p>
+Laksh builds:  AZ L R FWD YB  → sends on UART bus
+Raunak receives, sends SPI 0xEF → motor drives forward
+</code></pre></div>
 <h3 id="sensor-data-imu-cloud">Sensor Data (IMU → Cloud)</h3>
-<p>Laksh reads BNO055 every 200 ms, caches values
+<div class="highlight"><pre><span></span><code>Laksh reads BNO055 every 200 ms, caches values
 Every 5 s: Laksh builds AZ L M H:45.2R:1.3P:-2.5T:28 YB
 Mihir receives, parses string, publishes JSON to egr314/team302/sensor
-Dashboard receives sensor data via MQTT subscription</p>
+Dashboard receives sensor data via MQTT subscription
+</code></pre></div>
 <h3 id="emergency-stop">Emergency Stop</h3>
-<p>Dashboard → MQTT: egr314/team302/estop
+<div class="highlight"><pre><span></span><code>Dashboard → MQTT: egr314/team302/estop
 Mihir builds: AZ M X ESTOP YB (broadcast)
 Laksh receives broadcast: shows ESTOP on OLED, sends AZ L M ACK YB
-Raunak receives broadcast: sends SPI 0xFF, motor stops</p>
+Raunak receives broadcast: sends SPI 0xFF, motor stops
+</code></pre></div>
+<hr>
+<h2 id="downloads">Downloads</h2>
+<ul>
+<li><a href="EGR314_Team302_API_Reference.docx">Team API Reference (.docx)</a></li>
+<li><a href="../main.c">Firmware Source — main.c</a></li>
+</ul>
 
 
 
@@ -2499,13 +2441,13 @@ Raunak receives broadcast: sends SPI 0xFF, motor stops</p>
         
         
           
-          <a href="../../13%20-%20Recommendation%20of%20Future%20Students/Recommendation/" class="md-footer__link md-footer__link--next" aria-label="Next: Recommendations for Future Students">
+          <a href="../../11%20-Hardware%20V2/hardwarev2/" class="md-footer__link md-footer__link--next" aria-label="Next: Hardware Version 2.0">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Recommendations for Future Students
+                Hardware Version 2.0
               </div>
             </div>
             <div class="md-footer__button md-icon">
