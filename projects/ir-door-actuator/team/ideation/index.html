@@ -1,0 +1,2218 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+
+<meta name="robots" content="nofollow">
+
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="EGR 304 private-use door automation: infrared distance-sensing subsystem on a PIC18F57Q43.">
+      
+      
+      
+        <link rel="canonical" href="https://lakshanandsugumar.github.io/projects/ir-door-actuator/team/ideation/">
+      
+      
+        <link rel="prev" href="../requirements/">
+      
+      
+        <link rel="next" href="../block-diagram/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../static/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+            
+
+    
+
+    
+      
+        <title>Design Ideation - IR Motion-Sensing Door Actuator · Lakshanand Sugumar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+
+
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introoverview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="IR Motion-Sensing Door Actuator · Lakshanand Sugumar" class="md-header__button md-logo" aria-label="IR Motion-Sensing Door Actuator · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../../static/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IR Motion-Sensing Door Actuator · Lakshanand Sugumar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Design Ideation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../subsystem/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  My Subsystem
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../user-needs/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Team Project
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="IR Motion-Sensing Door Actuator · Lakshanand Sugumar" class="md-nav__button md-logo" aria-label="IR Motion-Sensing Door Actuator · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../../static/logo.svg" alt="logo">
+
+    </a>
+    IR Motion-Sensing Door Actuator · Lakshanand Sugumar
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../subsystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Subsystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Team Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-needs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Needs &amp; Benchmarking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Product Requirements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Ideation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Ideation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introoverview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intro/overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intro/overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-to-product-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection to Product Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Ideas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rankinggrouping-of-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranking/Grouping of Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ranking/Grouping of Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selected-high-priority-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selected high-priority features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedded-systems-features-we-can-build-in-this-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedded-systems features we can build in this class
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concept-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-1-free-door-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 1 – Free Door Movement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 1 – Free Door Movement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-embedded-systems-features-in-model-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key embedded-systems features in Model 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-2-multi-directional-arm-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 2 – Multi-Directional Arm Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 2 – Multi-Directional Arm Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-embedded-systems-features-in-model-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key embedded-systems features in Model 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-3-sensor-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 3 – Sensor Functionality
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 3 – Sensor Functionality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-storyboard-johns-grandmother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example storyboard (John’s grandmother)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../block-diagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Block Diagram
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software Proposal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-budget/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Power Budget
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reflection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team Reflection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#introoverview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intro/overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intro/overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connection-to-product-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection to Product Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generating-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating Ideas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rankinggrouping-of-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ranking/Grouping of Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ranking/Grouping of Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selected-high-priority-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Selected high-priority features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#embedded-systems-features-we-can-build-in-this-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedded-systems features we can build in this class
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concept-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concept Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-1-free-door-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 1 – Free Door Movement
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 1 – Free Door Movement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-embedded-systems-features-in-model-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key embedded-systems features in Model 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-2-multi-directional-arm-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 2 – Multi-Directional Arm Function
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 2 – Multi-Directional Arm Function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-embedded-systems-features-in-model-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key embedded-systems features in Model 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-3-sensor-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model 3 – Sensor Functionality
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model 3 – Sensor Functionality">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-level-concept_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System-level concept
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-storyboard-johns-grandmother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example storyboard (John’s grandmother)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Design Ideation</h1>
+
+<hr>
+<h2 id="introoverview">Intro/overview<a class="headerlink" href="#introoverview" title="Permanent link">¶</a></h2>
+<p>The goal of the Design Ideation phase was to convert previously established user needs and product requirements into functional design features. To achieve this goal, the team prioritized the needs/requirements we viewed as most important as well as most practical for the scope of our project. We then brainstormed multiple solutions for each of them which, when put together, could form successful features to be used in the design of our product. Finally, we created 3 distinct design concepts to help ourselves and potential clients see the vision of our project.</p>
+<h3 id="connection-to-product-requirements">Connection to Product Requirements<a class="headerlink" href="#connection-to-product-requirements" title="Permanent link">¶</a></h3>
+<p>The “requirement / need” statements used throughout this page are now aligned directly with our <strong>Product Requirements</strong> document. During this ideation activity, we:</p>
+<ul>
+<li>Merged overlapping user needs and product requirements into a single consistent list.</li>
+<li>Updated the Product Requirements so that each requirement appears (possibly slightly rephrased) in the table below.</li>
+<li>Ensured that every selected feature traces back to one of these product requirements.</li>
+</ul>
+<p>In other words, the requirements we ideate from here are the same requirements we will design and test against in later phases.</p>
+<hr>
+<h2 id="generating-ideas">Generating Ideas<a class="headerlink" href="#generating-ideas" title="Permanent link">¶</a></h2>
+<p>Shown below is the table of brainstormed features correlating to their prioritized user need/requirement.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">requirement / need</th>
+<th style="text-align: center;">feature</th>
+<th>detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">The product must stop if something is in the way.</td>
+<td style="text-align: center;">Sensor</td>
+<td>The device has an additional sensor focusing on the doorway line to make sure there is nothing in the area. This is important because we do not want the door to shut on people, animals, or objects.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must stop if something is in the way.</td>
+<td style="text-align: center;">Smaller Motor</td>
+<td>The device only produces a max of 10lbs of force. This is important because if someone gets stuck in between the door they can push the door to prevent closure.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must stop if something is in the way.</td>
+<td style="text-align: center;">Resistance-sensing Motor</td>
+<td>The motor is able to send data about the force acting against it, and if the force is over a certain threshold, the motor stops and reverses.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must stop if something is in the way.</td>
+<td style="text-align: center;">Radar/Sensor</td>
+<td>The device sends and receives transmissions to and from a chip that users carry. The door remains open as long as the chip is within a certain distance from the device (~2 feet).</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must stop if something is in the way.</td>
+<td style="text-align: center;">Microphone</td>
+<td>The device listens for a keyword (such as "stop") and upon registering the keyword, stops the motor.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must be easy to open in an emergency</td>
+<td style="text-align: center;">Latch</td>
+<td>The device has a latch inside that unhinges the motor to the door, causing the door to open without resistance. This is important because it refers to safety if the mechanism loses power.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must be easy to open in an emergency</td>
+<td style="text-align: center;">Button</td>
+<td>The device has a secret button that will turn the motor off to make opening the door easier. This is important because it refers to safety if the mechanism loses power.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must be easy to open in an emergency</td>
+<td style="text-align: center;">Pin/Key</td>
+<td>The device disengages the motor when a key/pin is inserted through a hole. This is important because it refers to safety if the mechanism loses power.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must be easy to open in an emergency</td>
+<td style="text-align: center;">Microphone</td>
+<td>The device disengages the motor when a keyword (such as "disengage") is spoken by the user.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can stay closed around children</td>
+<td style="text-align: center;">Proximity/distance sensor</td>
+<td>This device will be able to stay closed if the object/person is too short. This is to prevent children or animals from getting into something they are not supposed to. This is important as it was stated in our user needs.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can stay closed around children</td>
+<td style="text-align: center;">Radar/Sensor</td>
+<td>The device sends and receives transmissions to and from a chip that authorized users carry. The device only operates when the chip is within a certain distance (~ 3 feet).</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can stay closed around children</td>
+<td style="text-align: center;">Button/Switch</td>
+<td>The device has a button or switch in an inconspicuous area which acts as a "child lock". The motor will not activate until the button/switch is activated again.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can stay closed around children</td>
+<td style="text-align: center;">Facial Recognition</td>
+<td>The device uses a facial scanner to store authorized users' Face IDs. An authorized face must be scanned in order for the motor to activate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can stay closed around children</td>
+<td style="text-align: center;">Scanner</td>
+<td>The device has a QR/Barcode scanner that activates when a user is in the proximity. The user must present the proper QR/Barcode to activate the motor.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is able to work in case of a power outage</td>
+<td style="text-align: center;">Seperate Battery</td>
+<td>This is very important in case everything loses power. The device has a small battery that can power the door for an amount of time until the power gets back on.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is able to work in case of a power outage</td>
+<td style="text-align: center;">Power Adapter</td>
+<td>The product comes with an adapter that can hook up to a power bank (such as those commonly used to charge small devices). The device can perform basic functioning at this lower power slowly and/or for a short time.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is able to work in case of a power outage</td>
+<td style="text-align: center;">Capacitor Failsafe</td>
+<td>The device has a series of capacitors that, upon the device losing power, provide a boost of current just strong enough to let the door open/stay open.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is able to work in case of a power outage</td>
+<td style="text-align: center;">Spring system</td>
+<td>The door is spring loaded when shut. If power to the device is lost, the motor disengages and the spring pushes the door open.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product will start opening before user gets too close</td>
+<td style="text-align: center;">Forward Sensor</td>
+<td>This sensor will measure objects equal to the door length plus an additional 6-12 inches. This is important because the door should not open and hit the customer while in use.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product will start opening before user gets too close</td>
+<td style="text-align: center;">Sensor/radar</td>
+<td>The user will carry a chip which tells the device to activate the motor when they are within a certain radius.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product distinguishes between adults, kids, and animals.</td>
+<td style="text-align: center;">Distance Sensor</td>
+<td>This device will distinguish between different heights to promote safety and prevent kids or animals from opening doors that they should not open.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product distinguishes between adults, kids, and animals.</td>
+<td style="text-align: center;">Sensor/Radar</td>
+<td>The device can detect chips carried by authorized users.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product distinguishes between adults, kids, and animals.</td>
+<td style="text-align: center;">Microphone</td>
+<td>The product can listen to/distinguish between different voices, only activating when the correct voice is heard.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product distinguishes between adults, kids, and animals.</td>
+<td style="text-align: center;">Knowledge Test</td>
+<td>The device submits a query to each potential user which only an adult would know the answer to.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product distinguishes between adults, kids, and animals.</td>
+<td style="text-align: center;">Soundwave Detection</td>
+<td>The device can identify the walking-pattern sound/vibration of children and animals, and deny them access.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Slider</td>
+<td>The device will have a slider installed next to the door latch. This will slide before and after the door moves. This is important because some doors should stay locked/closed while the device does not activate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Pulley</td>
+<td>The device has a pulley that is run with the motor. This will pull at the latch to unlock the latch.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Motor Function</td>
+<td>The device has a mode which keeps the system in tension, pushing back against attempts to manually open the door.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Second Motor</td>
+<td>The device has a motor attached to the existing lock on the door, which can activate/deactivate it.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Magnetic Field</td>
+<td>A magnet is attached to the edge of the door. The device can induce a strong magnetic field from the doorframe which resists movement of the magnet.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can lock/unlock the door</td>
+<td style="text-align: center;">Friction Brake</td>
+<td>The device controls a pad attached to the bottom edge of the door. This pad pushes against the ground, creating friction and resisting movement.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Delay in Sensor</td>
+<td>After someone leaves the sensor view, there will be a delay then it will start closing. This is important so that the door can be closed and locked depending on user preference.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Programmed Timer</td>
+<td>The device closes the door after an amount of time from when it opened, selected by the user.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Sensor/Radar</td>
+<td>The device closes once a chip, carried by all users, is outside a certain radius.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Multi-directional Sensors</td>
+<td>Sensors on each side of the door are multi-directional. The device closes only once all objects are outside of a certain range.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Movement Tracking</td>
+<td>A camera/sensor locks onto the user when they approach. It stays locked on until the user is outside a certain range, then the door closes.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Motion Sensor</td>
+<td>The device closes the door once no motion is detected.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Microphone</td>
+<td>The device closes the door if the volume of the room stays below a threshold for a certain amount of time.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has an auto close feature.</td>
+<td style="text-align: center;">Tripwire Sensors</td>
+<td>The device is linked to sensors placed a few feet past each side of the door. When the user walks past the sensor opposite from the direction they entered, the device closes the door.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a simple power supply.</td>
+<td style="text-align: center;">Battery</td>
+<td>The device has a battery that powers it. This will be convenient so that there are no extra wires outside the product.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a simple power supply.</td>
+<td style="text-align: center;">Wired</td>
+<td>The device has a power wire that runs around the door and into a power outlet. This prevents the device from needing to have batteries replaced and supplies constant power.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a simple power supply</td>
+<td style="text-align: center;">Solar</td>
+<td>The device will have a small solar panel on the side. This will help recharge the device as long as it is near a light source.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has 90 or 180 degree openability.</td>
+<td style="text-align: center;">360 Motor</td>
+<td>The door opens as much as it can by connecting the door straight to the motor.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has 90 or 180 degree openability.</td>
+<td style="text-align: center;">Teethed Pulley</td>
+<td>The motor is connected to a pulley that will pull the door open. This will also work in reverse which will help push the door closed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has 90 or 180 degree openability.</td>
+<td style="text-align: center;">Mechanical Arms</td>
+<td>The motor is connected to mechanical arms that will rotate and bend to open the door. This will prevent loss of tension and can help with how much power the motor is using.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has 90 or 180 degree openability.</td>
+<td style="text-align: center;">Dual-motor</td>
+<td>The device has a motor on either side of the door. They are connected by a strong yet thin string/wire attached to the door. The motors synchronously run in opposite directions to allow each other to pull the door in either direction.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has 90 or 180 degree openability.</td>
+<td style="text-align: center;">Magnets</td>
+<td>A magnet is attached to the top of the door. The device moves a second magnet along a ceiling-mounted track, pulling the door with it to a specified number of degrees.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product does not interfere with manual opening of doors.</td>
+<td style="text-align: center;">Auto-Disengage Program</td>
+<td>If the device senses someone trying to open the door and it is not in a lock setting, then the device will disengage the motor so that the motor is not fighting the user in opening the door.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product does not interfere with the manual opening of doors.</td>
+<td style="text-align: center;">Assisted Open</td>
+<td>When the device senses manual use of the door, the motor activates to continue moving the door in the same direction.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product does not interfere with manual opening of doors.</td>
+<td style="text-align: center;">Handle Sensor</td>
+<td>A sensor on the door handle disengages the motor and allows free movement of the door.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product does not interfere with manual opening of the doors.</td>
+<td style="text-align: center;">Stand-by Mode</td>
+<td>"Stand-by Mode" can be activated which disengages all device features for a period of time or until the mode is switched off.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product does not interfere with manual opening of the doors.</td>
+<td style="text-align: center;">Motor Auto-Clutch</td>
+<td>When the door is manually opened, the motor does not activate but also does not fully detach, allowing the door to move freely until movement stops.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product stops operation when sensing more resistance than usual.</td>
+<td style="text-align: center;">Auto-Disengage Program</td>
+<td>This can happen if the door is locked, latched, or something is blocking the door. To prevent damage to the device and the objects, the device will disengage the motor after it exerts more than 10 lbs of force.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product stops operation when sensing more resistance than usual.</td>
+<td style="text-align: center;">Self-Sensing Motor</td>
+<td>If the motor is moving, then stops moving earlier than expected for more than 1 second, it will deactivate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product stops operation when sensing more resistance than usual.</td>
+<td style="text-align: center;">Power Sensing</td>
+<td>The motor is supplied with variable power when met with varying resistance to keep its speed constant, up until a threshold at which it deactivates.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The door can stay closed while the customer is gone.</td>
+<td style="text-align: center;">Latch</td>
+<td>The device can come with a latch on the top of the door so that when closed, the latch engages and locks the door for the user.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The door can stay closed while the customer is gone.</td>
+<td style="text-align: center;">Slider</td>
+<td>The user can engage or disengage a slider. This will prevent the device from using the slider to unlock the door and keep the door closed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The door can stay closed while the customer is gone.</td>
+<td style="text-align: center;">Off Switch</td>
+<td>When the user leaves, they can press a delayed off switch that will turn off the motor after 10 min. This means that the next time the customer comes to the door, they will either have to open it themselves or turn the motor back on.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The device does not stay on all day.</td>
+<td style="text-align: center;">Timer</td>
+<td>The device has a timer that will turn the motor off after 10 min. The sensor will stay on and turn the rest of the components back on if it senses movement.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The device does not stay on all day.</td>
+<td style="text-align: center;">Clock</td>
+<td>The device will have a clock which can program the device to turn off during certain times of the day. This is important because it turns the whole device off which saves energy and prevents the door from automatically opening when the user does not want it to.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The device does not stay on all day.</td>
+<td style="text-align: center;">Power Button</td>
+<td>The device has a button which cuts off all power to itself, and can also restore power to itself.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The device does not stay on all day.</td>
+<td style="text-align: center;">Sensor</td>
+<td>The same sensor which tells the motor to open the door can also be used to turn off the device (such as if the sensor is receiving input for longer than 15 seconds).</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">Distance Sensor</td>
+<td>The device will read at least 32 inches from the door for when the door opens forward so that it follows ADA compliance. This will also prevent the door from opening in front of users and colliding with objects that are moving toward the door.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">Motor Speed</td>
+<td>The motor speed will be controlled to take at least 3 seconds to fully open, and at least 5 seconds to close the door from 90 degrees open.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">Resistance Testing</td>
+<td>When the door is being manually opened, any resistance from the motor or other hardware will not exceed 5 pounds.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">Mounting Instructions</td>
+<td>Instructions included with the device will inform the user to mount the user interface between 34 and 48 inches above the floor.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">Ergonomics</td>
+<td>All interactable elements of the device will have special design consideration to be activatable with one hand, without tight grasping, pinching, or wrist-twisting.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must follow ADA rules</td>
+<td style="text-align: center;">User Setting Limits</td>
+<td>The device will not allow the user to program the device to close the door sooner than 5 seconds after it has opened.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easily adjusted</td>
+<td style="text-align: center;">UI w/ Buttons</td>
+<td>The device has a user interface which allows the user to program settings through the use of buttons.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easily adjusted</td>
+<td style="text-align: center;">UI w/ Touchscreen</td>
+<td>The device has a user interface which allows the user to program settings through the use of a touchscreen.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easily adjusted</td>
+<td style="text-align: center;">Potentiometer</td>
+<td>The motor has a physical dial which electrically changes its strength and/or speed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easily adjusted</td>
+<td style="text-align: center;">Sliding Motor</td>
+<td>The motor can be moved along the width of the door to adjust its effect on the door using the concept of torque.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easily adjusted</td>
+<td style="text-align: center;">Non-destructive Mounts</td>
+<td>The mounting process of the device components uses technology such as adhesive/suction which do not cause damage to surfaces and are easy to relocate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Products are installed by those with no experience</td>
+<td style="text-align: center;">Limited Part Count</td>
+<td>The device, when received by the consumer, has the minimum possible number of components that must be put together/installed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Products are installed by those with no experience</td>
+<td style="text-align: center;">Modular Design</td>
+<td>Any components that must be put together/installed by the consumer have attachments which are simple and intuitive.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Products are installed by those with no experience</td>
+<td style="text-align: center;">Effective Instructions</td>
+<td>An instruction booklet is written and modified, along with the installation process, until testing shows that the majority of users have zero struggles with installation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">Products are installed by those with no experience</td>
+<td style="text-align: center;">Digital Access</td>
+<td>The instructions for installation feature a QR code which links to helpful video/picture tutorials.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can be installed without the user owning tools</td>
+<td style="text-align: center;">Included Tools</td>
+<td>All tools required for installation are included in the packaging.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can be installed without the user owning tools</td>
+<td style="text-align: center;">No Tools Required</td>
+<td>The design uses innovation such as snap-together technology, adhesive, suction, etc. which do not require tools to install.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product can be installed without the user owning tools</td>
+<td style="text-align: center;">Self-installing</td>
+<td>The design is robotic and assembles itself on arrival.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easy to repair/debug if necessary</td>
+<td style="text-align: center;">Debugger</td>
+<td>The device can be prompted to scan its software for issues and attempt to remedy them.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easy to repair/debug if necessary</td>
+<td style="text-align: center;">Replaceable Parts</td>
+<td>Every hardware component of the device can be swapped out if necessary, and is available to purchase through our business or at public stores.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easy to repair/debug if necessary</td>
+<td style="text-align: center;">Reset</td>
+<td>The device has a reset feature which reverts all settings/code back to its default state.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easy to repair/debug if necessary</td>
+<td style="text-align: center;">Recurring Self-Scan</td>
+<td>The device continually scans its software/hardware and can identify issues, reporting them to the user through audible/visual information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product is easy to repair/debug if necessary</td>
+<td style="text-align: center;">Virtual Support</td>
+<td>A website is created which provides solutions to common/possible issues. The website also links to live support.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a durable build for long-term use</td>
+<td style="text-align: center;">Dust-Proof</td>
+<td>The main casing is sealed off to prevent dust from gathering on the electronics.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a durable build for long-term use</td>
+<td style="text-align: center;">Water-Resistant</td>
+<td>The main casing uses materials which provide protection against mist/moisture.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a durable build for long-term use</td>
+<td style="text-align: center;">Impact-Rated</td>
+<td>The components of the device are impact rated to withstand up to 50 lbs of instantaneous force.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a durable build for long-term use</td>
+<td style="text-align: center;">Rust-Proof</td>
+<td>Any metal components exposed to the environment are finished with an anti-rust coating.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product has a durable build for long-term use</td>
+<td style="text-align: center;">Elastic Materials</td>
+<td>When possible, slightly elastic materials such as rubber are used over rigid materials to allow reversible deformation rather than cracking/shattering.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must have clear signals for open, closed, and errors.</td>
+<td style="text-align: center;">Color-Changing LED</td>
+<td>The device has an LED which changes color based on status.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must have clear signals for open, closed, and errors.</td>
+<td style="text-align: center;">Blinking LED</td>
+<td>The device has an LED which is either on, off, or blinking in different patterns based on status.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must have clear signals for open, closed, and errors.</td>
+<td style="text-align: center;">Buzzer</td>
+<td>The device has a buzzer which uses different tones/patterns to indicate status.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must have clear signals for open, closed, and errors.</td>
+<td style="text-align: center;">Speaker</td>
+<td>The device has a speaker which outputs spoken phrases based on status.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product must have clear signals for open, closed, and errors.</td>
+<td style="text-align: center;">Text Output</td>
+<td>The device outputs text to a screen near the doorframe based on its status.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product’s most basic functioning requires little to no user programming.</td>
+<td style="text-align: center;">Default Mode</td>
+<td>The device is in "default mode" on arrival which has limited functionality but works safely in almost any environment.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product’s most basic functioning requires little to no user programming.</td>
+<td style="text-align: center;">Quick Setup</td>
+<td>The installation instructions explain how to program the device based on doorframe dimensions and desired function.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product’s most basic functioning requires little to no user programming.</td>
+<td style="text-align: center;">Preset Modes</td>
+<td>The device has multiple preset software modes for the user to choose between after installing the device.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product’s most basic functioning requires little to no user programming.</td>
+<td style="text-align: center;">Auto-Setup</td>
+<td>After installation, the device safely scans/feels out the environment through sensors/resistance-sensing and programs itself based on this information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">The product’s most basic functioning requires little to no user programming.</td>
+<td style="text-align: center;">Built-in AI</td>
+<td>After installation, an AI asks the user questions about the product's environment and desired functionality, then programs the software based on this information.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="rankinggrouping-of-features">Ranking/Grouping of Features<a class="headerlink" href="#rankinggrouping-of-features" title="Permanent link">¶</a></h2>
+<p>After coming up with 100 feature ideas the team decided which features were the most relevant based on importance to the overall goal of our project, as well as innovation and feasibility. Some of the top ideas chosen by the team are shown below. We used these as a benchmark of what we would like the product to accomplish that will separate it from other similar products.</p>
+<h3 id="selected-high-priority-features">Selected high-priority features<a class="headerlink" href="#selected-high-priority-features" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Sensor</td>
+<td>The device has an additional sensor focusing on the doorway line to make sure there is nothing in the area. This is important because we do not want the door to shut on people, animals, or objects.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Smaller Motor</td>
+<td>The device only produces a max of 10lbs of force. This is important because if someone gets stuck in between the door they can push the door to prevent closure.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Latch</td>
+<td>The device has a latch inside that unhinges the motor to the door causing the door to open without resistance. This is important because it refers to safety if the mechanism loses power.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Button/Switch</td>
+<td>The device has a button or switch in an inconspicuous area which acts as a "child lock". The motor will not activate until the button/switch is activated again.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Seperate Battery</td>
+<td>This is very important in case everything loses power. The device has a small battery that can power the door for an amount of time until the power gets back on.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Slider</td>
+<td>The device will have a slider installed next to the door latch. This will slide before and after the door moves. This is important because some doors should stay locked/closed while the device does not activate.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Programmed Timer</td>
+<td>The device closes the door after an amount of time from when it opened, selected by the user.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Tripwire Sensors</td>
+<td>The device is linked to sensors placed a few feet past each side of the door. When the user walks past the sensor opposite from the direction they entered, the device closes the door.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Wired</td>
+<td>The device has a power wire that runs around the door and into a power outlet. This prevents the device from needing to have batteries replaced and supplies constant power.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mechanical Arms</td>
+<td>The motor is connected to mechanical arms that will rotate and bend to open the door. This will prevent loss of tension and can help with how much power the motor is using.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto-Disengage Program</td>
+<td>If the device senses someone trying to open the door and it is not in a lock setting, then the device will disengage the motor so that the motor is not fighting the user in opening the door.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Motor Auto-Clutch</td>
+<td>When the door is manually opened, the motor does not activate but also does not fully detach, allowing the door to move freely until movement stops.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto-Disengage Program</td>
+<td>This can happen if the door is locked, latched, or something is blocking the door. To prevent damage to the device and the objects, the device will disengage the motor after it exerts more than 10 lbs of force.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Timer</td>
+<td>The device has a timer that will turn the motor off after 10 min. The sensor will stay on and turn the rest of the components back on if it senses movement.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Clock</td>
+<td>The device will have a clock which can program the device to turn off during certain times of the day. This is important because it turns the whole device off which saves energy and prevents the door from automatically opening when the user does not want them to open.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Delay in Sensor</td>
+<td>After someone leaves the sensor view, there will be a delay then it will start closing. This is important so that the door can be closed and locked depending on user preference.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Distance Sensor</td>
+<td>The device will read at least 32 inches from the door for when the door opens forward so that it follows ADA compliance. This will also prevent the door from opening in front of users and colliding with objects that are moving toward the door.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Motor Speed</td>
+<td>The motor speed will be controlled to take at least 3 seconds to fully open, and at least 5 seconds to close the door from 90 degrees open.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resistance Testing</td>
+<td>When the door is being manually opened, any resistance from the motor or other hardware will not exceed 5 pounds.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Mounting Instructions</td>
+<td>Instructions included with the device will inform the user to mount the user interface between 34 and 48 inches above the floor.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ergonomics</td>
+<td>All interactable elements of the device will have special design consideration to be activatable with one hand, without tight grasping, pinching, or wrist-twisting.</td>
+</tr>
+<tr>
+<td style="text-align: left;">User Setting Limits</td>
+<td>The device will not allow the user to program the device to close the door sooner than 5 seconds after it has opened.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Forward Sensor</td>
+<td>This sensor will measure objects equal to the door length plus an additional 6-12 inches. This is important because the door should not open and hit the customer while in use.</td>
+</tr>
+<tr>
+<td style="text-align: left;">UI w/ Buttons</td>
+<td>The device has a user interface which allows the user to program settings through the use of buttons.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Non-destructive Mounts</td>
+<td>The mounting process of the device components uses technology such as adhesive/suction which do not cause damage to surfaces and are easy to relocate.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Limited Part Count</td>
+<td>The device, when received by the consumer, has the minimum possible amount of components that must be put together/installed.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Modular Design</td>
+<td>Any components that must be put together/installed by the consumer have attachments which are simple and intuitive.</td>
+</tr>
+<tr>
+<td style="text-align: left;">No Tools Required</td>
+<td>The design uses innovation such as snap-together technology, adhesive, suction, etc. which do not require tools to install.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Replaceable Parts</td>
+<td>Every hardware component of the device can be swapped out if necessary, and is available to purchase through our business or at public stores.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Debugger</td>
+<td>The device can be prompted to scan its software for issues and attempt to remedy them.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Reset</td>
+<td>The device has a reset feature which reverts all settings/code back to its default state.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Dust-Proof</td>
+<td>The main casing is sealed off to prevent dust from gathering on the electronics.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Color-Changing LED</td>
+<td>The device has an LED which changes color based on status.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Buzzer</td>
+<td>The device has a buzzer which uses different tones/patterns to indicate status.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Text Output</td>
+<td>The device outputs text to a screen near the doorframe based on its status.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Quick Setup</td>
+<td>The installation instructions explain how to program the device based on doorframe dimensions and desired function.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Preset Modes</td>
+<td>The device has multiple preset software modes for the user to choose between after installing the device.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="embedded-systems-features-we-can-build-in-this-class">Embedded-systems features we can build in this class<a class="headerlink" href="#embedded-systems-features-we-can-build-in-this-class" title="Permanent link">¶</a></h3>
+<p>From the selected features above, the <strong>embedded systems</strong> elements that we plan to implement and demonstrate (using a microcontroller, sensors, and actuators) include:</p>
+<ul>
+<li><strong>Sensing and safety:</strong> door-line Sensor, Forward Sensor, Distance Sensor, Tripwire Sensors, Motion Sensor (subset of ideas above as practical choices).</li>
+<li><strong>Motor control:</strong> Motor Speed control, Auto-Disengage Program, resistance-based shutoff (Self-Sensing Motor / Resistance Testing).</li>
+<li><strong>Timing and logic:</strong> Programmed Timer, Timer + Clock-based scheduling, User Setting Limits for minimum open times.</li>
+<li><strong>User interface:</strong> UI w/ Buttons, Quick Setup, Preset Modes for different behaviors.</li>
+<li><strong>Feedback outputs:</strong> Color-Changing LED, Buzzer, Text Output to indicate open/closed/error states.</li>
+<li><strong>Power behavior:</strong> handling of backup power (Seperate Battery) and safe shutdown timing (Timer / Clock).</li>
+</ul>
+<p>These are all directly drawn from our feature list and correspond to realistic, demonstrable embedded system functionality for this course.</p>
+<hr>
+<p>Next, the team created three groups from the chosen features which could be combined into separate product concepts. These concepts showcase complete visions of how multiple features—mechanical, sensing, power, and user interface—work together, each with a slightly different focus.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Group</th>
+<th style="text-align: center;">Feature</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Free Door Movement</td>
+<td style="text-align: center;">Latch</td>
+<td>The device has a latch inside that unhinges the motor to the door causing the door to open without resistance.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Mechanical Arms</td>
+<td>The motor is connected to mechanical arms that will rotate and bend to open the door. This will prevent loss of tension and can help with how much power the motor is using.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Auto-Disengage Program</td>
+<td>If the device senses someone trying to open the door and it is not in a lock setting, then the device will disengage the motor so that the motor is not fighting the user in opening the door.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Motor Auto-Clutch</td>
+<td>When the door is manually opened, the motor does not activate but also does not fully detach, allowing the door to move freely until movement stops.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Auto-Disengage Program</td>
+<td>This can happen if the door is locked, latched, or something is blocking the door. To prevent damage to the device and the objects, the device will disengage the motor after it exerts more than 10 lbs of force.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Resistance Testing</td>
+<td>When the door is being manually opened, any resistance from the motor or other hardware will not exceed 5 pounds.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Ergonomics</td>
+<td>All interactable elements of the device will have special design consideration to be activatable with one hand, without tight grasping, pinching, or wrist-twisting.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Dust-Proof</td>
+<td>The main casing is sealed off to prevent dust from gathering on the electronics.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Multi-Directional Arm Function</td>
+<td style="text-align: center;">Mechanical Arms</td>
+<td>The motor is connected to mechanical arms that will rotate and bend to open the door. This will prevent loss of tension and can help with how much power the motor is using.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Distance Sensor</td>
+<td>The device will read at least 32 inches from the door for when the door opens forward so that it follows ADA compliance. This will also prevent the door from opening in front of users and colliding with objects that are moving toward the door.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Motor Speed</td>
+<td>The motor speed will be controlled to take at least 3 seconds to fully open, and at least 5 seconds to close the door from 90 degrees open.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">UI w/ Buttons</td>
+<td>The device has a user interface which allows the user to program settings through the use of buttons.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Preset Modes</td>
+<td>The device has multiple preset software modes for the user to choose between after installing the device.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Sensor Functionality</td>
+<td style="text-align: center;">Sensor</td>
+<td>The device has an additional sensor focusing on the doorway line to make sure there is nothing in the area. This is important because we do not want the door to shut on people, animals, or objects.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Programmed Timer</td>
+<td>The device closes the door after an amount of time from when it opened, selected by the user.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Tripwire Sensors</td>
+<td>The device is linked to sensors placed a few feet past each side of the door. When the user walks past the sensor opposite from the direction they entered, the device closes the door.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Distance Sensor</td>
+<td>The device will read at least 32 inches from the door for when the door opens forward so that it follows ADA compliance. This will also prevent the door from opening in front of users and colliding with objects that are moving toward the door.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Motor Speed</td>
+<td>The motor speed will be controlled to take at least 3 seconds to fully open, and at least 5 seconds to close the door from 90 degrees open.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">User Setting Limits</td>
+<td>The device will not allow the user to program the device to close the door sooner than 5 seconds after it has opened.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Forward Sensor</td>
+<td>This sensor will measure objects equal to the door length plus an additional 6-12 inches. This is important because the door should not open and hit the customer while in use.</td>
+</tr>
+<tr>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">Delay in Sensor</td>
+<td>After someone leaves the sensor view, there will be a delay then it will start closing. This is important so that the door can be closed and locked depending on user preference.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="concept-models">Concept Models<a class="headerlink" href="#concept-models" title="Permanent link">¶</a></h2>
+<p>Below we describe each concept not only by a single sub-feature, but as a <strong>more complete system</strong> that combines sensing, control logic, mechanical movement, user interface, and signaling—using only features listed above.</p>
+<hr>
+<h3 id="model-1-free-door-movement"><strong>Model 1 – Free Door Movement</strong><a class="headerlink" href="#model-1-free-door-movement" title="Permanent link">¶</a></h3>
+<h4 id="system-level-concept">System-level concept<a class="headerlink" href="#system-level-concept" title="Permanent link">¶</a></h4>
+<p>Model 1 is a concept focused on <strong>safe manual override and low resistance</strong>. In this configuration:</p>
+<ul>
+<li><strong>Mechanical system:</strong> Mechanical Arms connect the motor to the door. Under normal operation, the motor opens and closes the door through these arms.</li>
+<li><strong>Manual override:</strong> A Latch and Motor Auto-Clutch allow the user to immediately disengage the motor, so the door can move freely with minimal resistance. This satisfies emergency-access requirements and makes manual use comfortable.</li>
+<li><strong>Protection &amp; safety:</strong> The Auto-Disengage Program and Resistance Testing monitor motor torque. If resistance exceeds a threshold (e.g., door blocked or locked), the microcontroller stops driving the motor and/or disengages it to protect both the user and hardware.</li>
+<li><strong>Ergonomics &amp; usability:</strong> All interactable elements (such as the manual lever and any override buttons) follow our Ergonomics requirement, ensuring they can be operated with one hand and without tight grasping.</li>
+<li><strong>Enclosure &amp; durability:</strong> A Dust-Proof housing protects the embedded electronics and motor from dust, improving long-term reliability.</li>
+</ul>
+<h4 id="key-embedded-systems-features-in-model-1">Key embedded-systems features in Model 1<a class="headerlink" href="#key-embedded-systems-features-in-model-1" title="Permanent link">¶</a></h4>
+<ul>
+<li>Microcontroller monitors motor current/position for <strong>Resistance Testing</strong> and triggers the <strong>Auto-Disengage Program</strong>.</li>
+<li>Input from a <strong>Handle Sensor</strong> or similar could be used to automatically switch to free-movement mode when manual opening is detected.</li>
+<li>Status feedback (e.g., via <strong>Color-Changing LED</strong> or <strong>Buzzer</strong>) can indicate when the system is in automatic vs. manual/override mode.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../img/team/IMG_20250925_182107847_HDR~3.jpg" data-desc-position="bottom"><img alt="Model 1.1" src="../../img/team/IMG_20250925_182107847_HDR~3.jpg"></a><br>
+<strong>Lever to Disengage Motor 1</strong></p>
+<p>The motor stays inside the housing where it will connect to gears that will move the arms of the door. If there is an emergency, the motor can be disengaged.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../img/team/IMG_20250925_182113055_HDR.jpg" data-desc-position="bottom"><img alt="Model 1.2" src="../../img/team/IMG_20250925_182113055_HDR.jpg"></a><br>
+<strong>Lever to Disengage Motor 2</strong></p>
+<p>By disengaging the motor, the motor is moved below the housing where it can rotate, but nothing will happen to the door. This also prevents the motor from pushing against the user if they are trying to keep the door from opening or closing.</p>
+<hr>
+<h3 id="model-2-multi-directional-arm-function"><strong>Model 2 – Multi-Directional Arm Function</strong><a class="headerlink" href="#model-2-multi-directional-arm-function" title="Permanent link">¶</a></h3>
+<h4 id="system-level-concept_1">System-level concept<a class="headerlink" href="#system-level-concept_1" title="Permanent link">¶</a></h4>
+<p>Model 2 is a <strong>full product concept</strong> that emphasizes <strong>flexible motion and controlled timing</strong>:</p>
+<ul>
+<li><strong>Mechanical system:</strong> Mechanical Arms are designed to provide at least 90° of opening and can be configured to allow up to 180°. This lets the door swing either inward or outward depending on user approach and room layout.</li>
+<li><strong>Sensing &amp; compliance:</strong> A Distance Sensor ensures users and obstacles are far enough (≥ 32 inches) from the swing path, meeting ADA requirements and reducing collision risk.</li>
+<li><strong>Motor control:</strong> Motor Speed is regulated so that opening and closing occur within specified time windows (≥ 3 seconds to open, ≥ 5 seconds from 90° to closed), again supporting ADA rules.</li>
+<li><strong>User interface:</strong> A UI w/ Buttons allows users to choose between preset modes (e.g., “90° only”, “180° if space allows”, “always open away from the user”). Preset Modes define different combinations of speed, angle, and direction logic.</li>
+<li><strong>Power &amp; basic behavior:</strong> This concept is compatible with the wired power supply and can incorporate the Programmed Timer for auto-close behavior after a user-configurable delay.</li>
+</ul>
+<h4 id="key-embedded-systems-features-in-model-2">Key embedded-systems features in Model 2<a class="headerlink" href="#key-embedded-systems-features-in-model-2" title="Permanent link">¶</a></h4>
+<ul>
+<li>The microcontroller reads <strong>Distance Sensor</strong> data to decide whether to allow 90° or 180° opening.</li>
+<li>Motor control firmware enforces the <strong>Motor Speed</strong> requirement and smooth acceleration/deceleration.</li>
+<li>The <strong>UI w/ Buttons</strong> and <strong>Preset Modes</strong> are implemented as menus on the embedded system, allowing users to switch operating modes without reprogramming.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../img/team/IMG_20250926_184259818~2.jpg" data-desc-position="bottom"><img alt="Model 2.1" src="../../img/team/IMG_20250926_184259818~2.jpg"></a><br>
+<strong>90 and 180 degree arm 1</strong></p>
+<p>The product is designed to open at least 90 degrees. An additional arm which can rotate in a housing lets the door rotate an additional 90 degrees.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../img/team/IMG_20250926_184313707.jpg" data-desc-position="bottom"><img alt="Model 2.2" src="../../img/team/IMG_20250926_184313707.jpg"></a><br>
+<strong>90 and 180 degree arm 2</strong></p>
+<p>This shows the first 90 degree opening. This with additional programming can make a door have the ability to always push out away from the user to increase safety and decrease injury.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../img/team/IMG_20250926_184344804.jpg" data-desc-position="bottom"><img alt="Model 2.3" src="../../img/team/IMG_20250926_184344804.jpg"></a><br>
+<strong>90 and 180 degree arm 3</strong></p>
+<p>This shows the second 90 degrees in the opposite way. Though not all doors would be able to use this, this provides an opportunity for more open doors and increases mobility instead of waiting for a door to open in your direction.</p>
+<hr>
+<h3 id="model-3-sensor-functionality"><strong>Model 3 – Sensor Functionality</strong><a class="headerlink" href="#model-3-sensor-functionality" title="Permanent link">¶</a></h3>
+<h4 id="system-level-concept_2">System-level concept<a class="headerlink" href="#system-level-concept_2" title="Permanent link">¶</a></h4>
+<p>Model 3 is a <strong>sensor-first concept</strong> that shows how different sensing and timing features work together to control the door automatically:</p>
+<ul>
+<li><strong>Approach detection:</strong> A Forward Sensor and Distance Sensor detect an approaching user from a safe distance (door length + 6–12 inches). This lets the system begin opening before the person reaches the door.</li>
+<li><strong>Path safety:</strong> A doorway-line Sensor and Tripwire Sensors ensure that the door does not close while the user is still within the path or has not fully cleared the doorway.</li>
+<li><strong>Timing &amp; user control:</strong> A Programmed Timer plus User Setting Limits enforce safe minimum open times (e.g., at least 5 seconds) and allow the user to adjust how long the door stays open after use.</li>
+<li><strong>Closing logic:</strong> Delay in Sensor is used so that once no motion is detected and the user has crossed the Tripwire Sensor on the far side, a timed delay elapses before the door closes.</li>
+<li><strong>Status feedback:</strong> Color-Changing LED, Buzzer, and/or Text Output can provide indications such as “Opening”, “Open”, “Closing”, or “Error/blocked”.</li>
+</ul>
+<p>All of these behaviors can be implemented in an embedded controller that reads sensors and drives the motor according to our product requirements.</p>
+<h4 id="example-storyboard-johns-grandmother">Example storyboard (John’s grandmother)<a class="headerlink" href="#example-storyboard-johns-grandmother" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://github.com/EGR304-2025-F-103/egr304-2025-f-103.github.io/blob/main/docs/image/Improved%20Storyboard.png" data-desc-position="bottom"><img alt="StoryBoard" src="https://github.com/EGR304-2025-F-103/egr304-2025-f-103.github.io/blob/main/docs/image/Improved%20Storyboard.png"></a></p>
+<p>In this storyboard we took the example of John’s grandmother. She is 78 years old and has difficulty opening and closing doors because she uses a cane and her vision is limited. When she approaches the door, sensors mounted on the frame detect her presence from a safe distance. The motor then activates, opening the door slowly and wide enough to ensure it doesn’t hit her or any nearby objects. As she walks through, the sensors remain active, keeping the door open until she has fully cleared the doorway. Once no more motion is detected, the motor closes the door gently.</p>
+<hr>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">¶</a></h2>
+<p>The team’s brainstorming process followed a free-flow individual format. We discussed how we would approach this section of the project while we were in class together. We did not meet physically or virtually during the generation of feature ideas. The reasoning for this was that we did not want there to be any bias, “hive-mind” thinking, or judgement of ideas, intentional or not. Instead, we each individually came up with solutions to each need or requirement on our own time. We believe that this led to a greater variation of ideas and more thinking outside the box. It also allowed us to come up with ideas that were interesting to consider and get inspiration from, even if they were unconventional, unrealistic, or did not fit the scope/resources of our project. Another part of the process that led to variation of ideas was the amount that were required. Coming up with 100 unique ideas was very difficult, but it further enforced outside-the-box thinking and made us get creative.</p>
+<p>Collecting ideas was done by first thinking of how we had seen these requirements solved by other products/competitors. Following what works in successful products ensures that ours will be successful as well. At the same time, it is easy to go for the simple solutions without realizing their flaws or comparing them to less conventional ideas that may be even better. Knowing this led us to think about how the problems had not been solved before, at least from what we had seen. We tried to come up with ideas that could work even better than the current standards, or features that would make our product stand out from the rest. This process gave us a mixed result of “tried-and-true” features and innovative ideas to choose from.</p>
+<p>The list of requirements was formed from both the “User Needs and Benchmarking” and “Product Requirements” assignments. More of the requirements were drawn from the user needs because we had a larger list of them at our disposal and they were less specific, allowing us to come up with more feature ideas. However, we did include several of our product requirements since we had already decided they were very important to our end-product. As part of this activity, we updated the Product Requirements document so that each requirement there matches one of the requirement/need statements used in our ideation table, ensuring consistency between the two.</p>
+<p>Since the ideas were already grouped based on which user need or requirement they referred to, we saw no need to group them into smaller categories before ranking them. The ranking process was simple. We first narrowed the list down by picking ideas that seemed most crucial to the overall goal of our project as well as which ones applied most to our consumer base. After that, we ruled out any features we knew would not be feasible based on our timeline and resources. Any ideas that were very similar did not need to be included twice, so we picked which ones from each likeness were slightly more detailed or inclusive.</p>
+<p>The team then collected ideas based on patterns we saw which could combine into a greater feature that we wanted to showcase. Therefore, each concept model now represents a more complete vision of the product rather than a single sub-feature:</p>
+<ul>
+<li><strong>Model 1 (Free Door Movement)</strong> highlights how mechanical arms, safety cutoffs, and manual overrides combine into a system that never fights the user and remains safe in emergencies.</li>
+<li><strong>Model 2 (Multi-Directional Arm Function)</strong> shows how adjustable arms, distance sensing, controlled motor speeds, and preset modes deliver flexible motion while maintaining ADA compliance.</li>
+<li><strong>Model 3 (Sensor Functionality)</strong> demonstrates how multiple sensors, timers, and user setting limits work together to automate opening and closing for users like John’s grandmother.</li>
+</ul>
+<p>Across all three concepts, we deliberately emphasized the <strong>embedded systems features</strong> (sensors, timers, motor control logic, UIs, and feedback signals) that we can realistically build and demonstrate in this class using a microcontroller-based prototype. These concepts provide a look into the future of our product and better define how we as a team want to move forward with the design process while staying anchored to our product requirements.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../requirements/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Product Requirements">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Product Requirements
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../block-diagram/" class="md-footer__link md-footer__link--next" aria-label="Next: Team Block Diagram">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Team Block Diagram
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Lakshanand Sugumar · Arizona State University, Polytechnic · <a href="https://www.lakshanand.dev">lakshanand.dev</a>
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.lakshanand.dev" target="_blank" rel="noopener" title="Portfolio" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/lakshanand-sugumar" target="_blank" rel="noopener" title="LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/LakshanandSugumar" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

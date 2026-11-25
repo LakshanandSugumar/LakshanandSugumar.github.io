@@ -1,0 +1,946 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+
+<meta name="robots" content="nofollow">
+
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An explainable reasoning planner for automated driving with closed-loop simulation and counterfactual faithfulness tests.">
+      
+      
+      
+        <link rel="canonical" href="https://lakshanandsugumar.github.io/projects/explaindrive/design/">
+      
+      
+        <link rel="prev" href="../results/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../static/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+            
+
+    
+
+    
+      
+        <title>Design Notes - ExplainDrive · Lakshanand Sugumar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+
+
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#design-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ExplainDrive · Lakshanand Sugumar" class="md-header__button md-logo" aria-label="ExplainDrive · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../static/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ExplainDrive · Lakshanand Sugumar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Design Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../results/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Scenarios &amp; Results
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Design Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ExplainDrive · Lakshanand Sugumar" class="md-nav__button md-logo" aria-label="ExplainDrive · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../static/logo.svg" alt="logo">
+
+    </a>
+    ExplainDrive · Lakshanand Sugumar
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios &amp; Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Notes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-loop-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Loop timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-reasoner-constraints-not-trajectories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The reasoner: constraints, not trajectories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The reasoner: constraints, not trajectories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The planner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-explanations-and-faithfulness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Explanations and faithfulness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-fastslow-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Adaptive ("fast/slow") reasoning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-llmvlm-plug-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. LLM/VLM plug-in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-known-simplifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Known simplifications
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-loop-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Loop timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-the-reasoner-constraints-not-trajectories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The reasoner: constraints, not trajectories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. The reasoner: constraints, not trajectories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-planner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The planner
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-explanations-and-faithfulness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Explanations and faithfulness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-fastslow-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Adaptive ("fast/slow") reasoning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-llmvlm-plug-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. LLM/VLM plug-in
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-known-simplifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Known simplifications
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="design-notes">Design notes<a class="headerlink" href="#design-notes" title="Permanent link">¶</a></h1>
+<p>This document explains how each layer works and why it was built that way. The README covers results and usage.</p>
+<h2 id="1-loop-timing">1. Loop timing<a class="headerlink" href="#1-loop-timing" title="Permanent link">¶</a></h2>
+<p>The simulator runs at 10 Hz (<code>dt = 0.1 s</code>). Every tick:</p>
+<ol>
+<li><strong>Perception</strong> (<code>perception.py</code>) takes the true world state and returns what the ego can see. An agent is visible if any of its sample points (centre plus 4 corners, or the centre only for pedestrians) has a clear line of sight from the front bumper, within 150 m. It also checks 9 points on the right curb at each crosswalk ahead. If any of them is hidden, it records an <code>OccludedArea</code> with the id of the blocking object.</li>
+<li><strong>Latency buffer</strong>. The stack does not see the newest observation. It sees the one from <code>latency</code> seconds ago. The plan it produces is then tracked from that older time origin, so a 300 ms latency means the controller is always following a plan made from a 300 ms old world.</li>
+<li><strong>Reasoning</strong> (<code>reasoning.py</code>) turns the observation into a <code>Decision</code>, which holds a maneuver, <code>Constraints</code> and a list of <code>Rationale</code>. With the adaptive policy, this step is skipped on calm ticks and the cached decision is reused.</li>
+<li><strong>Planning</strong> (<code>planner.py</code>) samples trajectories inside the constraints, checks them against predictions and picks the cheapest. It runs every tick even when reasoning is skipped, which keeps collision checking always fresh.</li>
+<li><strong>Control</strong> (<code>control.py</code>) uses pure pursuit for steering and feed-forward plus P control for speed.</li>
+<li><strong>Physics</strong> (<code>world.py</code>) is a kinematic bicycle model about the centre of gravity, with limits on steering angle, steering rate and acceleration. All other agents follow their scripted behaviours.</li>
+<li><strong>Metrics</strong> run on the <em>ground truth</em>: collisions use the separating-axis theorem on the true polygons, and clearances use the true polygons too.</li>
+</ol>
+<h2 id="2-the-reasoner-constraints-not-trajectories">2. The reasoner: constraints, not trajectories<a class="headerlink" href="#2-the-reasoner-constraints-not-trajectories" title="Permanent link">¶</a></h2>
+<p>The reasoner never outputs a path. It outputs:</p>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>v_max</code></td>
+<td>speed cap (a target, and a hard limit after a short comfort ramp)</td>
+</tr>
+<tr>
+<td><code>stop_x</code></td>
+<td>the front bumper must stay behind this x</td>
+</tr>
+<tr>
+<td><code>y_lo, y_hi</code></td>
+<td>allowed lateral corridor for the ego centre</td>
+</tr>
+<tr>
+<td><code>y_pref</code></td>
+<td>preferred lateral position</td>
+</tr>
+<tr>
+<td><code>lead_id</code></td>
+<td>vehicle to keep a safe following gap to</td>
+</tr>
+</tbody>
+</table>
+<p>Each rule writes into these fields and adds a <code>Rationale(rule, maneuver, agent_ids, text)</code>. When rules are combined, the tightest value wins (minimum speed cap, earliest stop line, intersection of corridors), and the reported maneuver is the one with the highest priority:</p>
+<p><code>EMERGENCY &gt; YIELD &gt; WAIT &gt; NUDGE = OVERTAKE &gt; CAUTION &gt; FOLLOW &gt; CRUISE</code></p>
+<p>Keeping the reasoner's output small and structured is what makes the explanations testable. Each explanation names specific agents, and each constraint can be traced back to the rule that set it.</p>
+<h3 id="rules">Rules<a class="headerlink" href="#rules" title="Permanent link">¶</a></h3>
+<table>
+<thead>
+<tr>
+<th>rule</th>
+<th>trigger</th>
+<th>effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lead</code></td>
+<td>same-direction vehicle in the corridor ahead</td>
+<td><code>v_max = v_lead + (gap - (s0 + T·v)) / 2</code>, plus <code>lead_id</code></td>
+</tr>
+<tr>
+<td><code>cut_in</code></td>
+<td>adjacent vehicle whose lateral velocity carries it into the corridor within 2 s</td>
+<td>same as <code>lead</code>, raised earlier</td>
+</tr>
+<tr>
+<td><code>crosswalk</code></td>
+<td>pedestrian on the road at a crosswalk who hasn't cleared our lane, or one stepping off the curb</td>
+<td><code>stop_x</code> = 1 m before the crosswalk (only if stopping needs ≤ 7 m/s²)</td>
+</tr>
+<tr>
+<td><code>curb</code></td>
+<td>pedestrian standing at the curb by a crosswalk</td>
+<td><code>v_max = max(6, v_stop(d))</code></td>
+</tr>
+<tr>
+<td><code>occlusion</code></td>
+<td>crosswalk entry hidden by an object</td>
+<td><code>v_max = max(3, v_stop(d))</code>, citing the blocker</td>
+</tr>
+<tr>
+<td><code>oncoming_nudge</code></td>
+<td>oncoming vehicle whose near edge leaves less than 0.6 m of clearance</td>
+<td>corridor shifted right onto the shoulder, <code>v_max = 7</code> within 50 m</td>
+</tr>
+<tr>
+<td><code>oncoming_block</code></td>
+<td>no room at all</td>
+<td>pull right and stop</td>
+</tr>
+<tr>
+<td><code>overtake_sight</code></td>
+<td>parked obstacle in lane, but the oncoming lane can't be seen far enough (range limit or the obstacle itself)</td>
+<td>stop 10 m behind, edge left to look past it</td>
+</tr>
+<tr>
+<td><code>overtake_wait</code></td>
+<td>parked obstacle, and an oncoming vehicle reaches the passing zone before <code>t_need + 2.5 s</code></td>
+<td>stop behind it</td>
+</tr>
+<tr>
+<td><code>overtake</code></td>
+<td>parked obstacle and the gap is clear</td>
+<td>corridor widened into the oncoming lane, <code>y_pref</code> = oncoming lane centre until passed</td>
+</tr>
+</tbody>
+</table>
+<p><code>v_stop(d)</code> is the highest speed from which the car can stop within <code>d</code> metres, allowing for a reaction time: it solves <code>v·t_r + v²/(2a) = d</code> with <code>t_r = 1 s</code> and <code>a = 3 m/s²</code>. Without the reaction-time term, the car always arrived about 0.8 s "late" to its own speed cap and needed emergency braking when the pedestrian appeared. Simulation runs caught this.</p>
+<p>Overtaking keeps a little memory: once the ego has started to pull out, it stays committed, unless it hasn't yet left its own lane, in which case it can still abort.</p>
+<h2 id="3-the-planner">3. The planner<a class="headerlink" href="#3-the-planner" title="Permanent link">¶</a></h2>
+<p>The planner follows the Frenet sampling idea from Werling et al. (2010). On a straight road, <code>(s, d) = (x, y)</code>.</p>
+<ul>
+<li><strong>Longitudinal</strong>: quartic velocity-keeping profiles to <code>v_max × {1, .75, .5, .25, 0}</code> over <code>T ∈ {1.5, 3, 5} s</code>. When a stop line is active, it adds quintic stop-at-position profiles and one constant-deceleration "brake to the line" profile.</li>
+<li><strong>Lateral</strong>: quintic in <em>distance travelled</em>, <code>d(s)</code>, toward each of up to 6 target offsets (5 spread across the corridor plus <code>y_pref</code>), over lengths <code>max(v·T, L_min)</code>. The first version used <code>d(t)</code>. It asked for sideways motion that a car can't make at walking speed, and overtakes from a standstill failed because the bicycle model couldn't follow. Planning <code>d(s)</code> makes every candidate drivable by construction.</li>
+<li><strong>Feasibility checks</strong> (vectorised over all candidates × all time steps):
+  no reversing; <code>a ∈ [-6, 2.5]</code>; heading slope <code>|dy/dx| ≤ 0.7</code>; curvature <code>≤ min(κ_steer, a_lat,max / v²)</code>; stay inside the corridor or move steadily back into it; speed cap with a 0.8 s ramp; stop line, including the requirement that the car can still stop <em>after</em> the horizon ends (<code>x_end + v_end²/2a ≤ stop_x</code>); and collisions.</li>
+<li><strong>Collision model</strong>: the ego is 4 circles along its heading, and every other agent is an oriented rectangle moving along its predicted path. The margins are 0.3 m laterally and 1.0 m longitudinally for vehicles, and 0.8 m for pedestrians. If the ego is <em>already</em> inside the margin, for example while squeezing past a bus, a candidate is rejected only if it gets closer.</li>
+<li><strong>Cost</strong>: lateral and longitudinal jerk, lateral acceleration, distance from the target speed, distance from <code>y_pref</code>, longitudinal acceleration, an exponential proximity penalty and corridor violation.</li>
+<li><strong>Fallback</strong>: if nothing is feasible, the planner brakes at -8 m/s² in a straight line. The reasons candidates were rejected become the emergency explanation, for example "every comfortable trajectory comes too close to S1".</li>
+</ul>
+<h2 id="4-explanations-and-faithfulness">4. Explanations and faithfulness<a class="headerlink" href="#4-explanations-and-faithfulness" title="Permanent link">¶</a></h2>
+<p>An explanation event is logged only when the pair (maneuver, primary rule, cited agents) changes and the new decision has lasted 3 ticks. Emergencies are logged immediately. This keeps explanations "when needed": a whole scenario produces 2–5 sentences, not 150.</p>
+<p><code>faithfulness.py</code> checks each event against counterfactual scenes, using the same reasoner state and the same observation:</p>
+<ul>
+<li><strong>necessity</strong>: removing each <em>cited</em> agent must change the decision materially (the maneuver, or any constraint by more than 0.5 m/s, 0.2 m or 1 m);</li>
+<li><strong>completeness</strong>: removing each <em>uncited</em> visible agent must <em>not</em> change it.</li>
+</ul>
+<p>This test caught a real bug. In the stalled-car scenario, the wait message cited the oncoming car C1. But the ego could not have passed anyway, because it couldn't see far enough down the oncoming lane, so removing C1 changed nothing. The decision was overdetermined, and the explanation blamed the wrong thing. The fix was to cite only the binding reason (the limited view) and mention C1 in the text without citing it.</p>
+<h2 id="5-adaptive-fastslow-reasoning">5. Adaptive ("fast/slow") reasoning<a class="headerlink" href="#5-adaptive-fastslow-reasoning" title="Permanent link">¶</a></h2>
+<p><code>scene_complexity()</code> is a cheap score computed every tick from the number, type and closing speed of nearby agents and from occlusions. The full reasoner runs when:</p>
+<ul>
+<li>the complexity is at least 3, or</li>
+<li>the complexity has changed by at least 1 since the last run, or</li>
+<li>1 s has passed since the last run.</li>
+</ul>
+<p>Otherwise the last decision is reused. The planner still runs every tick, so collision checking is never stale. The comparison experiment measures how many reasoner calls this saves and whether it costs anything in collisions, emergency braking or comfort.</p>
+<h2 id="6-llmvlm-plug-in">6. LLM/VLM plug-in<a class="headerlink" href="#6-llmvlm-plug-in" title="Permanent link">¶</a></h2>
+<p><code>llm_reasoner.GuardedLLMReasoner</code> writes the observation out as text and asks any <code>prompt -&gt; str</code> backend for JSON. It then merges that answer with the rule-based decision so the <strong>more cautious</strong> value wins on every field. The model can add caution (a lower speed or an earlier stop) and choose a position inside the rule-based corridor. It can never widen the envelope. If the output can't be parsed, the reasoner falls back to the rules alone. This is the slot for comparing an open model against the rules under identical scenarios.</p>
+<h2 id="7-known-simplifications">7. Known simplifications<a class="headerlink" href="#7-known-simplifications" title="Permanent link">¶</a></h2>
+<ul>
+<li>The road is straight and there are no junctions. Curved roads would need a proper Frenet transform.</li>
+<li>Perception is perfect inside line of sight: there is no noise, no false positives and no tracking.</li>
+<li>Other agents follow scripts and don't react to the ego. Because of this, the reactive-baseline "bus collisions" partly come from a bus driver who never moves over.</li>
+<li>Prediction is constant velocity. The reactive baseline ignores lateral velocity (it assumes lane keeping).</li>
+<li>Planner runtimes are for Python and NumPy on a laptop-class CPU. They show relative cost, not embedded performance.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../results/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scenarios &amp; Results">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Scenarios &amp; Results
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Lakshanand Sugumar · Arizona State University, Polytechnic · <a href="https://www.lakshanand.dev">lakshanand.dev</a>
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.lakshanand.dev" target="_blank" rel="noopener" title="Portfolio" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/lakshanand-sugumar" target="_blank" rel="noopener" title="LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/LakshanandSugumar" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

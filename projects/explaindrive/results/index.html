@@ -1,0 +1,1312 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+
+<meta name="robots" content="nofollow">
+
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="An explainable reasoning planner for automated driving with closed-loop simulation and counterfactual faithfulness tests.">
+      
+      
+      
+        <link rel="canonical" href="https://lakshanandsugumar.github.io/projects/explaindrive/results/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../design/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../static/logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+            
+
+    
+
+    
+      
+        <title>Scenarios &amp; Results - ExplainDrive · Lakshanand Sugumar</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+
+
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scenarios-results" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ExplainDrive · Lakshanand Sugumar" class="md-header__button md-logo" aria-label="ExplainDrive · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../static/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ExplainDrive · Lakshanand Sugumar
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scenarios &amp; Results
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Scenarios &amp; Results
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../design/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Design Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ExplainDrive · Lakshanand Sugumar" class="md-nav__button md-logo" aria-label="ExplainDrive · Lakshanand Sugumar" data-md-component="logo">
+      
+  <img src="../static/logo.svg" alt="logo">
+
+    </a>
+    ExplainDrive · Lakshanand Sugumar
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios &amp; Results
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenarios &amp; Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-does-reasoning-help-reactive-vs-reasoning-vs-adaptive-10-randomised-seeds-per-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Does reasoning help? (reactive vs reasoning vs adaptive, 10 randomised seeds per scenario)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-adaptive-fastslow-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Adaptive "fast/slow" reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-much-latency-can-the-stack-take" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How much latency can the stack take?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-are-the-explanations-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Are the explanations true?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pedestrian-at-a-crosswalk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pedestrian at a crosswalk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncoming-bus-on-a-narrow-road" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oncoming bus on a narrow road
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stalled-car-with-oncoming-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stalled car with oncoming traffic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenarios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-does-reasoning-help-reactive-vs-reasoning-vs-adaptive-10-randomised-seeds-per-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Does reasoning help? (reactive vs reasoning vs adaptive, 10 randomised seeds per scenario)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-adaptive-fastslow-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Adaptive "fast/slow" reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-how-much-latency-can-the-stack-take" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. How much latency can the stack take?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-are-the-explanations-true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Are the explanations true?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explanation-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explanation log
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanation log">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pedestrian-at-a-crosswalk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pedestrian at a crosswalk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncoming-bus-on-a-narrow-road" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Oncoming bus on a narrow road
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stalled-car-with-oncoming-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stalled car with oncoming traffic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How it works
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="scenarios-results">Scenarios &amp; Results<a class="headerlink" href="#scenarios-results" title="Permanent link">¶</a></h1>
+<h2 id="scenarios">Scenarios<a class="headerlink" href="#scenarios" title="Permanent link">¶</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>scenario</th>
+<th>what makes it hard</th>
+<th>reasoning planner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/pedestrian_crosswalk.gif" data-desc-position="bottom"><img alt="" src="../img/pedestrian_crosswalk.gif"></a></td>
+<td><strong>pedestrian_crosswalk</strong></td>
+<td>a pedestrian steps off the curb</td>
+<td>yields at the stop line until they clear its lane</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/oncoming_bus.gif" data-desc-position="bottom"><img alt="" src="../img/oncoming_bus.gif"></a></td>
+<td><strong>oncoming_bus</strong></td>
+<td>a 2.55 m wide bus drifts 0.8 m over the centre line of a narrow road</td>
+<td>shifts 0.9 m onto the shoulder and slows to 7 m/s</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/stalled_car.gif" data-desc-position="bottom"><img alt="" src="../img/stalled_car.gif"></a></td>
+<td><strong>stalled_car</strong></td>
+<td>a broken-down car blocks the lane while oncoming traffic arrives</td>
+<td>waits, edges left to see, then overtakes in the gap</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/cut_in.gif" data-desc-position="bottom"><img alt="" src="../img/cut_in.gif"></a></td>
+<td><strong>cut_in</strong></td>
+<td>a slower car cuts in 12 m ahead</td>
+<td>spots the lateral motion early and rebuilds the gap</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/occluded_crosswalk.gif" data-desc-position="bottom"><img alt="" src="../img/occluded_crosswalk.gif"></a></td>
+<td><strong>occluded_crosswalk</strong></td>
+<td>a parked truck hides a running pedestrian</td>
+<td>slows because of the <em>occlusion</em>, before it sees anyone</td>
+</tr>
+<tr>
+<td><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/lead_brake.gif" data-desc-position="bottom"><img alt="" src="../img/lead_brake.gif"></a></td>
+<td><strong>lead_brake</strong></td>
+<td>the lead car brakes hard to a stop, then pulls away</td>
+<td>follows with a safe gap (a sanity check)</td>
+</tr>
+</tbody>
+</table>
+<p>Each scenario also takes a random seed (<code>make(name, seed)</code>) that varies timings, speeds and positions, which is what the experiments use.</p>
+<p>The animations show the green <strong>corridor</strong> the reasoner allows, a red <strong>stop line</strong> when one is active, the chosen <strong>plan</strong> (green) and other candidate plans (faint), agents the ego <strong>cannot see</strong> (dashed), and the object <strong>blocking the view</strong> (purple outline). Below the road are the current explanation and the speed against the reasoner's speed cap.</p>
+<p>Baseline runs for comparison: <a href="../img/oncoming_bus_reactive.gif">bus</a>, <a href="../img/occluded_crosswalk_reactive.gif">occluded crosswalk</a>, <a href="../img/stalled_car_reactive.gif">stalled car</a>.</p>
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">¶</a></h2>
+<p>All numbers come from <code>python scripts/make_media.py</code> (seeded, deterministic). Raw JSON is in <code>results/</code>.</p>
+<h3 id="1-does-reasoning-help-reactive-vs-reasoning-vs-adaptive-10-randomised-seeds-per-scenario">1. Does reasoning help? (reactive vs reasoning vs adaptive, 10 randomised seeds per scenario)<a class="headerlink" href="#1-does-reasoning-help-reactive-vs-reasoning-vs-adaptive-10-randomised-seeds-per-scenario" title="Permanent link">¶</a></h3>
+<p>The <strong>reactive</strong> baseline is a typical ACC-plus-lane-keeping stack. It uses the same planner and the same collision checking, but it has no crosswalk, occlusion, nudging, overtaking or cut-in logic, and it assumes other cars stay in their lane.</p>
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>policy</th>
+<th style="text-align: right;">collisions</th>
+<th style="text-align: right;">completed</th>
+<th style="text-align: right;">runs with emergency braking</th>
+<th style="text-align: right;">min clearance [m]</th>
+<th style="text-align: right;">RMS jerk [m/s³]</th>
+<th style="text-align: right;">reasoner calls/s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pedestrian_crosswalk</td>
+<td>reactive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">4.07</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>pedestrian_crosswalk</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">3.62</td>
+<td style="text-align: right;">3.55</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>pedestrian_crosswalk</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">3.63</td>
+<td style="text-align: right;">3.60</td>
+<td style="text-align: right;">7.6</td>
+</tr>
+<tr>
+<td>oncoming_bus</td>
+<td>reactive</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">9.13</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>oncoming_bus</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">2.86</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>oncoming_bus</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">2.85</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr>
+<td>stalled_car</td>
+<td>reactive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">1.60</td>
+<td style="text-align: right;">1.26</td>
+<td style="text-align: right;">10.0</td>
+</tr>
+<tr>
+<td>stalled_car</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">1.71</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>stalled_car</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">1.75</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr>
+<td>cut_in</td>
+<td>reactive</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">90%</td>
+<td style="text-align: right;">30%</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">3.55</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>cut_in</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">1.60</td>
+<td style="text-align: right;">2.85</td>
+<td style="text-align: right;">10.0</td>
+</tr>
+<tr>
+<td>cut_in</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">10%</td>
+<td style="text-align: right;">1.56</td>
+<td style="text-align: right;">2.83</td>
+<td style="text-align: right;">1.1</td>
+</tr>
+<tr>
+<td>occluded_crosswalk</td>
+<td>reactive</td>
+<td style="text-align: right;">70%</td>
+<td style="text-align: right;">30%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">10.67</td>
+<td style="text-align: right;">10.2</td>
+</tr>
+<tr>
+<td>occluded_crosswalk</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">3.67</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>occluded_crosswalk</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">4.35</td>
+<td style="text-align: right;">5.7</td>
+</tr>
+<tr>
+<td>lead_brake</td>
+<td>reactive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">12.43</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>lead_brake</td>
+<td><strong>reasoning</strong></td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">12.43</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">10.1</td>
+</tr>
+<tr>
+<td>lead_brake</td>
+<td>adaptive</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">100%</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">10.11</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">1.6</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/compare.png" data-desc-position="bottom"><img alt="comparison" src="../img/compare.png"></a></p>
+<p>Across all 6 scenarios × 10 seeds, the reasoning planner had a <strong>0% collision rate</strong> and completed <strong>100%</strong> of runs. The reactive baseline collided in <strong>30%</strong> and completed <strong>53%</strong>.</p>
+<p>The baseline's failures are exactly where scene reasoning is needed:</p>
+<ul>
+<li><strong>oncoming_bus</strong>: it collides in 10 of 10 runs. It stays in its lane and brakes, but braking alone cannot get it out of the way of a bus that is over the line.</li>
+<li><strong>occluded_crosswalk</strong>: it collides in 7 of 10 runs. It reaches the hidden crosswalk at full speed and sees the pedestrian too late to stop.</li>
+<li><strong>stalled_car</strong>: it never collides, but it never finishes either. It waits behind the broken-down car forever.</li>
+<li><strong>cut_in</strong>: it collides in 1 of 10 runs. Because it assumes cars stay in their lanes, it notices the cut-in late.</li>
+</ul>
+<p>On the two sanity scenarios (pedestrian_crosswalk and lead_brake), both stacks are safe. That is expected, since the shared planner's collision checking covers simple cases. Even so, the baseline needed emergency braking for the pedestrian in 2 of 10 runs, while the reasoning planner yielded early and never did.</p>
+<p>The reasoning planner is not perfect: it needed emergency braking in 2 of 10 cut-in runs. In those seeds the car cuts in closer than the comfortable braking limits can handle, but it still never collided.</p>
+<h3 id="2-adaptive-fastslow-reasoning">2. Adaptive "fast/slow" reasoning<a class="headerlink" href="#2-adaptive-fastslow-reasoning" title="Permanent link">¶</a></h3>
+<p>Reasoning models are expensive, and on an edge computer you would not want to run one every 100 ms in an empty street. The <strong>adaptive</strong> policy runs a cheap scene-complexity score every tick. It calls the full reasoner only when the scene is complex, when the scene has just changed, or once per second as a heartbeat. The planner and its collision checks still run every tick.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: right;">full reasoning every tick</th>
+<th style="text-align: right;">adaptive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reasoner calls per simulated second (mean over scenarios)</td>
+<td style="text-align: right;">10.1</td>
+<td style="text-align: right;"><strong>3.8</strong></td>
+</tr>
+<tr>
+<td>collision rate</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;"><strong>0%</strong></td>
+</tr>
+<tr>
+<td>runs needing emergency braking</td>
+<td style="text-align: right;">3.3%</td>
+<td style="text-align: right;">1.7%</td>
+</tr>
+<tr>
+<td>mean RMS jerk [m/s³]</td>
+<td style="text-align: right;">2.77</td>
+<td style="text-align: right;">2.98</td>
+</tr>
+</tbody>
+</table>
+<p>The adaptive policy cuts reasoner calls by <strong>63%</strong> with no collisions and no extra emergency braking. Its cost is a slightly less smooth ride (+8% RMS jerk), because it reacts to a slowing lead car up to one heartbeat late. On the oncoming bus it calls the reasoner 14 times instead of 119. On an edge computer, that compute budget could go to a much larger model that runs only when the scene needs it.</p>
+<h3 id="3-how-much-latency-can-the-stack-take">3. How much latency can the stack take?<a class="headerlink" href="#3-how-much-latency-can-the-stack-take" title="Permanent link">¶</a></h3>
+<p>The whole perception → reasoning → planning chain is delayed, so the car acts on a world that is up to 800 ms old, as it would with a large model on a slow embedded GPU.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">latency</th>
+<th style="text-align: right;">collision rate</th>
+<th style="text-align: right;">runs with emergency braking</th>
+<th style="text-align: right;">min pedestrian clearance [m]</th>
+<th style="text-align: right;">min vehicle clearance [m]</th>
+<th style="text-align: right;">mean peak decel [m/s²]</th>
+<th>collisions by scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0 ms</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">7%</td>
+<td style="text-align: right;">3.28</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">5.28</td>
+<td>none</td>
+</tr>
+<tr>
+<td style="text-align: right;">100 ms</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">23%</td>
+<td style="text-align: right;">2.03</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">5.66</td>
+<td>none</td>
+</tr>
+<tr>
+<td style="text-align: right;">200 ms</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">20%</td>
+<td style="text-align: right;">1.68</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">5.52</td>
+<td>none</td>
+</tr>
+<tr>
+<td style="text-align: right;">300 ms</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">27%</td>
+<td style="text-align: right;">1.46</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">5.82</td>
+<td>none</td>
+</tr>
+<tr>
+<td style="text-align: right;">500 ms</td>
+<td style="text-align: right;">0%</td>
+<td style="text-align: right;">27%</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">6.59</td>
+<td>none</td>
+</tr>
+<tr>
+<td style="text-align: right;">800 ms</td>
+<td style="text-align: right;">7%</td>
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">7.53</td>
+<td>cut_in: 1, occluded_crosswalk: 1</td>
+</tr>
+</tbody>
+</table>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/latency.png" data-desc-position="bottom"><img alt="latency" src="../img/latency.png"></a></p>
+<p>The stack stays collision-free up to <strong>500 ms</strong> of end-to-end latency. Latency still costs something: the minimum pedestrian clearance shrinks from 3.3 m to 1.2 m, peak braking rises, and emergency braking becomes more common. At <strong>800 ms</strong> the first collisions appear, in the cut-in and the occluded-pedestrian scenarios, which are the two where a hazard appears suddenly. Together these give a concrete latency budget for an on-vehicle reasoning model: under about 300 ms keeps the margins comfortable, and more than about 500 ms is unsafe for this scenario set.</p>
+<h3 id="4-are-the-explanations-true">4. Are the explanations true?<a class="headerlink" href="#4-are-the-explanations-true" title="Permanent link">¶</a></h3>
+<p>An explanation that names the wrong cause is worse than none. For every explanation, <code>faithfulness.py</code> re-runs the reasoner on the same scene with one agent deleted:</p>
+<ul>
+<li><strong>necessity</strong>: deleting an agent the explanation <em>cites</em> must change the decision;</li>
+<li><strong>completeness</strong>: deleting an agent it does <em>not</em> cite must not change the decision.</li>
+</ul>
+<p>Over every explanation in 5 seeds × 6 scenarios, the test ran <strong>71 cited-agent</strong> and <strong>79 uncited-agent</strong> counterfactuals. <strong>Necessity was 100%</strong> and <strong>completeness was 100%</strong>: every agent the car blamed actually mattered, and nothing it left out did. Emergency stops come from the planner rather than the reasoner, so they are explained by the planner's rejection reasons and are not part of this test.</p>
+<p>This check found a real bug during development. In the stalled-car scene, the "waiting" explanation blamed the oncoming car. But the ego could not see far enough down the oncoming lane anyway, so deleting that car changed nothing. The decision was overdetermined and the explanation picked the wrong cause. The fix was to cite only the binding reason and mention the other one in the text without citing it. See <a href="../design/#4-explanations-and-faithfulness">docs/design.md</a>.</p>
+<h3 id="explanation-log">Explanation log<a class="headerlink" href="#explanation-log" title="Permanent link">¶</a></h3>
+<p>What the car "said" in each nominal scenario (all of it, because explanations are only emitted when the decision changes). Full log: results/explanation_log.md.</p>
+<h4 id="pedestrian-at-a-crosswalk">Pedestrian at a crosswalk<a class="headerlink" href="#pedestrian-at-a-crosswalk" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>t= 0.2s</code> <strong>cruise</strong>: Cruising at up to 13.9 m/s; nothing in the scene needs a reaction.</li>
+<li><code>t= 0.9s</code> <strong>caution</strong>: P1 is waiting at the curb by the crosswalk; slowing to 13 m/s in case they step out.</li>
+<li><code>t= 2.3s</code> <strong>yield</strong>: Pedestrian P1 is crossing at the crosswalk 25 m ahead; stopping at the line until they clear my lane.</li>
+<li><code>t= 7.2s</code> <strong>cruise</strong>: Cruising at up to 13.9 m/s; nothing in the scene needs a reaction.</li>
+</ul>
+<h4 id="oncoming-bus-on-a-narrow-road">Oncoming bus on a narrow road<a class="headerlink" href="#oncoming-bus-on-a-narrow-road" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>t= 0.2s</code> <strong>nudge</strong>: Oncoming bus B1 is 0.8 m over the centre line; shifting 0.9 m right and slowing to 7 m/s to keep 0.6 m clearance.</li>
+<li><code>t= 6.7s</code> <strong>cruise</strong>: Cruising at up to 12.5 m/s; nothing in the scene needs a reaction.</li>
+</ul>
+<h4 id="stalled-car-with-oncoming-traffic">Stalled car with oncoming traffic<a class="headerlink" href="#stalled-car-with-oncoming-traffic" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>t= 0.2s</code> <strong>wait</strong>: Car S1 blocks my lane 53 m ahead; I cannot see far enough down the oncoming lane to pass safely yet, so I am slowing behind it.</li>
+<li><code>t= 8.2s</code> <strong>wait</strong>: Car S1 blocks my lane 4 m ahead and oncoming car C1 is passing it right now (I need 8.8 s clear); waiting behind S1.</li>
+<li><code>t= 9.8s</code> <strong>overtake</strong>: Car S1 blocks my lane; the oncoming lane is clear long enough (need 8.9 s), so I am passing it on the left.</li>
+<li><code>t=14.3s</code> <strong>cruise</strong>: Cruising at up to 13.9 m/s; nothing in the scene needs a reaction.</li>
+</ul>
+<hr>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">¶</a></h2>
+<pre class="mermaid"><code>flowchart LR
+    W[World&lt;br/&gt;scripted agents] --&gt;|ground truth| P[Perception&lt;br/&gt;line of sight, occlusions]
+    P --&gt; B[(latency buffer)]
+    B --&gt; S{complexity&lt;br/&gt;gate}
+    S --&gt;|complex or changed| R[Scene reasoner&lt;br/&gt;rules → constraints + reasons]
+    S --&gt;|calm| C[cached decision]
+    R --&gt; PL
+    C --&gt; PL[Sampling planner&lt;br/&gt;Frenet quintics, collision checks]
+    PL --&gt; CT[Tracker&lt;br/&gt;pure pursuit + speed loop]
+    CT --&gt; V[Bicycle model]
+    V --&gt; W
+    R -.-&gt; E[Explanation events&lt;br/&gt;when the decision changes]
+    E -.-&gt; F[Faithfulness&lt;br/&gt;counterfactual check]</code></pre>
+<p><strong>The reasoner outputs constraints, not trajectories.</strong> Each rule writes a speed cap, a stop line, a lateral corridor, a preferred offset or a lead vehicle, and attaches a <code>Rationale</code> that names the agents it depends on. The tightest constraint wins, and the highest-priority maneuver is the one reported. Because of this split, every explanation is grounded in a specific, checkable constraint, and the planner can be swapped or tested independently.</p>
+<p><strong>The planner</strong> samples quintic lateral paths in <em>distance travelled</em> (so they are drivable even when pulling out from a standstill) and quartic or quintic speed profiles. It rejects anything that breaks acceleration, curvature, corridor, speed-cap or stop-line limits, or that comes within a margin of any predicted agent. It then picks the cheapest of the rest by jerk, lateral acceleration, speed error, offset and proximity. If nothing is feasible it brakes as hard as it can and explains which constraint made every option fail.</p>
+<p><strong>The LLM/VLM slot.</strong> <code>llm_reasoner.py</code> writes the scene out as text, asks any <code>prompt → str</code> backend for a JSON decision, and merges it with the rules so that <strong>the more cautious value always wins</strong>. A model can add caution or choose a position inside the safe corridor, but it can never widen the safety envelope. Unparseable output falls back to the rules alone.</p>
+<p>The full details are in <strong><a href="../design/">docs/design.md</a></strong>: equations, every rule, the planner checks, and the bugs simulation exposed along the way.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../design/" class="md-footer__link md-footer__link--next" aria-label="Next: Design Notes">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Design Notes
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Lakshanand Sugumar · Arizona State University, Polytechnic · <a href="https://www.lakshanand.dev">lakshanand.dev</a>
+    </div>
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://www.lakshanand.dev" target="_blank" rel="noopener" title="Portfolio" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2m-5.15 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56M14.34 14H9.66c-.1-.66-.16-1.32-.16-2s.06-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2M12 19.96c-.83-1.2-1.5-2.53-1.91-3.96h3.82c-.41 1.43-1.08 2.76-1.91 3.96M8 8H5.08A7.92 7.92 0 0 1 9.4 4.44C8.8 5.55 8.35 6.75 8 8m-2.92 8H8c.35 1.25.8 2.45 1.4 3.56A8 8 0 0 1 5.08 16m-.82-2C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2M12 4.03c.83 1.2 1.5 2.54 1.91 3.97h-3.82c.41-1.43 1.08-2.77 1.91-3.97M18.92 8h-2.95a15.7 15.7 0 0 0-1.38-3.56c1.84.63 3.37 1.9 4.33 3.56M12 2C6.47 2 2 6.5 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/lakshanand-sugumar" target="_blank" rel="noopener" title="LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/LakshanandSugumar" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

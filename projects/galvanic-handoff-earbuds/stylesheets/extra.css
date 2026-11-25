@@ -1,0 +1,73 @@
+/* Project site styles */
+
+.hero {
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  margin-bottom: 2rem;
+}
+.hero .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--md-accent-fg-color);
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+.md-typeset .hero h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  color: var(--md-default-fg-color);
+}
+.hero .pitch {
+  font-size: 1.15rem;
+  max-width: 38rem;
+  color: var(--md-default-fg-color--light);
+  margin: 0 0 1.25rem;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 2rem;
+}
+.stat {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+}
+.stat .num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-primary-fg-color);
+  line-height: 1.2;
+}
+.stat .label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.25rem;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+  font-variant-numeric: tabular-nums;
+}
+.md-typeset .num-col td:last-child,
+.md-typeset .num-col th:last-child {
+  text-align: right;
+}
+
+.md-typeset .grid.cards > ul > li {
+  border-radius: 0.5rem;
+}
+
+/* Portfolio project pages */
+.hero .meta { font-size: .8rem; color: var(--md-default-fg-color--light); margin-top: .25rem; }
+.md-typeset .tag-row { display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0 1rem; padding:0; }
+.md-typeset .tag-row span { font-size:.7rem; border:1px solid var(--md-default-fg-color--lightest); border-radius:999px; padding:.15rem .6rem; font-family: var(--md-code-font-family); }
+.md-typeset .status-wip { color: var(--md-accent-fg-color); font-weight:600; }
