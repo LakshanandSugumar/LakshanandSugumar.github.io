@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SDCF bus visualizer</title>
+<style>
+:root{--ink:#0a0a0a;--ink3:#737373;--line:#e5e5e5;--wash:#f5f5f5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#fafafa;--ink3:#a3a3a3;--line:#262626;--wash:#141414;--bg:#0a0a0a}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{padding:18px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+button{font:600 12px Inter,system-ui;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+button.pri{background:var(--ink);color:var(--bg)}button:disabled{opacity:.35;cursor:default}
+label{font-size:12px;color:var(--ink3)}input[type=range]{vertical-align:middle}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:12px;margin-top:12px}
+.stats div{padding:10px 12px;text-align:center}.stats div+div{border-left:1px solid var(--line)}
+.stats b{display:block;font-size:20px;letter-spacing:-.03em}.stats span{font-size:11px;color:var(--ink3)}
+.log{font:12px ui-monospace,Menlo,monospace;color:var(--ink3);margin-top:10px;height:60px;overflow:auto}
+input[type=range]{accent-color:var(--ink)}</style></head><body><div class="wrap">
+<div class="bar">
+ <button class="pri" id="play">Pause</button>
+ <button id="add">Add node</button>
+ <button id="kill">Fail a node</button>
+ <button id="reset">Reset</button>
+ <label>Nodes <input id="n" type="range" min="4" max="24" value="12"> <span id="nv">12</span></label>
+ <label>Speed <input id="spd" type="range" min="1" max="10" value="4"></label>
+</div>
+<canvas id="c" width="1100" height="420"></canvas>
+<div class="stats">
+ <div><b id="sF">0</b><span>Frame</span></div>
+ <div><b id="sC">0</b><span>Collisions this frame</span></div>
+ <div><b id="sO">0 / 0</b><span>Nodes with a slot</span></div>
+ <div><b id="sT">–</b><span>Last takeover (frames)</span></div>
+</div>
+<div class="log" id="log"></div>
+</div>
+<script>
+// Illustrative model of SDCF's idea: nodes on one RS-485 bus claim TDMA slots with no master.
+// Each frame has S slots. A node without a slot picks a random free-looking slot; if two pick the same
+// slot they collide and back off (binary exponential). Every node has a buddy that adopts its slot if
+// it goes silent for K frames. This is a teaching animation, not the research simulator.
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+const S=24,K=3;let nodes=[],frame=0,slotT=0,playing=true,collNow=0,lastTk='–',hist=[],nextId=1;
+const $=id=>document.getElementById(id);
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+function log(t){const l=$('log');l.innerHTML=`F${frame}: ${t}<br>`+l.innerHTML}
+function mk(){return {id:nextId++,slot:-1,want:-1,back:0,tries:0,alive:true,silent:0,buddy:null}}
+function reset(){nodes=[];nextId=1;frame=0;hist=[];lastTk='–';for(let i=0;i<+$('n').value;i++)nodes.push(mk());relink();$('log').innerHTML='';log('bus powered, no master, all nodes unscheduled')}
+function relink(){const a=nodes.filter(n=>n.alive);a.forEach((n,i)=>n.buddy=a[(i+1)%a.length]?.id??null)}
+function step(){
+ frame++;const owned=new Map();nodes.forEach(n=>{if(n.alive&&n.slot>=0)owned.set(n.slot,n)});
+ // unscheduled nodes contend
+ const claims=new Map();
+ nodes.forEach(n=>{if(!n.alive||n.slot>=0)return;if(n.back>0){n.back--;return}
+  const free=[...Array(S).keys()].filter(s=>!owned.has(s));if(!free.length)return;
+  n.want=free[Math.floor(Math.random()*free.length)];(claims.get(n.want)||claims.set(n.want,[]).get(n.want)).push(n)});
+ collNow=0;const row=new Array(S).fill(null);
+ owned.forEach((n,s)=>row[s]={t:'own',id:n.id});
+ claims.forEach((arr,s)=>{if(arr.length===1){arr[0].slot=s;row[s]={t:'join',id:arr[0].id};log(`node ${arr[0].id} claimed slot ${s}`)}
+  else{collNow++;row[s]={t:'col',ids:arr.map(a=>a.id)};arr.forEach(a=>{a.tries++;a.back=Math.floor(Math.random()*Math.pow(2,Math.min(a.tries,4)))})}});
+ // failure detection and buddy takeover
+ nodes.forEach(n=>{if(!n.alive&&n.slot>=0){n.silent++;row[n.slot]={t:'dead',id:n.id};
+   if(n.silent>=K){const b=nodes.find(m=>m.id===n.buddy&&m.alive);if(b){row[n.slot]={t:'take',id:b.id};log(`buddy node ${b.id} took over node ${n.id}'s duty in slot ${n.slot} after ${n.silent} frames`);lastTk=n.silent;n.slot=-1;relink()}}}});
+ hist.push(row);if(hist.length>14)hist.shift();draw();stats()}
+function stats(){const a=nodes.filter(n=>n.alive);$('sF').textContent=frame;$('sC').textContent=collNow;$('sO').textContent=a.filter(n=>n.slot>=0).length+' / '+a.length;$('sT').textContent=lastTk}
+function draw(){
+ const W=cv.width,H=cv.height,ink=css('--ink'),ink3=css('--ink3'),line=css('--line'),wash=css('--wash'),bg=css('--bg');
+ cx.fillStyle=bg;cx.fillRect(0,0,W,H);
+ // bus
+ const busY=70;cx.strokeStyle=ink;cx.lineWidth=3;cx.beginPath();cx.moveTo(30,busY);cx.lineTo(W-30,busY);cx.stroke();
+ cx.font='600 12px Inter,system-ui';cx.fillStyle=ink3;cx.fillText('RS-485 bus · no master',30,busY-40);
+ const a=nodes;const gap=(W-80)/Math.max(1,a.length);
+ a.forEach((n,i)=>{const x=50+i*gap+gap/2;cx.strokeStyle=n.alive?ink:line;cx.lineWidth=1.5;cx.beginPath();cx.moveTo(x,busY);cx.lineTo(x,busY+22);cx.stroke();
+  cx.fillStyle=n.alive?(n.slot>=0?ink:bg):wash;cx.strokeStyle=n.alive?ink:line;cx.lineWidth=1.5;cx.beginPath();cx.roundRect(x-15,busY+22,30,22,6);cx.fill();cx.stroke();
+  cx.fillStyle=n.alive?(n.slot>=0?bg:ink):ink3;cx.font='600 11px Inter';cx.textAlign='center';cx.fillText(n.alive?n.id:'×',x,busY+37);cx.textAlign='left'});
+ // schedule grid
+ const gx=60,gy=150,cw=(W-gx-20)/S,ch=18;
+ cx.fillStyle=ink3;cx.font='11px Inter';cx.fillText('slot →',10,gy-8);
+ for(let s=0;s<S;s++){if(s%4===0)cx.fillText(s,gx+s*cw+2,gy-8)}
+ hist.forEach((row,r)=>{const y=gy+r*(ch+2);cx.fillStyle=ink3;cx.fillText('F'+(frame-hist.length+r+1),10,y+13);
+  row.forEach((c,s)=>{const x=gx+s*cw;cx.strokeStyle=line;cx.lineWidth=1;cx.strokeRect(x+1,y,cw-2,ch);
+   if(!c)return;if(c.t==='own'){cx.fillStyle=ink;cx.fillRect(x+1,y,cw-2,ch)}
+   else if(c.t==='join'){cx.fillStyle=ink3;cx.fillRect(x+1,y,cw-2,ch)}
+   else if(c.t==='col'){cx.strokeStyle=ink;cx.lineWidth=2;cx.beginPath();cx.moveTo(x+3,y+2);cx.lineTo(x+cw-3,y+ch-2);cx.moveTo(x+cw-3,y+2);cx.lineTo(x+3,y+ch-2);cx.stroke()}
+   else if(c.t==='dead'){cx.setLineDash([3,3]);cx.strokeStyle=ink;cx.strokeRect(x+2,y+1,cw-4,ch-2);cx.setLineDash([])}
+   else if(c.t==='take'){cx.fillStyle=ink;cx.fillRect(x+1,y,cw-2,ch);cx.fillStyle=bg;cx.font='700 10px Inter';cx.fillText('↻',x+cw/2-3,y+13)}
+   if(c.id&&c.t!=='col'&&c.t!=='dead'){cx.fillStyle=c.t==='join'?bg:bg;cx.font='600 10px Inter';cx.fillText(c.id,x+3,y+13)}})});
+ // legend
+ const ly=H-18;const items=[['own','owns slot'],['join','just claimed'],['col','collision → backoff'],['dead','silent node'],['take','buddy takeover']];
+ let lx=60;items.forEach(([t,l])=>{cx.strokeStyle=line;cx.strokeRect(lx,ly-11,14,12);if(t==='own'||t==='take'){cx.fillStyle=ink;cx.fillRect(lx,ly-11,14,12)}if(t==='join'){cx.fillStyle=ink3;cx.fillRect(lx,ly-11,14,12)}
+  if(t==='col'){cx.strokeStyle=ink;cx.beginPath();cx.moveTo(lx+2,ly-9);cx.lineTo(lx+12,ly-1);cx.moveTo(lx+12,ly-9);cx.lineTo(lx+2,ly-1);cx.stroke()}
+  if(t==='dead'){cx.setLineDash([3,3]);cx.strokeStyle=ink;cx.strokeRect(lx,ly-11,14,12);cx.setLineDash([])}
+  cx.fillStyle=ink3;cx.font='11px Inter';cx.fillText(l,lx+20,ly);lx+=cx.measureText(l).width+50})}
+let acc=0,last=performance.now();
+function loop(t){const dt=t-last;last=t;if(playing){acc+=dt*+$('spd').value;if(acc>2400){acc=0;step()}}requestAnimationFrame(loop)}
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play'};
+$('add').onclick=()=>{if(nodes.filter(n=>n.alive).length>=S)return;nodes.push(mk());relink();log('a new node joined the bus');draw();stats()};
+$('kill').onclick=()=>{const c=nodes.filter(n=>n.alive&&n.slot>=0);if(c.length<2)return;const v=c[Math.floor(Math.random()*c.length)];v.alive=false;v.silent=0;log(`node ${v.id} failed (stops transmitting in slot ${v.slot})`);draw();stats()};
+$('reset').onclick=reset;$('n').oninput=e=>{$('nv').textContent=e.target.value};$('n').onchange=reset;
+reset();draw();requestAnimationFrame(loop);
+</script></body></html>

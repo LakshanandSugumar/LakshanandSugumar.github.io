@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Earbud power and audio paths</title>
+<style>
+:root{--ink:#0a0a0a;--ink3:#737373;--line:#d4d4d4;--wash:#f5f5f5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#fafafa;--ink3:#a3a3a3;--line:#333;--wash:#141414;--bg:#0a0a0a}}
+body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}.wrap{padding:18px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{font:600 12px Inter;border:0;background:transparent;color:var(--ink);padding:7px 14px;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.lab{font-size:12px;color:var(--ink3);margin-right:4px}
+svg{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.box{fill:var(--bg);stroke:var(--ink);stroke-width:1.5}.off{opacity:.25}
+.t{font:600 13px Inter;fill:var(--ink)}.s{font:11px Inter;fill:var(--ink3)}
+.wire{stroke:var(--line);stroke-width:3;fill:none}.live{stroke:var(--ink);stroke-dasharray:8 6;animation:flow 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-28}}
+.note{font-size:12px;color:var(--ink3);margin-top:8px}
+input[type=range]{accent-color:var(--ink)}</style></head><body><div class="wrap">
+<div class="bar"><span class="lab">State</span><div class="seg" id="st"><button data-v="standby" class="on">In case / standby</button><button data-v="active">Active</button></div>
+<span class="lab" style="margin-left:12px">Audio source</span><div class="seg" id="au"><button data-v="ble" class="on">Wireless (BLE)</button><button data-v="wired">Wired via stem pins</button></div></div>
+<svg viewBox="0 0 900 360" id="sv">
+ <!-- power path -->
+ <text class="s" x="20" y="28">POWER-GATED ISLAND</text>
+ <rect class="box" x="20" y="45" width="120" height="56" rx="10"/><text class="t" x="45" y="78">Battery</text>
+ <rect class="box" x="190" y="45" width="150" height="56" rx="10"/><text class="t" x="205" y="70">TPS3840</text><text class="s" x="205" y="88">voltage supervisor</text>
+ <rect class="box" x="390" y="45" width="150" height="56" rx="10"/><text class="t" x="405" y="70">Load switch</text><text class="s" x="405" y="88" id="lsState">open</text>
+ <rect class="box" id="isl" x="590" y="35" width="290" height="76" rx="12"/><text class="t" x="610" y="64">Island: MCU · radio · DAC</text><text class="s" x="610" y="86" id="islState">unpowered: standby target &lt; 500 nA</text>
+ <path class="wire live" id="w1" d="M140 73H190"/><path class="wire live" id="w2" d="M340 73H390"/><path class="wire" id="w3" d="M540 73H590"/>
+ <!-- audio path -->
+ <text class="s" x="20" y="170">AUDIO PATH</text>
+ <rect class="box" x="20" y="190" width="130" height="56" rx="10"/><text class="t" x="35" y="215">Stem pogo pins</text><text class="s" x="35" y="233">wired source</text>
+ <rect class="box" x="20" y="275" width="130" height="56" rx="10"/><text class="t" x="35" y="300">BLE radio</text><text class="s" x="35" y="318">wireless source</text>
+ <rect class="box" x="230" y="230" width="170" height="60" rx="10"/><text class="t" x="245" y="256">TS3A24159</text><text class="s" x="245" y="274">dual SPDT switch</text>
+ <rect class="box" x="470" y="230" width="150" height="60" rx="10"/><text class="t" x="485" y="256">I²S path</text><text class="s" x="485" y="274">digital audio</text>
+ <rect class="box" x="680" y="230" width="90" height="60" rx="10"/><text class="t" x="695" y="264">MAX98357A</text>
+ <circle class="box" cx="840" cy="260" r="26"/><text class="t" x="822" y="265">Driver</text>
+ <path class="wire" id="a1" d="M150 218C190 218 190 250 230 250"/><path class="wire" id="a2" d="M150 303C190 303 190 270 230 270"/>
+ <path class="wire" id="a3" d="M400 260H470"/><path class="wire" id="a4" d="M620 260H680"/><path class="wire" id="a5" d="M770 260H814"/>
+</svg>
+<p class="note" id="note"></p>
+<p class="note">Concept illustration of the paper's two subsystems. It shows which blocks are powered and which path the audio takes; it does not simulate currents or audio quality.</p>
+</div>
+<script>
+let st='standby',au='ble';
+function seg(id,cb){document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.toggle('on',x===b));cb(b.dataset.v)})}
+function render(){const on=st==='active';const q=id=>document.getElementById(id);
+ q('w3').classList.toggle('live',on);q('isl').classList.toggle('off',!on);q('lsState').textContent=on?'closed':'open';
+ q('islState').textContent=on?'powered':'unpowered: standby target < 500 nA';
+ const wired=au==='wired';q('a1').classList.toggle('live',on&&wired);q('a2').classList.toggle('live',on&&!wired);['a3','a4','a5'].forEach(i=>q(i).classList.toggle('live',on));
+ q('note').textContent=!on?'Standby: the supervisor holds the load switch open, so the whole island is cut off in hardware. No firmware has to stay awake to decide when to wake.':
+  (wired?'Active, wired: the analog switch routes the stem pins into the I²S path, bypassing the radio link entirely.':'Active, wireless: the switch selects the BLE radio as the audio source.')}
+seg('st',v=>{st=v;render()});seg('au',v=>{au=v;render()});render();
+</script></body></html>
