@@ -1,2 +1,6 @@
 User-agent: *
+Allow: /projects/
+Allow: /og/
 Disallow: /
+
+Sitemap: https://lakshanandsugumar.github.io/projects/sitemap.xml

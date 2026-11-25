@@ -1,4 +1,6 @@
 ---
+title: "Dual-Domain Galvanic Handoff Earbuds"
+description: "Earbud platform study: hardware power-gated standby island targeting under 500 nA and a lossless wired audio path through the stem, in an 8-layer HDI rigid-flex 4.2 mm stem."
 hide:
   - navigation
   - toc

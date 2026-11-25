@@ -1,4 +1,6 @@
 ---
+title: "SDCF: Masterless Deterministic RS-485 Control Bus"
+description: "SDCF (Self-Configuring Deterministic Control Fabric): PIC18F57Q83 nodes on a shared RS-485 bus self-allocate collision-free TDMA slots with no master and take over for failed peers within bounded frames."
 hide:
   - navigation
   - toc

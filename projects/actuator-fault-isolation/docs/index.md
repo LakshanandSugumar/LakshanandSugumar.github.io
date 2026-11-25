@@ -1,4 +1,6 @@
 ---
+title: "Fault Detection and Isolation for PMSM Robot Joint Actuators"
+description: "IEEE paper draft by Lakshanand Sugumar: isolating encoder faults from collisions and payload changes in PMSM robot joint actuators using a back-EMF voltage residual and a generalized-momentum observer. 299 of 300 faults isolated in simulation."
 hide:
   - navigation
   - toc

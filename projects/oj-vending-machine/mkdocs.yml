@@ -1,5 +1,5 @@
 site_name: "OJ Vending Machine \u00b7 Lakshanand Sugumar"
-site_description: "Fresh orange juice vending machine automation showcase at ASU, designed to IEC 60335."
+site_description: "Automation showcase: a fresh orange juice vending machine designed to IEC 60335, focused on waste handling and a self-sanitizing dispense path."
 site_url: https://lakshanandsugumar.github.io/projects/oj-vending-machine/
 theme:
   name: material

@@ -44,6 +44,19 @@ jobs:
             (cd "$d" && mkdocs build -d "../../site/projects/$n")
           done
 
+      - name: Combine project sitemaps
+        run: |
+          python - <<'PY'
+          import glob, re, datetime
+          urls = []
+          for f in sorted(glob.glob("site/projects/*/sitemap.xml")) + ["site/projects/sitemap.xml"]:
+              urls += re.findall(r"<loc>([^<]+)</loc>", open(f).read())
+          today = datetime.date.today().isoformat()
+          body = "".join(f"  <url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in dict.fromkeys(urls))
+          open("site/projects/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n")
+          print(len(urls), "urls")
+          PY
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

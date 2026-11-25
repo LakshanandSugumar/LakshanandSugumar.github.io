@@ -1,5 +1,5 @@
 site_name: "SDCF \u00b7 Lakshanand Sugumar"
-site_description: "Self-Configuring Deterministic Control Fabric: a masterless, fault-tolerant RS-485 TDMA bus for industrial control."
+site_description: "SDCF (Self-Configuring Deterministic Control Fabric): PIC18F57Q83 nodes on a shared RS-485 bus self-allocate collision-free TDMA slots with no master and take over for failed peers within bounded frames."
 site_url: https://lakshanandsugumar.github.io/projects/sdcf/
 theme:
   name: material

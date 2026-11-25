@@ -1,4 +1,6 @@
 ---
+title: "STM32 FOC Robot-Joint Actuator with Fault Detection"
+description: "Robot-joint actuator testbed: field-oriented control (FOC) on an STM32G474, AS5047P encoder, cascaded current, velocity and position loops, model-based fault detection (back-EMF residual, momentum observer) and a CAN + Python test stack. Simulation-first."
 hide:
   - navigation
   - toc

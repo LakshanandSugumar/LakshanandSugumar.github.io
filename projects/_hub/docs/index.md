@@ -1,4 +1,6 @@
 ---
+title: "Robotics, Embedded and Automation Projects"
+description: "Detailed project pages by Lakshanand Sugumar, robotics engineering student at Arizona State University: STM32 FOC actuator, fault-isolation research, Siemens S7-1500 cell, explainable driving planner, PCBs and more."
 hide:
   - navigation
   - toc

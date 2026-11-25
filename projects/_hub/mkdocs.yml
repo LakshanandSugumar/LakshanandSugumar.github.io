@@ -1,5 +1,5 @@
 site_name: "Projects \u00b7 Lakshanand Sugumar"
-site_description: "Detailed project pages from Lakshanand Sugumar's portfolio."
+site_description: "Detailed project pages by Lakshanand Sugumar, robotics engineering student at Arizona State University: STM32 FOC actuator, fault-isolation research, Siemens S7-1500 cell, explainable driving planner, PCBs and more."
 site_url: https://lakshanandsugumar.github.io/projects/
 theme:
   name: material

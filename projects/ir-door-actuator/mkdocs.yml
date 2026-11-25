@@ -1,5 +1,5 @@
 site_name: "IR Motion-Sensing Door Actuator \u00b7 Lakshanand Sugumar"
-site_description: "EGR 304 private-use door automation: infrared distance-sensing subsystem on a PIC18F57Q43."
+site_description: "EGR 304 home door automation: infrared distance-sensing subsystem on a PIC18F57Q43, signal conditioning, schematic and integration with motor, encoder and flex-sensor subsystems."
 site_url: https://lakshanandsugumar.github.io/projects/ir-door-actuator/
 repo_url: https://github.com/EGR304-2025-F-103/egr304-2025-f-103.github.io
 repo_name: Source code

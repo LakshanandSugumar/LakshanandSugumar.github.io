@@ -1,5 +1,5 @@
 site_name: "Zephy \u00b7 Lakshanand Sugumar"
-site_description: "Zephy: a self-hosted, Jarvis-style personal assistant on a local Ollama / Qwen backend."
+site_description: "Zephy: a self-hosted, Jarvis-style personal assistant on local LLMs (Ollama, Qwen) that places calls, schedules meetings and works on projects, reached over Telegram and Tailscale."
 site_url: https://lakshanandsugumar.github.io/projects/zephy/
 theme:
   name: material

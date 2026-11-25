@@ -1,4 +1,6 @@
 ---
+title: "R6 Recon Amphibot: PIC18F57Q83 Sensor and HMI Board"
+description: "EGR 314 R6 Recon Amphibot: three-PCB amphibious scout with a UART daisy chain and MQTT. Sensor + HMI subsystem on a PIC18F57Q83 with BNO055 IMU, SH1106 OLED and HDC2080, including a bit-banged I2C rescue."
 hide:
   - navigation
   - toc

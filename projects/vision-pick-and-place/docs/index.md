@@ -1,4 +1,6 @@
 ---
+title: "Vision-Guided 3-Axis Pick-and-Place on PSoC 5LP"
+description: "Three-axis pick-and-place arm on a PSoC 5LP with OpenCV object localization and PID correction: 92.5% success over 80 trials, 2.5 mm accuracy, 1.0 mm repeatability, 4.8 s cycle."
 hide:
   - navigation
   - toc

@@ -1,4 +1,6 @@
 ---
+title: "IR Motion-Sensing Door Actuator (EGR 304)"
+description: "EGR 304 home door automation: infrared distance-sensing subsystem on a PIC18F57Q43, signal conditioning, schematic and integration with motor, encoder and flex-sensor subsystems."
 hide:
   - navigation
   - toc

@@ -1,5 +1,5 @@
 site_name: "Actuator Fault Isolation \u00b7 Lakshanand Sugumar"
-site_description: "Isolating sensor faults from mechanical events in robot joint actuators: an IEEE conference paper draft."
+site_description: "IEEE paper draft by Lakshanand Sugumar: isolating encoder faults from collisions and payload changes in PMSM robot joint actuators using a back-EMF voltage residual and a generalized-momentum observer. 299 of 300 faults isolated in simulation."
 site_url: https://lakshanandsugumar.github.io/projects/actuator-fault-isolation/
 repo_url: https://github.com/LakshanandSugumar/actuator-fdi-paper
 repo_name: Source code

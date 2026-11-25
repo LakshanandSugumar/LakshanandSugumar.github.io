@@ -1,4 +1,6 @@
 ---
+title: "Fresh Orange Juice Vending Machine (IEC 60335)"
+description: "Automation showcase: a fresh orange juice vending machine designed to IEC 60335, focused on waste handling and a self-sanitizing dispense path."
 hide:
   - navigation
   - toc

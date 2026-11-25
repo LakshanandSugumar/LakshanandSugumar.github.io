@@ -1,4 +1,6 @@
 ---
+title: "ExplainDrive: Explainable Reasoning Planner for Automated Driving"
+description: "An explainable reasoning planner for automated driving: scene reasoner, Frenet sampling planner, closed-loop simulator with occlusions, and counterfactual tests that check every explanation is faithful."
 hide:
   - navigation
   - toc

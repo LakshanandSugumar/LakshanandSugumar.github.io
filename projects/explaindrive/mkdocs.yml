@@ -1,5 +1,5 @@
 site_name: "ExplainDrive \u00b7 Lakshanand Sugumar"
-site_description: "An explainable reasoning planner for automated driving with closed-loop simulation and counterfactual faithfulness tests."
+site_description: "An explainable reasoning planner for automated driving: scene reasoner, Frenet sampling planner, closed-loop simulator with occlusions, and counterfactual tests that check every explanation is faithful."
 site_url: https://lakshanandsugumar.github.io/projects/explaindrive/
 repo_url: https://github.com/LakshanandSugumar/explainable-av-planner
 repo_name: Source code

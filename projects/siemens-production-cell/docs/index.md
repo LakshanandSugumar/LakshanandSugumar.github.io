@@ -1,4 +1,6 @@
 ---
+title: "Siemens S7-1500 Production Cell with S7-GRAPH and an OPC UA OEE Dashboard"
+description: "Three-station simulated assembly cell on a Siemens S7-1500: SICAR-style S7-GRAPH sequences, interlocks, WinCC HMI, Factory I/O, and an OPC UA collector with a Streamlit OEE, Pareto and MTBF/MTTR dashboard."
 hide:
   - navigation
   - toc

@@ -1,5 +1,5 @@
 site_name: "Siemens S7-1500 Production Cell \u00b7 Lakshanand Sugumar"
-site_description: "Three-station simulated assembly cell on an S7-1500 with S7-GRAPH sequences, WinCC HMI and an OPC UA OEE dashboard."
+site_description: "Three-station simulated assembly cell on a Siemens S7-1500: SICAR-style S7-GRAPH sequences, interlocks, WinCC HMI, Factory I/O, and an OPC UA collector with a Streamlit OEE, Pareto and MTBF/MTTR dashboard."
 site_url: https://lakshanandsugumar.github.io/projects/siemens-production-cell/
 repo_url: https://github.com/LakshanandSugumar/siemens-production-cell
 repo_name: Source code

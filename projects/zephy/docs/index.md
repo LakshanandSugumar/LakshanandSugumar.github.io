@@ -1,4 +1,6 @@
 ---
+title: "Zephy: Self-Hosted Personal AI Assistant"
+description: "Zephy: a self-hosted, Jarvis-style personal assistant on local LLMs (Ollama, Qwen) that places calls, schedules meetings and works on projects, reached over Telegram and Tailscale."
 hide:
   - navigation
   - toc

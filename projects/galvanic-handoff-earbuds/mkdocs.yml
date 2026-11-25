@@ -1,5 +1,5 @@
 site_name: "Galvanic Handoff Earbuds \u00b7 Lakshanand Sugumar"
-site_description: "Dual-domain galvanic handoff earbud platform: sub-500 nA power-gated island and lossless audio bypass in a 4.2 mm stem."
+site_description: "Earbud platform study: hardware power-gated standby island targeting under 500 nA and a lossless wired audio path through the stem, in an 8-layer HDI rigid-flex 4.2 mm stem."
 site_url: https://lakshanandsugumar.github.io/projects/galvanic-handoff-earbuds/
 theme:
   name: material
