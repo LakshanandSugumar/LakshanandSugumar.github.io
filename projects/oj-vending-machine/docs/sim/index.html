@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OJ machine cycle</title>
+<style>
+:root{--ink:#0a0a0a;--ink3:#737373;--line:#d4d4d4;--wash:#f5f5f5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#fafafa;--ink3:#a3a3a3;--line:#333;--wash:#141414;--bg:#0a0a0a}}
+body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}.wrap{padding:18px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+button{font:600 12px Inter;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+button.pri{background:var(--ink);color:var(--bg)}button:disabled{opacity:.35}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+@media(max-width:700px){.flow{grid-template-columns:repeat(2,1fr)}}
+.st{border:1px solid var(--line);border-radius:12px;padding:12px;min-height:96px;transition:.2s}
+.st b{display:block;font-size:13px}.st span{font-size:11px;color:var(--ink3)}
+.st.on{border-color:var(--ink);background:var(--ink);color:var(--bg)}.st.on span{color:var(--bg);opacity:.75}
+.st.done{border-color:var(--ink)}
+.panel{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;margin-top:14px}
+.panel div{padding:12px;text-align:center}.panel div+div{border-left:1px solid var(--line)}
+.panel b{display:block;font-size:20px;letter-spacing:-.03em}.panel span{font-size:11px;color:var(--ink3)}
+.alarm{margin-top:12px;padding:12px;border-radius:12px;border:2px solid var(--ink);font-weight:600;display:none}
+.note{font-size:12px;color:var(--ink3);margin-top:10px}
+input[type=range]{accent-color:var(--ink)}</style></head><body><div class="wrap">
+<div class="bar"><button class="pri" id="order">Order a cup</button><button id="door">Open service door</button><button id="reset">Reset alarm</button></div>
+<div class="flow" id="flow"></div>
+<div class="alarm" id="alarm">Interlock: service door open. All motion stopped and heaters off until the door closes and the alarm is reset.</div>
+<div class="panel"><div><b id="cups">0</b><span>Cups served</span></div><div><b id="waste">0%</b><span>Peel bin</span></div><div><b id="since">0</b><span>Cups since rinse</span></div><div><b id="state">Idle</b><span>State</span></div></div>
+<p class="note">Concept model of the machine cycle the design is built around: the press is the short step, while waste handling and the self-sanitizing dispense path set how often someone must service the machine. Durations and capacities here are placeholders for illustration, not measured values.</p>
+</div>
+<script>
+const S=[["Idle","waiting for an order"],["Order","payment accepted"],["Load","fruit drops from the hopper"],["Cut & press","halves pressed"],["Dispense","juice to the cup"],["Waste out","peel to the bin"],["Rinse","dispense path flushed"]];
+const f=document.getElementById('flow');S.forEach((s,i)=>{const d=document.createElement('div');d.className='st';d.id='s'+i;d.innerHTML=`<b>${s[0]}</b><span>${s[1]}</span>`;f.appendChild(d)});
+let cur=0,busy=false,cups=0,waste=0,since=0,alarm=false,timer=null;
+const $=id=>document.getElementById(id);
+function show(){S.forEach((_,i)=>{$('s'+i).classList.toggle('on',i===cur);$('s'+i).classList.toggle('done',busy&&i<cur)});$('cups').textContent=cups;$('waste').textContent=Math.min(100,waste)+'%';$('since').textContent=since;$('state').textContent=alarm?'Interlock':S[cur][0];$('alarm').style.display=alarm?'block':'none';$('order').disabled=busy||alarm||waste>=100}
+function next(){if(alarm)return;cur++;if(cur===5){waste+=12}if(cur===6&&since<3){cur=0;busy=false;cups++;since++;show();return}
+ if(cur>=S.length){cur=0;busy=false;cups++;since=0;show();return}show();timer=setTimeout(next,cur===3?1600:900)}
+$('order').onclick=()=>{if(busy||alarm)return;busy=true;cur=1;show();timer=setTimeout(next,900)};
+$('door').onclick=()=>{alarm=true;clearTimeout(timer);show()};
+$('reset').onclick=()=>{alarm=false;if(busy){timer=setTimeout(next,600)}else cur=0;if(waste>=100)waste=0;show()};
+show();
+</script></body></html>

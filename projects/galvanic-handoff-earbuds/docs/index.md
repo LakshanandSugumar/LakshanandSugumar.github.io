@@ -15,6 +15,12 @@ hide:
 
 [Architecture](#architecture){ .md-button .md-button--primary } [Design constraints](#design-constraints){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Galvanic%20Handoff%20Earbuds){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+<div class="sim-frame"><iframe src="sim/index.html" height="520" loading="lazy" title="Interactive simulation"></iframe></div>
+<p class="cap">Interactive: switch between standby and active, and between wireless and wired audio, to see which blocks are powered and how the audio is routed.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">< 500 nA</span><span class="label">Standby current target</span></div>
   <div class="stat"><span class="num">4.2 × 32 mm</span><span class="label">Stem form factor</span></div>

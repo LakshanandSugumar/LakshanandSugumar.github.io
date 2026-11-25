@@ -16,6 +16,12 @@ hide:
 [Architecture](#architecture){ .md-button .md-button--primary } [Evolution](#evolution){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Zephy){ .md-button }
 </div>
 
+<div class="lp-media" markdown>
+<div class="sim-frame"><iframe src="sim/index.html" height="470" loading="lazy" title="Interactive simulation"></iframe></div>
+<p class="cap">Interactive: send Zephy a request and watch it wake, plan, act and go back to sleep. Scripted examples.</p>
+</div>
+
+
 ## What Zephy does
 
 - Places calls and schedules meetings

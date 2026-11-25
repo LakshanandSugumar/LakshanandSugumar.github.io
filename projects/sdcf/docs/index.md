@@ -15,6 +15,12 @@ hide:
 
 [How it works](how-it-works.md){ .md-button .md-button--primary } [Results](results.md){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20SDCF){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+<div class="sim-frame"><iframe src="sim/index.html" height="660" loading="lazy" title="Interactive simulation"></iframe></div>
+<p class="cap">Interactive: watch nodes claim slots with no master, collide and back off, then fail a node and watch its buddy take over. A teaching animation of the protocol idea; the research numbers come from the Python simulator.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">63</span><span class="label">Nodes converge…</span></div>
   <div class="stat"><span class="num">≤ 88 frames</span><span class="label">…to a collision-free schedule, worst case</span></div>

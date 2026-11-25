@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zephy flow</title>
+<style>
+:root{--ink:#0a0a0a;--ink3:#737373;--line:#d4d4d4;--wash:#f5f5f5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#fafafa;--ink3:#a3a3a3;--line:#333;--wash:#141414;--bg:#0a0a0a}}
+body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}.wrap{padding:18px;display:grid;grid-template-columns:1fr 1.2fr;gap:14px}
+@media(max-width:700px){.wrap{grid-template-columns:1fr}}
+.phone{border:1px solid var(--line);border-radius:22px;padding:14px;min-height:330px;display:flex;flex-direction:column}
+.msgs{flex:1;display:flex;flex-direction:column;gap:8px;overflow:auto}
+.m{max-width:85%;padding:8px 12px;border-radius:14px;font-size:13px}.me{align-self:flex-end;background:var(--ink);color:var(--bg)}.z{align-self:flex-start;background:var(--wash)}
+.ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+button{font:600 12px Inter;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.pipe{display:flex;flex-direction:column;gap:8px}
+.step{border:1px solid var(--line);border-radius:12px;padding:10px 12px;transition:.2s}
+.step b{font-size:13px}.step span{display:block;font-size:11px;color:var(--ink3)}
+.step.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}.step.on span{color:var(--bg);opacity:.75}
+.hd{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.note{grid-column:1/-1;font-size:12px;color:var(--ink3)}
+input[type=range]{accent-color:var(--ink)}</style></head><body><div class="wrap">
+<div class="phone"><div class="hd">Telegram · Zephy</div><div class="msgs" id="msgs"></div>
+<div class="ex" id="ex"></div></div>
+<div><div class="hd">On the home server</div><div class="pipe" id="pipe"></div></div>
+<p class="note">Illustrative walk-through of how a request moves through Zephy. Replies are scripted examples, not live output.</p>
+</div>
+<script>
+const P=[["Asleep","model unloaded; only a light heartbeat runs"],["Wake","message arrives over Telegram via Tailscale"],["Plan","local Qwen model on Ollama decides the steps"],["Act","tools: calendar, calls, browser, files"],["Reply","result sent back; model goes idle again"]];
+const pipe=document.getElementById('pipe');P.forEach((p,i)=>{const d=document.createElement('div');d.className='step';d.id='p'+i;d.innerHTML=`<b>${p[0]}</b><span>${p[1]}</span>`;pipe.appendChild(d)});
+const EX=[["Schedule a project sync with Mihir tomorrow at 4","Booked: project sync with Mihir, tomorrow 4:00 PM. Invite sent.","calendar"],["Call the lab and say I'll be 10 minutes late","Called the lab and left the message. Call lasted 0:42.","phone"],["Find the latest FOC testbed results and summarize","Read sim/figures/results.json: encoder freeze caught in 3.3 ms, collision in 0.8 ms. Summary saved to notes.","files"]];
+const ex=document.getElementById('ex'),msgs=document.getElementById('msgs');let busy=false;
+function hl(i){P.forEach((_,j)=>document.getElementById('p'+j).classList.toggle('on',j===i))}
+function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=1e9}
+EX.forEach(e=>{const b=document.createElement('button');b.textContent=e[0];b.onclick=()=>{if(busy)return;busy=true;add(e[0],'me');let i=1;hl(i);const t=setInterval(()=>{i++;if(i===3)document.getElementById('p3').querySelector('span').textContent='tool used: '+e[2];if(i<5){hl(i)}else{clearInterval(t);add(e[1],'z');hl(4);setTimeout(()=>{hl(0);document.getElementById('p3').querySelector('span').textContent=P[3][1];busy=false},1200)}},800)};ex.appendChild(b)});
+hl(0);add('Hi, I am asleep until you text me.','z');
+</script></body></html>

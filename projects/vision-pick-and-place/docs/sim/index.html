@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pick-and-place loop</title>
+<style>
+:root{--ink:#0a0a0a;--ink3:#737373;--line:#e5e5e5;--wash:#f5f5f5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#fafafa;--ink3:#a3a3a3;--line:#262626;--wash:#141414;--bg:#0a0a0a}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{padding:18px}.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+button{font:600 12px Inter,system-ui;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
+button.pri{background:var(--ink);color:var(--bg)}label{font-size:12px;color:var(--ink3)}
+.grid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:12px}
+.cap{font-size:11px;color:var(--ink3);margin:6px 2px 0}
+.state{font:600 12px ui-monospace,Menlo,monospace;margin-left:auto}
+input[type=range]{accent-color:var(--ink)}</style></head><body><div class="wrap">
+<div class="bar">
+ <button class="pri" id="play">Pause</button><button id="drop">Drop a new part</button>
+ <label>Kp <input id="kp" type="range" min="1" max="40" value="14"></label>
+ <label>Kd <input id="kd" type="range" min="0" max="20" value="6"></label>
+ <label>Camera noise <input id="nz" type="range" min="0" max="10" value="3"></label>
+ <span class="state" id="st">SEARCH</span>
+</div>
+<div class="grid">
+ <div><canvas id="top" width="700" height="420"></canvas><p class="cap">Camera view (top, X–Y): the vision step finds the part centroid (+) and the PID loop drives the tool (circle) onto it.</p></div>
+ <div><canvas id="side" width="460" height="200"></canvas><p class="cap">Side view (Z): descend, grip, lift.</p>
+ <canvas id="err" width="460" height="190" style="margin-top:10px"></canvas><p class="cap">Position error to target [mm] over time.</p></div>
+</div>
+</div>
+<script>
+// Teaching animation of a vision-guided pick-and-place loop in a 350 x 200 x 150 mm workspace.
+// Not the course hardware or its controller; gains, noise and geometry are adjustable to show the idea.
+const $=id=>document.getElementById(id),T=$('top').getContext('2d'),SD=$('side').getContext('2d'),E=$('err').getContext('2d');
+const WX=350,WY=200,WZ=150,BIN={x:320,y:170};
+let tool={x:20,y:20,z:120,vx:0,vy:0,vz:0},part=null,state='SEARCH',held=false,playing=true,errs=[],timer=0,meas=null;
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+function newPart(){part={x:40+Math.random()*240,y:30+Math.random()*130};state='SEARCH';held=false;timer=0}
+function pid(axis,target,dt,kp,kd){const e=target-tool[axis];const v='v'+axis;const a=kp*e-kd*tool[v];tool[v]+=a*dt;tool[v]=Math.max(-260,Math.min(260,tool[v]));tool[axis]+=tool[v]*dt;return e}
+function step(dt){
+ const kp=+$('kp').value,kd=+$('kd').value,nz=+$('nz').value;
+ if(!part)newPart();
+ if(state==='SEARCH'){meas={x:part.x+(Math.random()-.5)*nz*2,y:part.y+(Math.random()-.5)*nz*2};state='MOVE'}
+ if(state==='MOVE'){ if(Math.random()<.08)meas={x:part.x+(Math.random()-.5)*nz*2,y:part.y+(Math.random()-.5)*nz*2};
+  const ex=pid('x',meas.x,dt,kp,kd),ey=pid('y',meas.y,dt,kp,kd);pid('z',120,dt,kp,kd);
+  errs.push(Math.hypot(part.x-tool.x,part.y-tool.y));if(Math.hypot(ex,ey)<1.2&&Math.hypot(tool.vx,tool.vy)<6)state='DESCEND'}
+ else if(state==='DESCEND'){pid('x',meas.x,dt,kp,kd);pid('y',meas.y,dt,kp,kd);const ez=pid('z',8,dt,kp,kd);errs.push(Math.hypot(part.x-tool.x,part.y-tool.y));if(Math.abs(ez)<1)state='GRIP',timer=0}
+ else if(state==='GRIP'){timer+=dt;if(timer>.35){held=Math.hypot(part.x-tool.x,part.y-tool.y)<6;state=held?'LIFT':'MISS'}}
+ else if(state==='LIFT'){const ez=pid('z',120,dt,kp,kd);if(Math.abs(ez)<2)state='PLACE'}
+ else if(state==='PLACE'){const ex=pid('x',BIN.x,dt,kp,kd),ey=pid('y',BIN.y,dt,kp,kd);if(Math.hypot(ex,ey)<2)state='RELEASE',timer=0}
+ else if(state==='RELEASE'){timer+=dt;if(timer>.4){part=null;held=false;state='SEARCH'}}
+ else if(state==='MISS'){const ez=pid('z',120,dt,kp,kd);if(Math.abs(ez)<2)state='SEARCH'}
+ if(held&&part){part.x=tool.x;part.y=tool.y}
+ if(errs.length>300)errs.shift();$('st').textContent=state}
+function draw(){
+ const ink=css('--ink'),ink3=css('--ink3'),line=css('--line'),bg=css('--bg'),wash=css('--wash');
+ // top view
+ const tw=700,th=420,s=Math.min((tw-40)/WX,(th-40)/WY),ox=20,oy=20;T.fillStyle=bg;T.fillRect(0,0,tw,th);
+ T.strokeStyle=line;T.lineWidth=1;for(let x=0;x<=WX;x+=25){T.beginPath();T.moveTo(ox+x*s,oy);T.lineTo(ox+x*s,oy+WY*s);T.stroke()}for(let y=0;y<=WY;y+=25){T.beginPath();T.moveTo(ox,oy+y*s);T.lineTo(ox+WX*s,oy+y*s);T.stroke()}
+ T.strokeStyle=ink;T.lineWidth=1.5;T.strokeRect(ox,oy,WX*s,WY*s);
+ T.fillStyle=wash;T.strokeStyle=ink;T.fillRect(ox+(BIN.x-25)*s,oy+(BIN.y-22)*s,50*s,44*s);T.strokeRect(ox+(BIN.x-25)*s,oy+(BIN.y-22)*s,50*s,44*s);T.fillStyle=ink3;T.font='11px Inter';T.fillText('BIN',ox+(BIN.x-10)*s,oy+(BIN.y+4)*s);
+ // gantry rails
+ T.strokeStyle=ink3;T.setLineDash([4,4]);T.beginPath();T.moveTo(ox+tool.x*s,oy);T.lineTo(ox+tool.x*s,oy+WY*s);T.moveTo(ox,oy+tool.y*s);T.lineTo(ox+WX*s,oy+tool.y*s);T.stroke();T.setLineDash([]);
+ if(part){T.fillStyle=ink;T.fillRect(ox+(part.x-7)*s,oy+(part.y-7)*s,14*s,14*s)}
+ if(meas&&!held&&part){T.strokeStyle=ink3;T.lineWidth=2;const mx=ox+meas.x*s,my=oy+meas.y*s;T.beginPath();T.moveTo(mx-10,my);T.lineTo(mx+10,my);T.moveTo(mx,my-10);T.lineTo(mx,my+10);T.stroke()}
+ const r=6+tool.z/12;T.strokeStyle=ink;T.lineWidth=2;T.beginPath();T.arc(ox+tool.x*s,oy+tool.y*s,r,0,7);T.stroke();
+ T.fillStyle=ink3;T.font='11px Inter';T.fillText('350 × 200 mm workspace (X–Y)',ox,th-6);
+ // side view
+ const sw=460,sh=200,ss=(sw-40)/WX,sz=(sh-40)/WZ;SD.fillStyle=bg;SD.fillRect(0,0,sw,sh);SD.strokeStyle=ink;SD.lineWidth=1.5;SD.beginPath();SD.moveTo(20,sh-20);SD.lineTo(sw-20,sh-20);SD.stroke();
+ const tx=20+tool.x*ss,tz=sh-20-tool.z*sz;SD.strokeStyle=ink3;SD.beginPath();SD.moveTo(20,20);SD.lineTo(sw-20,20);SD.stroke();SD.strokeStyle=ink;SD.lineWidth=3;SD.beginPath();SD.moveTo(tx,20);SD.lineTo(tx,tz);SD.stroke();
+ SD.lineWidth=2;SD.beginPath();SD.moveTo(tx-8,tz);SD.lineTo(tx-8,tz+8);SD.moveTo(tx+8,tz);SD.lineTo(tx+8,tz+8);SD.stroke();
+ if(part){const pz=held?tz+12:sh-20;SD.fillStyle=ink;SD.fillRect(20+part.x*ss-6,pz-12,12,12)}
+ SD.fillStyle=ink3;SD.font='11px Inter';SD.fillText('Z (150 mm)',24,34);
+ // error plot
+ const ew=460,eh=190;E.fillStyle=bg;E.fillRect(0,0,ew,eh);E.strokeStyle=line;E.beginPath();E.moveTo(30,eh-20);E.lineTo(ew-10,eh-20);E.moveTo(30,10);E.lineTo(30,eh-20);E.stroke();
+ const mx=Math.max(20,...errs);E.strokeStyle=ink;E.lineWidth=1.6;E.beginPath();errs.forEach((e,i)=>{const x=30+i*(ew-40)/300,y=eh-20-(e/mx)*(eh-35);i?E.lineTo(x,y):E.moveTo(x,y)});E.stroke();
+ E.fillStyle=ink3;E.font='11px Inter';E.fillText(mx.toFixed(0)+' mm',34,20);E.fillText('0',18,eh-17)}
+let last=performance.now();function loop(t){const dt=Math.min(.033,(t-last)/1000);last=t;if(playing){for(let i=0;i<4;i++)step(dt/4)}draw();requestAnimationFrame(loop)}
+$('play').onclick=()=>{playing=!playing;$('play').textContent=playing?'Pause':'Play'};$('drop').onclick=()=>{if(!held)newPart()};
+newPart();requestAnimationFrame(loop);
+</script></body></html>

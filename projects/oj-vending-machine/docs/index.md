@@ -16,6 +16,12 @@ hide:
 [Design focus](#design-focus){ .md-button .md-button--primary } [Safety](#safety){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20OJ%20Vending%20Machine){ .md-button }
 </div>
 
+<div class="lp-media" markdown>
+<div class="sim-frame"><iframe src="sim/index.html" height="440" loading="lazy" title="Interactive simulation"></iframe></div>
+<p class="cap">Interactive: order a cup and step through the machine cycle, or open the service door to trip the safety interlock. A concept model, not a measured prototype.</p>
+</div>
+
+
 ## Why it's hard
 
 Automatic juice machines exist, but they are hard to run well. The juicer itself is the easy part. The hard parts are what surround it:

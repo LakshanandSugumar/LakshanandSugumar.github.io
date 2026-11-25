@@ -15,6 +15,12 @@ hide:
 
 [Results](#results){ .md-button .md-button--primary } [System design](#system-design){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Vision-Guided%20Pick-and-Place){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+<div class="sim-frame"><iframe src="sim/index.html" height="580" loading="lazy" title="Interactive simulation"></iframe></div>
+<p class="cap">Interactive: the vision step locates each part and the PID loop drives the tool onto it. Tune Kp, Kd and camera noise to see overshoot and misses. A teaching animation, not the course hardware.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">92.5%</span><span class="label">Success rate (74 / 80 trials)</span></div>
   <div class="stat"><span class="num">±2.5 mm</span><span class="label">Positioning accuracy</span></div>
