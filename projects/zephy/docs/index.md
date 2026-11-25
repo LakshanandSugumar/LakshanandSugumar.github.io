@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Personal project · AI assistant · 9th upgrade</p>
 
@@ -48,3 +54,11 @@ Zephy began as a local assistant answering questions on an Ollama / Qwen backend
 - Move the home server from Windows to Ubuntu
 - Shared memory and tool layer so every assistant I use sees the same knowledge
 - Edge hardware (Jetson) for always-on, low-power operation
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Zephy){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

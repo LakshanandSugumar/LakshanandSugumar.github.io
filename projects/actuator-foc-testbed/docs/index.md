@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Independent project · Robot actuators · Nov 2026 – now</p>
 
@@ -9,6 +15,12 @@
 
 [See the results](results.md){ .md-button .md-button--primary } [How it works](design.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-foc-testbed){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+![Simulation: the joint tracking a trajectory, rejecting a load and catching faults.](img/actuator_sim_demo.gif)
+<p class="cap">Simulation: the joint tracking a trajectory, rejecting a load and catching faults.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">0.037°</span><span class="label">Sine-tracking RMS error with feedforward</span></div>
   <div class="stat"><span class="num">3.3 ms</span><span class="label">Silent encoder freeze caught</span></div>
@@ -16,7 +28,6 @@
   <div class="stat"><span class="num">67 ms</span><span class="label">90° step settle, 0% overshoot</span></div>
 </div>
 
-![Simulation demo](img/actuator_sim_demo.gif)
 
 ## What it is
 
@@ -81,3 +92,10 @@ flowchart LR
 | Host tools and virtual joint | Done |
 | Hardware results | Next: added beside the simulation results as the bench comes up |
 
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-foc-testbed){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

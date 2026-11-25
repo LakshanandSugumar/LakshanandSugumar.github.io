@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Automation showcase · ASU · Designing</p>
 
@@ -32,3 +38,11 @@ The design follows **IEC 60335**, the international safety standard for househol
 ## Status
 
 In design. Mechanical layout, control architecture and safety analysis will be added here as they are completed.
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20OJ%20Vending%20Machine){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

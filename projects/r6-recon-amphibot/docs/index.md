@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">EGR 314 · Spring 2026 · Team 302 (XPED) · ASU Polytechnic</p>
 
@@ -9,6 +15,12 @@
 
 [My subsystem](subsystem/requirements.md){ .md-button .md-button--primary } [Team report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/LakshanandSugumar.github.io/tree/main/docs){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+![At the EGR 314 Innovation Showcase with the Amphibot and its poster.](img/showcase/showcase.jpg)
+<p class="cap">At the EGR 314 Innovation Showcase with the Amphibot and its poster.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">3</span><span class="label">Custom PCBs in a UART daisy chain</span></div>
   <div class="stat"><span class="num">9600 8N1</span><span class="label">UART link, AZ…YB framed packets</span></div>
@@ -46,6 +58,10 @@ At the EGR 314 Innovation Showcase the team demonstrated two-way MQTT with live 
 
 <div class="grid cards" markdown>
 
+-   :material-play-circle-outline: **[Showcase & demo video](showcase.md)**
+
+    The Innovation Showcase demo, photos and poster.
+
 -   :material-clipboard-check-outline: **[Requirements](subsystem/requirements.md)**
 
     What the subsystem had to do, and what it achieved.
@@ -75,3 +91,11 @@ At the EGR 314 Innovation Showcase the team demonstrated two-way MQTT with live 
 ## Team documentation
 
 The full team report (concept design, team-level requirements, process diagrams, the 64-byte message specification and the showcase video) lives on the [Team 302 site](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/). The pages on this site come from my individual subsystem datasheet.
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/LakshanandSugumar.github.io/tree/main/docs){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

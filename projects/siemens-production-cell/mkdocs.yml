@@ -14,15 +14,15 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: deep orange
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: deep orange
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -40,6 +40,7 @@ theme:
     - content.code.copy
 nav:
   - "Home": index.md
+  - "Simulation Run": simulation-run.md
   - "Cell Design":
     - "Cell & I/O": design/cell-and-io.md
     - "S7-GRAPH Sequences": design/sequences.md

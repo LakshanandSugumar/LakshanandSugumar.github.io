@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">IEEE conference paper draft · Robot actuators · Nov 2026</p>
 
@@ -9,6 +15,12 @@
 
 [Read the method](method.md){ .md-button .md-button--primary } [PDF draft](https://github.com/LakshanandSugumar/actuator-fdi-paper/blob/main/main.pdf){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-fdi-paper){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+![Simulated silent encoder freeze: the back-EMF residual alarms in 0.60 ms.](img/sim_encoder_freeze.png)
+<p class="cap">Simulated silent encoder freeze: the back-EMF residual alarms in 0.60 ms.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">299 / 300</span><span class="label">Injected faults isolated correctly (sim)</span></div>
   <div class="stat"><span class="num">≤ 0.51 ms</span><span class="label">Encoder-fault detection</span></div>
@@ -58,4 +70,12 @@ The back-EMF residual responds to encoder faults but is structurally insensitive
 
     The robot-joint FOC testbed this paper builds on.
 
+</div>
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-fdi-paper){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
 </div>

@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Independent project · Industrial automation · Nov 2026 – now</p>
 
@@ -9,6 +15,12 @@
 
 [Cell design](design/cell-and-io.md){ .md-button .md-button--primary } [Dashboard](software/dashboard.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/siemens-production-cell){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+![The OEE dashboard running live against the mock S7-1500.](img/dashboard.png)
+<p class="cap">The OEE dashboard running live against the mock S7-1500.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">3</span><span class="label">Stations in the cell</span></div>
   <div class="stat"><span class="num">3</span><span class="label">Modes: Auto / Manual / Setup</span></div>
@@ -16,7 +28,6 @@
   <div class="stat"><span class="num">10</span><span class="label">Automated tests incl. end-to-end OPC UA</span></div>
 </div>
 
-![Dashboard running against the mock PLC](img/dashboard.png)
 
 ## Why this project
 
@@ -96,3 +107,10 @@ Until the PLC project exists, a mock S7-1500 OPC UA server stands in for it: it 
 3. Stop, switch to Manual. Show a jog blocked by its interlock, with the reason on screen.
 4. Release the force, Reset, Auto, Start. The dashboard shows the downtime in the Pareto and the MTTR.
 
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/siemens-production-cell){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Independent research · Hardware design · 2026</p>
 
@@ -52,3 +58,11 @@ The paper is a simulation-only study. Results and the full write-up will be adde
 
 !!! note "Source files"
     The code and design files for this project are shared on request. [Email me](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Galvanic%20Handoff%20Earbuds) and I'll send them over.
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Galvanic%20Handoff%20Earbuds){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

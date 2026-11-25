@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Lakshanand Sugumar · Robotics Engineering, ASU Polytechnic · May 2027</p>
 

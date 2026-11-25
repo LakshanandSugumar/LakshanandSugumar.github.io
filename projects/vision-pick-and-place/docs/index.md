@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">EGR 456 · Spring 2026 · ASU Polytechnic</p>
 
@@ -55,3 +61,11 @@ PSoC 5LP · PSoC Creator · embedded C · OpenCV · PID tuning · motor drivers 
 
 !!! note "Source files"
     The code and design files for this project are shared on request. [Email me](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Vision-Guided%20Pick-and-Place) and I'll send them over.
+
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Vision-Guided%20Pick-and-Place){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>

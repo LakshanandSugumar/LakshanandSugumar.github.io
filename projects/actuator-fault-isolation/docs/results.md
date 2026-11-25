@@ -78,6 +78,8 @@ $^a$the measured position jumps, so the following error reacts at once but canno
 
 Encoder faults were always detected within 0.51 ms, and collisions within 5.9 ms. The only misclassification was an encoder freeze at 0.51 rad s<sup>−1</sup>: $r_m$ alarmed first, the collision reflex removed the torque, the joint coasted to a stop below the speed at which $r_v$ can see the fault, and the event was labelled Coll. The reaction was still safe (zero torque), but the label was wrong; a check of $r_v$ when control resumes, or the pulse test, would catch it. Neither residual raised a false alarm in the held-out hour, while the following-error check, calibrated the same way, alarmed in 22 % of the normal runs; its latency figures are therefore optimistic.
 
+![ROC curves](img/sim_roc.png)
+
 **ROC.** Sweeping a common multiplier on each threshold, with positives counted as detection within 20 ms and negatives as 1-second windows of normal motion, gives an area under the curve of 0.9999 for $r_v$ on encoder faults (0.998 for the following error) and 0.9999 for $r_m$ on collisions (0.9996). At the calibrated operating point $r_v$ and $r_m$ reach 100 % true positives with no false positives, whereas the following-error check reaches 94 % on encoder faults at a 1.2 % false-positive rate.
 
 **Robustness.** Scaling all model-error bounds by 1.5 caused no false alarms in 30 runs; scaling by 2 caused $r_m$ false alarms in 3 of 30 runs, and by 3 caused $r_v$ false alarms in 3 and $r_m$ in 5 of 30 runs. The thresholds therefore hold up to about 1.5 times the assumed parameter uncertainty, which sets how carefully $\lambda_m$, $R$, $J$, and friction must be identified on hardware.

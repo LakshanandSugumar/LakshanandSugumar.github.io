@@ -12,7 +12,7 @@ The IR subsystem watches both sides of the door and tells the motor board when s
 | --- | --- |
 | Sensing front end | Designed the infrared sensing front end for the door's approach zone |
 | Signal conditioning | Designed the conditioning circuit that shapes the raw sensor output into a clean, reliable threshold signal for the microcontroller |
-| Schematic & PCB | Produced the schematic, fabricated the PCB and executed hardware bring-up |
+| Schematic & PCB | Produced the schematic and PCB layout, then brought the subsystem up on a breadboard prototype for the final integrated demo |
 | Firmware | Wrote the control firmware in embedded C on a PIC18F57Q43 |
 | Integration | Connected to the motor hub over the team's 8-wire ribbon-cable interface |
 | Verification | Validated the sensing-to-actuation path end to end |

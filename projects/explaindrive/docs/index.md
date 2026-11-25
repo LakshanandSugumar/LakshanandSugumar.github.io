@@ -1,3 +1,9 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 <div class="hero" markdown>
 <p class="eyebrow">Independent project · Autonomous driving · Nov 2026</p>
 
@@ -9,6 +15,12 @@
 
 [Scenarios & results](results.md){ .md-button .md-button--primary } [Design notes](design.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/explainable-av-planner){ .md-button }
 </div>
+
+<div class="lp-media" markdown>
+![The car slows for a crosswalk it cannot see, before anyone appears.](img/occluded_crosswalk.gif)
+<p class="cap">The car slows for a crosswalk it cannot see, before anyone appears.</p>
+</div>
+
 <div class="stat-row">
   <div class="stat"><span class="num">6</span><span class="label">Hard closed-loop scenarios</span></div>
   <div class="stat"><span class="num">63%</span><span class="label">Fewer reasoner calls with adaptive reasoning</span></div>
@@ -16,7 +28,6 @@
   <div class="stat"><span class="num">100%</span><span class="label">Explanation necessity & completeness</span></div>
 </div>
 
-![Occluded crosswalk](img/occluded_crosswalk.gif)
 
 > *"My view of the crosswalk 11 m ahead is blocked by T1; limiting speed to 5.3 m/s so I can stop if someone steps out."* The car slows **before** it can see anyone. When the pedestrian appears from behind the truck, it stops comfortably. The reactive baseline in the same scene hits the pedestrian.
 
@@ -55,3 +66,10 @@ flowchart LR
 
 </div>
 
+<div class="lp-cta" markdown>
+## Want to go deeper?
+
+<p>Read the full write-up, browse the source, or see the rest of my work.</p>
+
+[:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/explainable-av-planner){ .md-button .md-button--primary } [All projects](https://lakshanandsugumar.github.io/projects/){ .md-button } [Portfolio](https://www.lakshanand.dev){ .md-button }
+</div>
