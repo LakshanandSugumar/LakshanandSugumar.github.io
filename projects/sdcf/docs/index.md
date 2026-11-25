@@ -1,0 +1,52 @@
+<div class="hero" markdown>
+<p class="eyebrow">Independent research · Industrial networks · Aug 2024 – now</p>
+
+# SDCF: A Bus With No Master
+
+<p class="pitch">Self-Configuring Deterministic Control Fabric: microcontroller nodes on a shared RS-485 bus that give themselves collision-free time slots and cover for each other's failures, with no master node and no offline engineering.</p>
+<p class="meta">Target: IEEE conference paper · Technical manuscript ~7,200 words</p>
+<p class="tag-row"><span>RS-485</span><span>TDMA</span><span>Deterministic scheduling</span><span>PIC18F57Q83</span><span>Python</span><span>JavaScript</span><span>MPLAB X</span></p>
+
+[How it works](how-it-works.md){ .md-button .md-button--primary } [Results](results.md){ .md-button }
+</div>
+<div class="stat-row">
+  <div class="stat"><span class="num">63</span><span class="label">Nodes converge…</span></div>
+  <div class="stat"><span class="num">≤ 88 frames</span><span class="label">…to a collision-free schedule, worst case</span></div>
+  <div class="stat"><span class="num">3 frames</span><span class="label">Peer takeover after a node fails (bound: 4)</span></div>
+  <div class="stat"><span class="num">0</span><span class="label">Slot collisions across 1,436 runs</span></div>
+</div>
+
+## The problem
+
+Factory machines are coordinated by fieldbuses such as EtherCAT, PROFINET IRT or TSN. They are deterministic, but they depend on a master node or a schedule engineered offline. If the master fails, or a node is added, someone has to intervene.
+
+## The idea
+
+SDCF puts low-cost microcontrollers (PIC18F57Q83) on a shared RS-485 multi-drop bus. Every node runs the same schedule function on a replicated table, so all nodes reach the same answer independently:
+
+- **Masterless slot self-allocation.** Nodes claim TDMA slots among themselves and converge to a collision-free schedule.
+- **Join and admission.** New nodes join with contention and binary exponential backoff; admission control keeps the schedule within its period.
+- **Buddy fault takeover.** When a node goes silent, a designated peer takes over its duties within a bounded number of frames.
+
+The defensible gap: masterless, hard-deterministic slot self-allocation, with control-period-aware bandwidth assignment and bounded-latency peer fault takeover, on sub-$10 hardware over a wired multi-drop bus.
+
+## Explore
+
+<div class="grid cards" markdown>
+
+-   :material-cog-transfer-outline: **[How it works](how-it-works.md)**
+
+    Slots, anchor election, joining, admission control and buddy takeover.
+
+-   :material-chart-timeline-variant: **[Results](results.md)**
+
+    Convergence, takeover latency and collision-free operation in simulation.
+
+-   :material-tools: **[Tooling](tooling.md)**
+
+    Python simulator, bit-identical JavaScript port, browser visualizer and firmware.
+
+</div>
+
+!!! note "Source code"
+    The code and design files for this project are not public yet. This page documents what was built and measured.

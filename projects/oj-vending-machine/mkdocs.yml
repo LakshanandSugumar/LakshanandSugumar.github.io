@@ -1,0 +1,90 @@
+site_name: "OJ Vending Machine \u00b7 Lakshanand Sugumar"
+site_description: "Fresh orange juice vending machine automation showcase at ASU, designed to IEC 60335."
+site_url: https://lakshanandsugumar.github.io/projects/oj-vending-machine/
+theme:
+  name: material
+  custom_dir: custom_theme/
+  logo: static/logo.svg
+  favicon: static/logo.svg
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep orange
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep orange
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - toc.follow
+    - content.tabs.link
+    - content.code.copy
+nav:
+  - "Home": index.md
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tilde: {}
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+plugins:
+  - search
+  - glightbox
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+not_in_nav: |
+  static
+copyright: "Copyright &copy; 2026 Lakshanand Sugumar · Arizona State University, Polytechnic · <a href=\"https://www.lakshanand.dev\">lakshanand.dev</a>"
+extra:
+  generator: false
+  social:
+    - icon: material/web
+      link: https://www.lakshanand.dev
+      name: Portfolio
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/lakshanand-sugumar
+      name: LinkedIn
+    - icon: fontawesome/brands/github
+      link: https://github.com/LakshanandSugumar
+      name: GitHub

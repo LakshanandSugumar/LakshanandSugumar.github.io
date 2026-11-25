@@ -28,6 +28,22 @@ jobs:
           requirements: 'requirements.txt' # option
           configfile: 'mkdocs.yml' # option
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build project sites
+        run: |
+          sudo chown -R "$(id -u):$(id -g)" site
+          python -m pip install -r projects/requirements.txt
+          (cd projects/_hub && mkdocs build -d ../../site/projects)
+          for d in projects/*/; do
+            n=$(basename "$d")
+            [ "$n" = "_hub" ] && continue
+            (cd "$d" && mkdocs build -d "../../site/projects/$n")
+          done
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
