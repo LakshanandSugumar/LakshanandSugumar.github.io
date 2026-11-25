@@ -7,7 +7,7 @@
 
 <p class="tag-row"><span>Automation</span><span>IEC 60335</span><span>Food-contact design</span><span>Embedded control</span></p>
 
-[Design focus](#design-focus){ .md-button .md-button--primary } [Safety](#safety){ .md-button }
+[Design focus](#design-focus){ .md-button .md-button--primary } [Safety](#safety){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20OJ%20Vending%20Machine){ .md-button }
 </div>
 
 ## Why it's hard

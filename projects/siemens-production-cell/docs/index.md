@@ -7,7 +7,7 @@
 <p class="meta">Factory I/O · PLCSIM Advanced · TIA Portal · OPC UA · Python / Streamlit</p>
 <p class="tag-row"><span>S7-1500</span><span>S7-GRAPH</span><span>SCL</span><span>WinCC</span><span>OPC UA</span><span>Factory I/O</span><span>Streamlit</span><span>SQLite</span></p>
 
-[Cell design](design/cell-and-io.md){ .md-button .md-button--primary } [Dashboard](software/dashboard.md){ .md-button }
+[Cell design](design/cell-and-io.md){ .md-button .md-button--primary } [Dashboard](software/dashboard.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/siemens-production-cell){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">3</span><span class="label">Stations in the cell</span></div>
@@ -96,5 +96,3 @@ Until the PLC project exists, a mock S7-1500 OPC UA server stands in for it: it 
 3. Stop, switch to Manual. Show a jog blocked by its interlock, with the reason on screen.
 4. Release the force, Reset, Auto, Start. The dashboard shows the downtime in the Pareto and the MTTR.
 
-!!! note "Source code"
-    The source repository is private for now. This site documents the design, interfaces and software in full.

@@ -7,7 +7,7 @@
 
 <p class="tag-row"><span>Local LLM</span><span>Ollama</span><span>Qwen</span><span>Voice assistant</span><span>Telegram</span><span>Tailscale</span></p>
 
-[Architecture](#architecture){ .md-button .md-button--primary } [Evolution](#evolution){ .md-button }
+[Architecture](#architecture){ .md-button .md-button--primary } [Evolution](#evolution){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Zephy){ .md-button }
 </div>
 
 ## What Zephy does

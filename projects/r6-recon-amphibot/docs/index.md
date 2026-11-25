@@ -7,7 +7,7 @@
 <p class="meta">My role: Sensor &amp; HMI subsystem lead · Team: Mihir Patel (ESP32 wireless gateway), Raunak Singh (actuator board), Lakshanand Sugumar (sensor + HMI)</p>
 <p class="tag-row"><span>PIC18F57Q83</span><span>BNO055</span><span>SH1106 OLED</span><span>HDC2080</span><span>UART daisy chain</span><span>MQTT</span><span>Cadence</span></p>
 
-[My subsystem](subsystem/requirements.md){ .md-button .md-button--primary } [Team report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/){ .md-button }
+[My subsystem](subsystem/requirements.md){ .md-button .md-button--primary } [Team report](https://egr314-s-2026-302.github.io/EGR314-Team302.github.io/){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/LakshanandSugumar.github.io/tree/main/docs){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">3</span><span class="label">Custom PCBs in a UART daisy chain</span></div>

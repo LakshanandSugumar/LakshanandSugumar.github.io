@@ -7,7 +7,7 @@
 <p class="meta">Simulation-only study · hardware designed in KiCad / Cadence</p>
 <p class="tag-row"><span>TWS earbuds</span><span>HDI rigid-flex</span><span>Power gating</span><span>I²S audio</span><span>KiCad</span><span>Cadence Allegro</span></p>
 
-[Architecture](#architecture){ .md-button .md-button--primary } [Design constraints](#design-constraints){ .md-button }
+[Architecture](#architecture){ .md-button .md-button--primary } [Design constraints](#design-constraints){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Galvanic%20Handoff%20Earbuds){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">< 500 nA</span><span class="label">Standby current target</span></div>
@@ -50,5 +50,5 @@ flowchart LR
 
 The paper is a simulation-only study. Results and the full write-up will be added here when it is published.
 
-!!! note "Source code"
-    The code and design files for this project are not public yet. This page documents what was built and measured.
+!!! note "Source files"
+    The code and design files for this project are shared on request. [Email me](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Galvanic%20Handoff%20Earbuds) and I'll send them over.

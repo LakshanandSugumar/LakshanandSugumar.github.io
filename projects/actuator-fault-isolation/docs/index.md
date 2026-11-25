@@ -7,7 +7,7 @@
 <p class="meta">Lakshanand Sugumar · Arizona State University · Work-in-progress draft (simulation results; hardware validation in progress)</p>
 <p class="tag-row"><span>PMSM</span><span>FOC</span><span>Fault detection & isolation</span><span>Momentum observer</span><span>Back-EMF residual</span></p>
 
-[Read the method](method.md){ .md-button .md-button--primary } [PDF draft](https://github.com/LakshanandSugumar/actuator-fdi-paper/blob/main/main.pdf){ .md-button }
+[Read the method](method.md){ .md-button .md-button--primary } [PDF draft](https://github.com/LakshanandSugumar/actuator-fdi-paper/blob/main/main.pdf){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-fdi-paper){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">299 / 300</span><span class="label">Injected faults isolated correctly (sim)</span></div>

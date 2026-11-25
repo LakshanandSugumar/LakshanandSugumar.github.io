@@ -7,7 +7,7 @@
 
 <p class="tag-row"><span>PSoC 5LP</span><span>Embedded C</span><span>OpenCV</span><span>PID</span><span>Motor control</span></p>
 
-[Results](#results){ .md-button .md-button--primary } [System design](#system-design){ .md-button }
+[Results](#results){ .md-button .md-button--primary } [System design](#system-design){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Vision-Guided%20Pick-and-Place){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">92.5%</span><span class="label">Success rate (74 / 80 trials)</span></div>
@@ -53,5 +53,5 @@ Repeatability is tighter than accuracy, which points to a systematic offset rath
 
 PSoC 5LP · PSoC Creator · embedded C · OpenCV · PID tuning · motor drivers · hardware bring-up · system verification
 
-!!! note "Source code"
-    The code and design files for this project are not public yet. This page documents what was built and measured.
+!!! note "Source files"
+    The code and design files for this project are shared on request. [Email me](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20Vision-Guided%20Pick-and-Place) and I'll send them over.

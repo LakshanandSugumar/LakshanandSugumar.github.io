@@ -1,6 +1,9 @@
 site_name: "R6 Recon Amphibot \u00b7 Lakshanand Sugumar"
 site_description: "EGR 314 R6 Recon Amphibot: three-PCB modular amphibious scout. Sensor + HMI subsystem on a PIC18F57Q83."
 site_url: https://lakshanandsugumar.github.io/projects/r6-recon-amphibot/
+repo_url: https://github.com/LakshanandSugumar/LakshanandSugumar.github.io
+repo_name: Source code
+
 theme:
   name: material
   custom_dir: custom_theme/

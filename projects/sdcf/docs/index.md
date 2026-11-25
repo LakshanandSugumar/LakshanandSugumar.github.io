@@ -7,7 +7,7 @@
 <p class="meta">Target: IEEE conference paper · Technical manuscript ~7,200 words</p>
 <p class="tag-row"><span>RS-485</span><span>TDMA</span><span>Deterministic scheduling</span><span>PIC18F57Q83</span><span>Python</span><span>JavaScript</span><span>MPLAB X</span></p>
 
-[How it works](how-it-works.md){ .md-button .md-button--primary } [Results](results.md){ .md-button }
+[How it works](how-it-works.md){ .md-button .md-button--primary } [Results](results.md){ .md-button } [:material-email-outline: Source available on request](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20SDCF){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">63</span><span class="label">Nodes converge…</span></div>
@@ -48,5 +48,5 @@ The defensible gap: masterless, hard-deterministic slot self-allocation, with co
 
 </div>
 
-!!! note "Source code"
-    The code and design files for this project are not public yet. This page documents what was built and measured.
+!!! note "Source files"
+    The code and design files for this project are shared on request. [Email me](mailto:lakshanandsugumar@gmail.com?subject=Source%20files%20request%3A%20SDCF) and I'll send them over.

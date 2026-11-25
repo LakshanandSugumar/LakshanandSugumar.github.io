@@ -2,7 +2,8 @@ site_name: "Actuator Fault Isolation \u00b7 Lakshanand Sugumar"
 site_description: "Isolating sensor faults from mechanical events in robot joint actuators: an IEEE conference paper draft."
 site_url: https://lakshanandsugumar.github.io/projects/actuator-fault-isolation/
 repo_url: https://github.com/LakshanandSugumar/actuator-fdi-paper
-repo_name: actuator-fdi-paper
+repo_name: Source code
+
 theme:
   name: material
   custom_dir: custom_theme/

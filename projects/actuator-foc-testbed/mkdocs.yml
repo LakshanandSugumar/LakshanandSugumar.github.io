@@ -1,6 +1,9 @@
 site_name: "Actuator FOC Testbed \u00b7 Lakshanand Sugumar"
 site_description: "A robot-joint actuator built like humanoid and legged-robot joints: FOC on an STM32G4, model-based fault detection, CAN test stack. Simulation-first."
 site_url: https://lakshanandsugumar.github.io/projects/actuator-foc-testbed/
+repo_url: https://github.com/LakshanandSugumar/actuator-foc-testbed
+repo_name: Source code
+
 theme:
   name: material
   custom_dir: custom_theme/

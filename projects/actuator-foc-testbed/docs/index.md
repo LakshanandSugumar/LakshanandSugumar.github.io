@@ -7,7 +7,7 @@
 <p class="meta">Simulation-first: every loop is designed and tuned in a plant model, implemented in hardware-independent C, and tested against the model before it drives a motor.</p>
 <p class="tag-row"><span>STM32G474</span><span>FOC</span><span>C99</span><span>CAN</span><span>AS5047P</span><span>Python</span><span>SIL testing</span></p>
 
-[See the results](results.md){ .md-button .md-button--primary } [How it works](design.md){ .md-button }
+[See the results](results.md){ .md-button .md-button--primary } [How it works](design.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/actuator-foc-testbed){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">0.037°</span><span class="label">Sine-tracking RMS error with feedforward</span></div>
@@ -81,5 +81,3 @@ flowchart LR
 | Host tools and virtual joint | Done |
 | Hardware results | Next: added beside the simulation results as the bench comes up |
 
-!!! note "Source code"
-    The source repository is private for now. This site documents the design, the results and the interfaces in full.

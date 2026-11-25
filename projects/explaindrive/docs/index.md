@@ -7,7 +7,7 @@
 <p class="meta">Pure Python (NumPy, Matplotlib). No GPU, no CARLA, no datasets. Every result regenerates with one command.</p>
 <p class="tag-row"><span>Motion planning</span><span>Frenet planner</span><span>Explainable AI</span><span>Closed-loop sim</span><span>Python</span></p>
 
-[Scenarios & results](results.md){ .md-button .md-button--primary } [Design notes](design.md){ .md-button }
+[Scenarios & results](results.md){ .md-button .md-button--primary } [Design notes](design.md){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/LakshanandSugumar/explainable-av-planner){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">6</span><span class="label">Hard closed-loop scenarios</span></div>
@@ -55,5 +55,3 @@ flowchart LR
 
 </div>
 
-!!! note "Source code"
-    The source repository is private for now. This site documents the design and all results.

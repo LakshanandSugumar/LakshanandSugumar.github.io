@@ -7,7 +7,7 @@
 <p class="meta">Team 103: Isaac Smith, Christo Joseph, Seth Merwin, Lakshanand Sugumar · Instructor: Dr. Daniel M. Aukes</p>
 <p class="tag-row"><span>PIC18F57Q43</span><span>IR sensing</span><span>Signal conditioning</span><span>PCB bring-up</span><span>Embedded C</span></p>
 
-[My subsystem](subsystem.md){ .md-button .md-button--primary } [Team site](https://egr304-2025-f-103.github.io/){ .md-button }
+[My subsystem](subsystem.md){ .md-button .md-button--primary } [Team site](https://egr304-2025-f-103.github.io/){ .md-button } [:fontawesome-brands-github: View source files](https://github.com/EGR304-2025-F-103/egr304-2025-f-103.github.io){ .md-button }
 </div>
 <div class="stat-row">
   <div class="stat"><span class="num">100%</span><span class="label">Design review score: functionality & documentation</span></div>
