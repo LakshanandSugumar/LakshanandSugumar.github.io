@@ -174,6 +174,10 @@ body{background:#05140d}
 .pill{background:rgba(6,18,12,.8)}
 .tools select{background:rgba(6,18,12,.8)}
 .drawer{background:#06140e}
+.ph iframe{position:absolute;inset:-12% 0;width:100%;height:124%;border:0;pointer-events:none;opacity:0;transition:opacity .5s var(--ease)}
+.ph iframe.on{opacity:1}
+.card.playing .ph img{transform:scale(1.045)}
+.card.playing .tagb span:first-child{background:rgba(255,255,255,.92);color:#0a0a0a}
 </style>
 
 </head><body>
@@ -253,7 +257,7 @@ function counts(key,fn){const m=new Map();DATA.filter(it=>matches(it,key)).forEa
 function img(it){return it.image?`<img src="${esc(it.image)}" alt="" loading="lazy">`:`<div class="fallback">${esc(initials(it.name))}</div>`}
 function card(it){
   const demo=it.video?"Video":it.gif?"Clip":"";
-  return `<a class="card" href="#p-${it.id}" data-gif="${esc(it.gif||"")}" data-img="${esc(it.image||"")}">
+  return `<a class="card" href="#p-${it.id}" data-gif="${esc(it.gif||"")}" data-yt="${esc(it.video?it.video.youtube:"")}" data-img="${esc(it.image||"")}">
     <div class="ph">${img(it)}<div class="tagb">${demo?`<span>▶ ${demo}</span>`:""}${it.nvidia_official?`<span>NVIDIA</span>`:""}${it.archived?`<span>Archived</span>`:""}</div></div>
     <div class="body"><h3>${esc(it.name)}</h3><div class="mk">${esc(it.maker)} · ${esc(it.engine)}</div>
       <div class="row"><em>${esc(it.robots.slice(0,2).join(", "))}</em><span>${it.stars?`★ ${fmt(it.stars)}`:"Official site"}</span></div></div></a>`;
@@ -374,8 +378,20 @@ document.addEventListener("click",e=>{const t=e.target.closest("button,a");if(!t
 });
 $("#scrim").onclick=()=>openF(false);
 document.addEventListener("keydown",e=>{if(e.key==="Escape")openF(false);if(e.key==="/"&&document.activeElement!==$("#q")&&!location.hash.startsWith("#p-")){e.preventDefault();$("#q").focus();}});
-document.addEventListener("mouseover",e=>{const c=e.target.closest(".card");if(c&&c.dataset.gif&&!c.dataset.on){c.dataset.on=1;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.gif;}});
-document.addEventListener("mouseout",e=>{const c=e.target.closest(".card");if(c&&c.dataset.on&&!c.contains(e.relatedTarget)){delete c.dataset.on;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.img;}});
+/* hover to play: local demo clip if there is one, otherwise the official YouTube video, muted */
+const YT_OK=/github\.io$|localhost|127\.0\.0\.1|lakshanand\.dev$/.test(location.hostname);
+let hoverT=null;
+function stopCard(c){clearTimeout(hoverT);if(!c||!c.dataset.on)return;delete c.dataset.on;const i=c.querySelector(".ph img");if(i&&c.dataset.gif)i.src=c.dataset.img;const f=c.querySelector(".ph iframe");if(f)f.remove();c.classList.remove("playing");}
+function playCard(c){
+  if(c.dataset.on)return;
+  if(c.dataset.gif){c.dataset.on=1;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.gif;c.classList.add("playing");return;}
+  if(c.dataset.yt&&YT_OK){c.dataset.on=1;clearTimeout(hoverT);hoverT=setTimeout(()=>{if(!c.dataset.on)return;const id=c.dataset.yt,f=document.createElement("iframe");
+    f.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${id}&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`;
+    f.allow="autoplay; encrypted-media; picture-in-picture";f.tabIndex=-1;f.title="Demo video";f.setAttribute("aria-hidden","true");
+    f.onload=()=>setTimeout(()=>f.classList.add("on"),350);c.querySelector(".ph").appendChild(f);c.classList.add("playing");},220);}
+}
+document.addEventListener("mouseover",e=>{const c=e.target.closest(".card");if(c&&(c.dataset.gif||c.dataset.yt))playCard(c);});
+document.addEventListener("mouseout",e=>{const c=e.target.closest(".card");if(c&&!c.contains(e.relatedTarget))stopCard(c);});
 $("#searchForm").addEventListener("submit",e=>{e.preventDefault();$("#q").blur();});
 $("#q").addEventListener("input",()=>{state.q=$("#q").value.trim();renderList();renderFilters();});
 addEventListener("scroll",()=>$("#bar").classList.toggle("scrolled",scrollY>8),{passive:true});
