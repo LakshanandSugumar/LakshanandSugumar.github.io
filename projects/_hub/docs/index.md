@@ -64,6 +64,10 @@ hide:
 
     Automation showcase designed to IEC 60335. Designing.
 
+-   :material-store-search-outline: **[Laksh's Inventory](https://lakshanandsugumar.github.io/inventory/)**
+
+    A shop-style catalog of 214 robot simulators, benchmarks, robot models, datasets and policies, including the full NVIDIA Isaac stack, with demos and download links.
+
 -   :material-account-voice: **[Zephy](https://lakshanandsugumar.github.io/projects/zephy/)**
 
     My self-hosted, Jarvis-style personal assistant. Ninth upgrade.

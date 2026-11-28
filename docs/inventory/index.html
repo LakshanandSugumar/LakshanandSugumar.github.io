@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laksh's Inventory</title>
+<meta name="description" content="Laksh's Inventory: a catalog of robot simulators, benchmarks, robot models, datasets and policies, with official demos and download links.">
+<link rel="icon" href="https://lakshanandsugumar.github.io/og/icon-48.png" sizes="48x48" type="image/png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: storefront header + category rail, filter sidebar beside a product grid; product pages open via #p-<id> */
+:root{
+  --bg:#f3f5f4; --surface:#ffffff; --surface-2:#eaeeec; --ink:#141a18; --ink-2:#4b5753; --line:#d7dedb;
+  --head:#0d2a24; --head-ink:#e9f3ef; --head-2:#163c33;
+  --accent:#0f8a6a; --accent-ink:#ffffff; --accent-soft:#d7f0e7;
+  --cta:#f2b632; --cta-ink:#1b1606; --star:#c98a06; --nv:#5e8f00; --nv-soft:#e7f2d4;
+  --font-display:"Sora",ui-sans-serif,system-ui,sans-serif; --font-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:10px; --shadow:0 1px 2px rgba(13,42,36,.06),0 6px 20px rgba(13,42,36,.07);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1210; --surface:#141c19; --surface-2:#1b2622; --ink:#e6eeeb; --ink-2:#9db0a9; --line:#26332e;
+  --head:#08100e; --head-ink:#e9f3ef; --head-2:#13201c; --accent:#34c79b; --accent-ink:#04140f; --accent-soft:#143429;
+  --cta:#f2b632; --cta-ink:#1b1606; --star:#f2b632; --nv:#9ad13a; --nv-soft:#1f2c12; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1210; --surface:#141c19; --surface-2:#1b2622; --ink:#e6eeeb; --ink-2:#9db0a9; --line:#26332e;
+  --head:#08100e; --head-ink:#e9f3ef; --head-2:#13201c; --accent:#34c79b; --accent-ink:#04140f; --accent-soft:#143429;
+  --cta:#f2b632; --cta-ink:#1b1606; --star:#f2b632; --nv:#9ad13a; --nv-soft:#1f2c12; --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--head)}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
+.wrap{max-width:1440px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--head);color:var(--head-ink)}
+.hbar{display:flex;align-items:center;gap:18px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--head-ink);flex:none}
+.brand b{font-family:var(--font-display);font-size:19px;letter-spacing:-.01em;font-weight:700}
+.brand small{display:block;font-size:11px;opacity:.7;letter-spacing:.04em;text-transform:uppercase;margin-top:-3px}
+.search{flex:1;display:flex;min-width:0;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 0 0 2px transparent}
+.search:focus-within{box-shadow:0 0 0 2px var(--cta)}
+.search select{border:0;background:#e9eeec;color:#1b2522;padding:0 8px;font-size:13px;max-width:150px}
+.search input{flex:1;min-width:0;border:0;padding:11px 12px;font-size:15px;background:#fff;color:#141a18;outline:none}
+.search button{border:0;background:var(--cta);color:var(--cta-ink);padding:0 16px;cursor:pointer;display:grid;place-items:center}
+.hmeta{flex:none;font-size:12px;line-height:1.3;text-align:right;opacity:.85}
+.hmeta b{display:block;font-family:var(--font-display);font-size:15px}
+.rail{background:var(--head-2)}
+.rail .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:6px}
+.rail button{flex:none;border:1px solid transparent;background:none;color:var(--head-ink);padding:5px 11px;border-radius:999px;cursor:pointer;font-size:13px;white-space:nowrap}
+.rail button:hover{border-color:rgba(255,255,255,.35)}
+.rail button[aria-pressed="true"]{background:var(--head-ink);color:var(--head)}
+.rail .nvbtn[aria-pressed="true"]{background:#76b900;color:#0b1400}
+/* catalog layout */
+.page{display:grid;grid-template-columns:250px minmax(0,1fr);gap:22px;padding-block:20px 48px}
+aside{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);max-height:calc(100vh - 130px);overflow:auto;padding-right:4px}
+.fgroup{border-bottom:1px solid var(--line);padding-block:12px}
+.fgroup h3{font-family:var(--font-display);font-size:13px;margin:0 0 8px;font-weight:600}
+.fgroup label{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;font-size:13px;color:var(--ink)}
+.fgroup label span.c{margin-left:auto;color:var(--ink-2);font-size:12px;font-variant-numeric:tabular-nums}
+.fgroup input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;margin:0}
+.more{background:none;border:0;color:var(--accent);padding:2px 0;cursor:pointer;font-size:12.5px}
+.filters-toggle{display:none}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.toolbar .res{font-size:13.5px;color:var(--ink-2)}
+.toolbar .res b{color:var(--ink)}
+.toolbar .sp{flex:1}
+.toolbar select{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:6px 8px;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.ph{position:relative;aspect-ratio:16/10;background:var(--surface-2);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .fallback{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--ink-2);background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,var(--bg) 12px 24px)}
+.badges{position:absolute;left:8px;top:8px;display:flex;gap:5px;flex-wrap:wrap}
+.b{font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(13,26,22,.78);color:#fff}
+.b.demo{background:var(--cta);color:var(--cta-ink)}
+.b.nv{background:#76b900;color:#0b1400}
+.b.arch{background:#6b6b6b}
+.cbody{padding:11px 12px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.cat{font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.ttl{font-family:var(--font-display);font-weight:600;font-size:15px;line-height:1.25;margin:0;text-wrap:balance}
+.mk{font-size:12px;color:var(--ink-2)}
+.desc{font-size:12.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}
+.row{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;font-size:12.5px}
+.stars{color:var(--star);font-weight:600;font-variant-numeric:tabular-nums}
+.lic{color:var(--ink-2)}
+.tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--accent-soft);color:var(--ink)}
+.empty{padding:60px 20px;text-align:center;color:var(--ink-2);border:1px dashed var(--line);border-radius:var(--r)}
+/* product page */
+.pp{padding-block:18px 48px}
+.crumbs{font-size:13px;color:var(--ink-2);margin-bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+.crumbs a{color:var(--ink-2)}
+.ppgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) 300px;gap:26px;align-items:start}
+.viewer{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.stage{position:relative;aspect-ratio:16/10;background:#0b0f0e;display:grid;place-items:center}
+.stage img{width:100%;height:100%;object-fit:contain}
+.stage .play{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none}
+.stage .play span{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.72);color:#fff;padding:12px 18px;border-radius:999px;font-weight:600}
+.stage .play:hover span{background:#c4302b}
+.thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto}
+.thumbs button{flex:none;width:92px;aspect-ratio:16/10;border:2px solid transparent;border-radius:6px;overflow:hidden;padding:0;background:var(--surface-2);cursor:pointer;position:relative}
+.thumbs button[aria-current="true"]{border-color:var(--accent)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs em{position:absolute;right:3px;bottom:3px;font-style:normal;font-size:10px;background:rgba(0,0,0,.75);color:#fff;padding:0 4px;border-radius:3px}
+.cap{font-size:12px;color:var(--ink-2);padding:0 12px 12px}
+.info h1{font-family:var(--font-display);font-size:28px;line-height:1.15;margin:4px 0 6px;text-wrap:balance;letter-spacing:-.01em}
+.info .by{color:var(--ink-2);font-size:13.5px}
+.info .statline{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.info p.lead{font-size:15px;margin:0 0 14px;max-width:62ch}
+.specs{width:100%;border-collapse:collapse;font-size:13px}
+.specs th{text-align:left;font-weight:600;color:var(--ink-2);padding:7px 10px 7px 0;vertical-align:top;width:120px}
+.specs td{padding:7px 0;border-top:1px solid var(--line)}
+.specs tr:first-child td{border-top:0}
+.buy{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 120px)}
+.buy .price{font-family:var(--font-display);font-size:22px;font-weight:700}
+.buy .price small{display:block;font-family:var(--font-body);font-size:12px;font-weight:400;color:var(--ink-2)}
+.btn{display:flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;border-radius:999px;padding:10px 14px;font-weight:600;font-size:14px;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--cta);color:var(--cta-ink);border-color:var(--cta)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.sec{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.code{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--surface-2)}
+.code code{flex:1;min-width:0;font-family:var(--font-mono);font-size:12px;padding:8px 9px;overflow-x:auto;white-space:nowrap}
+.code button{border:0;border-left:1px solid var(--line);background:var(--surface);cursor:pointer;padding:0 10px;font-size:12px}
+.note{font-size:11.5px;color:var(--ink-2)}
+.sect{margin-top:30px}
+.sect h2{font-family:var(--font-display);font-size:18px;margin:0 0 12px}
+.credits{font-size:12.5px;color:var(--ink-2);display:grid;gap:4px}
+.credits a{word-break:break-all}
+.similar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,230px);gap:14px;overflow-x:auto;padding-bottom:6px}
+footer{border-top:1px solid var(--line);color:var(--ink-2);font-size:12.5px}
+footer .wrap{padding-block:22px}
+@media (max-width:1180px){.ppgrid{grid-template-columns:minmax(0,1fr) 300px}.ppgrid .viewer{grid-column:1/-1}}
+@media (max-width:860px){
+  .page{grid-template-columns:minmax(0,1fr)}
+  aside{position:static;max-height:none;display:none}
+  aside.open{display:block}
+  .filters-toggle{display:inline-flex}
+  .hmeta{display:none}
+  .ppgrid{grid-template-columns:minmax(0,1fr)}
+  .buy{position:static}
+}
+@media (max-width:560px){
+  .hbar{flex-wrap:wrap;gap:10px}
+  .search{flex-basis:100%}
+  .search select{display:none}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+  .desc{display:none}
+  .info h1{font-size:23px}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+
+</head>
+<body>
+<header>
+  <div class="wrap hbar">
+    <a class="brand" href="#" aria-label="Laksh's Inventory home">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="8" fill="#f2b632"/><path d="M9 25h16M12 25v-5l6-6 4 4" stroke="#0d2a24" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="20" r="2.2" fill="#0d2a24"/><circle cx="18" cy="14" r="2.2" fill="#0d2a24"/><path d="M22 18l3-1.5M22 18l1.5 3" stroke="#0d2a24" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span><b>Laksh's Inventory</b><small>Every robot simulation, in one shop</small></span>
+    </a>
+    <form class="search" id="searchForm" role="search">
+      <select id="scope" aria-label="Search in category"><option value="">All departments</option></select>
+      <input id="q" type="search" placeholder="Search simulators, robots, tasks… try “humanoid mujoco” or “drone”" autocomplete="off" aria-label="Search the catalog">
+      <button type="submit" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    </form>
+    <div class="hmeta"><b id="totalCount">–</b>listings, all verified</div>
+  </div>
+  <nav class="rail" aria-label="Departments"><div class="wrap" id="rail"></div></nav>
+</header>
+
+<main id="app"></main>
+
+<footer><div class="wrap">
+  Every listing links to its official source. Product photos and demo clips are downscaled from each project's own README, GitHub preview card or official YouTube video, and each detail page credits its source. All trademarks and media belong to their owners. Catalog data lives in <code>catalog.json</code>, one record per line, so it's easy to extend. Curated by <a href="https://www.lakshanand.dev/">Lakshanand Sugumar</a>.
+</div></footer>
+
+<script>
+const CATS=["Simulator","Benchmark","Robot models","Dataset","Policy / model","Framework","Tools"];
+const CAT_LABEL={"Simulator":"Simulators","Benchmark":"Benchmarks","Robot models":"Robot models","Dataset":"Datasets","Policy / model":"Policies & models","Framework":"Frameworks","Tools":"Tools & libraries"};
+const ENGINES=[["MuJoCo",/mujoco|robosuite|mjx|dm.control/i],["Isaac Sim / Isaac Lab",/isaac sim|isaac lab|omnigibson|omniverse|replicator/i],["Isaac Gym",/isaac ?gym/i],["PhysX / Warp / Newton",/physx|warp|newton/i],["PyBullet / Bullet",/bullet/i],["Gazebo",/gazebo|sitl/i],["ROS / ROS 2",/\bros\b|ros 2/i],["Unity",/unity/i],["Unreal Engine",/unreal|carla/i],["SAPIEN",/sapien/i],["Habitat",/habitat/i],["CoppeliaSim",/coppelia/i],["Genesis",/genesis/i],["JAX / Brax",/jax|brax/i],["Real robot / real data",/real/i]];
+const PERMISSIVE=/^(MIT|Apache|BSD|CC0)/i, COPYLEFT=/GPL|CC-BY-SA/i;
+let DATA=[], state={q:"",cat:"",nv:false,robots:new Set(),engines:new Set(),tasks:new Set(),lic:new Set(),demo:false,active:false,sort:"stars"}, expanded={};
+const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>n>=1000?(n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,"")+"k":String(n);
+const engOf=it=>ENGINES.filter(([,re])=>re.test(it.engine)).map(([n])=>n);
+const licOf=it=>!it.license?"See repository":PERMISSIVE.test(it.license)?"Permissive (MIT / Apache / BSD)":COPYLEFT.test(it.license)?"Copyleft (GPL / LGPL / CC-BY-SA)":"Other / custom";
+const hasDemo=it=>!!(it.video||it.gif);
+const ytUrl=id=>"https://www.youtube.com/watch?v="+id;
+
+function matches(it,skip){
+  if(state.cat&&it.category!==state.cat)return false;
+  if(state.nv&&!it.nvidia)return false;
+  if(state.demo&&!hasDemo(it))return false;
+  if(state.active&&it.archived)return false;
+  if(skip!=="robots"&&state.robots.size&&!it.robots.some(r=>state.robots.has(r)))return false;
+  if(skip!=="engines"&&state.engines.size&&!engOf(it).some(e=>state.engines.has(e)))return false;
+  if(skip!=="tasks"&&state.tasks.size&&!it.tasks.some(t=>state.tasks.has(t)))return false;
+  if(skip!=="lic"&&state.lic.size&&!state.lic.has(licOf(it)))return false;
+  if(state.q){const hay=[it.name,it.desc,it.maker,it.category,it.engine,...it.robots,...it.tasks,it.nvidia?"nvidia":""].join(" ").toLowerCase();
+    if(!state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w=>hay.includes(w)))return false;}
+  return true;
+}
+function counts(key,fn){const m=new Map();DATA.filter(it=>matches(it,key)).forEach(it=>fn(it).forEach(v=>m.set(v,(m.get(v)||0)+1)));return m;}
+function img(it,cls=""){return it.image?`<img src="${esc(it.image)}" alt="${esc(it.name)} preview" loading="lazy" ${cls}>`:`<div class="fallback">${esc(it.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3))}</div>`}
+function card(it){
+  const demo=it.video?"▶ Video":it.gif?"▶ Demo":"";
+  return `<a class="card" href="#p-${it.id}" data-gif="${esc(it.gif||"")}" data-img="${esc(it.image||"")}">
+    <div class="ph">${img(it)}<div class="badges">${demo?`<span class="b demo">${demo}</span>`:""}${it.nvidia_official?`<span class="b nv">NVIDIA</span>`:""}${it.archived?`<span class="b arch">Archived</span>`:""}</div></div>
+    <div class="cbody"><div class="cat">${esc(it.category)}</div><h3 class="ttl">${esc(it.name)}</h3><div class="mk">by ${esc(it.maker)} · ${esc(it.engine)}</div>
+    <p class="desc">${esc(it.desc)}</p>
+    <div class="tags">${it.robots.slice(0,3).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</div>
+    <div class="row">${it.stars?`<span class="stars">★ ${fmt(it.stars)}</span>`:`<span class="stars">Official site</span>`}<span class="lic">${esc(it.license||"")}</span></div></div></a>`;
+}
+function fgroup(key,title,map,limit=8){
+  const set=state[key], all=[...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
+  [...set].forEach(v=>{if(!map.has(v))all.push([v,0])});
+  const show=expanded[key]?all:all.slice(0,limit);
+  return `<div class="fgroup"><h3>${title}</h3>${show.map(([v,c])=>`<label><input type="checkbox" data-f="${key}" value="${esc(v)}" ${set.has(v)?"checked":""}>${esc(v)}<span class="c">${c}</span></label>`).join("")}
+  ${all.length>limit?`<button class="more" data-more="${key}">${expanded[key]?"Show less":`Show all ${all.length}`}</button>`:""}</div>`;
+}
+function renderList(){
+  let list=DATA.filter(it=>matches(it));
+  const s=state.sort; list.sort(s==="name"?(a,b)=>a.name.localeCompare(b.name):s==="demo"?(a,b)=>(hasDemo(b)-hasDemo(a))||b.stars-a.stars:(a,b)=>b.stars-a.stars);
+  const active=[...[...state.robots].map(v=>["robots",v]),...[...state.engines].map(v=>["engines",v]),...[...state.tasks].map(v=>["tasks",v]),...[...state.lic].map(v=>["lic",v])];
+  $("#app").innerHTML=`<div class="wrap page">
+   <aside id="side" aria-label="Filters">
+    <div class="fgroup"><h3>Quick picks</h3>
+     <label><input type="checkbox" id="fDemo" ${state.demo?"checked":""}>Has demo video or clip</label>
+     <label><input type="checkbox" id="fActive" ${state.active?"checked":""}>Hide archived projects</label>
+     <label><input type="checkbox" id="fNv" ${state.nv?"checked":""}>NVIDIA Isaac / Omniverse ecosystem</label></div>
+    ${fgroup("robots","Robot type",counts("robots",it=>it.robots),12)}
+    ${fgroup("engines","Simulator / physics engine",counts("engines",engOf),10)}
+    ${fgroup("tasks","Task",counts("tasks",it=>it.tasks),10)}
+    ${fgroup("lic","License",counts("lic",it=>[licOf(it)]),6)}
+   </aside>
+   <section aria-label="Results">
+    <div class="toolbar"><button class="chip filters-toggle" id="ft">Filters${active.length?` (${active.length})`:""}</button>
+     <div class="res"><b>${list.length}</b> results${state.cat?` in ${esc(CAT_LABEL[state.cat])}`:""}${state.q?` for “${esc(state.q)}”`:""}</div>
+     <div class="sp"></div><label class="res" for="sort">Sort by</label>
+     <select id="sort"><option value="stars">Most GitHub stars</option><option value="demo">Demo available first</option><option value="name">Name A–Z</option></select></div>
+    ${active.length||state.q||state.demo||state.nv||state.active?`<div class="chips" style="margin-bottom:14px">${active.map(([k,v])=>`<button class="chip" data-rm="${k}" data-v="${esc(v)}">${esc(v)} ✕</button>`).join("")}<button class="chip" id="clear">Clear all</button></div>`:""}
+    ${list.length?`<div class="grid">${list.map(card).join("")}</div>`:`<div class="empty">Nothing matches these filters. Remove a filter or try a broader word like “arm” or “driving”.</div>`}
+   </section></div>`;
+  $("#sort").value=state.sort;
+}
+function renderProduct(it){
+  const media=[];
+  if(it.gif)media.push({k:"gif",src:it.gif,label:"Demo clip",credit:it.gif_credit});
+  if(it.video)media.push({k:"video",src:it.video.poster||it.image,label:"Video",credit:ytUrl(it.video.youtube)});
+  if(it.image&&!media.some(m=>m.src===it.image))media.push({k:"img",src:it.image,label:"Photo",credit:it.image_credit});
+  if(!media.length)media.push({k:"none"});
+  const sim=DATA.filter(o=>o.id!==it.id&&o.robots.some(r=>it.robots.includes(r))&&(o.category===it.category||o.engine===it.engine)).sort((a,b)=>b.stars-a.stars).slice(0,10);
+  const dl=it.zip||it.download, src=it.repo;
+  const cmd=it.install;
+  $("#app").innerHTML=`<div class="wrap pp">
+   <nav class="crumbs" aria-label="Breadcrumb"><a href="#">All listings</a>›<a href="#" data-gocat="${esc(it.category)}">${esc(CAT_LABEL[it.category])}</a>›<span>${esc(it.name)}</span></nav>
+   <div class="ppgrid">
+    <div class="viewer"><div class="stage" id="stage"></div>
+     ${media.length>1?`<div class="thumbs">${media.map((m,i)=>`<button data-m="${i}" aria-label="Show ${m.label}"><img src="${esc(m.src)}" alt=""><em>${m.k==="video"?"▶ YouTube":m.k==="gif"?"▶ Clip":"Photo"}</em></button>`).join("")}</div>`:""}
+     <div class="cap" id="cap"></div></div>
+    <div class="info">
+     <div class="cat">${esc(it.category)}${it.nvidia_official?" · NVIDIA":""}</div>
+     <h1>${esc(it.name)}</h1>
+     <div class="by">by <b>${esc(it.maker)}</b>${it.repo?` · <a href="${esc(it.repo)}" target="_blank" rel="noopener">${esc(it.repo.replace("https://github.com/",""))}</a>`:""}</div>
+     <div class="statline">${it.stars?`<span class="stars">★ ${it.stars.toLocaleString()} GitHub stars</span>`:""}${it.archived?`<span class="b arch">Archived</span>`:""}${hasDemo(it)?`<span class="b demo">Demo available</span>`:""}</div>
+     <p class="lead">${esc(it.desc)}</p>
+     <table class="specs"><tbody>
+      <tr><th>Robot types</th><td>${it.robots.map(esc).join(", ")}</td></tr>
+      <tr><th>Tasks</th><td>${it.tasks.map(esc).join(", ")}</td></tr>
+      <tr><th>Simulator / engine</th><td>${esc(it.engine)}</td></tr>
+      <tr><th>License</th><td>${esc(it.license||"Custom or unspecified, check the repository")}</td></tr>
+      ${it.homepage?`<tr><th>Project page</th><td><a href="${esc(it.homepage)}" target="_blank" rel="noopener">${esc(it.homepage.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a></td></tr>`:""}
+     </tbody></table>
+    </div>
+    <div class="buy">
+     <div class="price">Free<small>${it.repo?"Open source · "+esc(it.license||"see license"):esc(it.license)}</small></div>
+     ${dl?`<a class="btn primary" href="${esc(dl)}" target="_blank" rel="noopener">${it.zip?"⬇ Download source (.zip)":"⬇ Go to download page"}</a>`:""}
+     ${src?`<a class="btn sec" href="${esc(src)}" target="_blank" rel="noopener">View source files on GitHub</a>`:""}
+     ${it.homepage?`<a class="btn" href="${esc(it.homepage)}" target="_blank" rel="noopener">Docs &amp; project page</a>`:""}
+     ${it.video?`<a class="btn" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener">▶ Watch demo on YouTube</a>`:""}
+     <div class="note">Install</div>
+     <div class="code"><code id="cmd">${esc(cmd)}</code><button id="copy">Copy</button></div>
+     ${it.zip?`<div class="note">The zip is the latest <code>${esc(it.branch)}</code> branch, straight from GitHub.</div>`:""}
+    </div>
+   </div>
+   ${sim.length?`<div class="sect"><h2>Similar listings</h2><div class="similar">${sim.map(card).join("")}</div></div>`:""}
+   <div class="sect"><h2>Media credits</h2><div class="credits">
+     ${media.filter(m=>m.credit).map(m=>`<div>${m.label}: <a href="${esc(m.credit)}" target="_blank" rel="noopener">${esc(m.credit)}</a></div>`).join("")}
+     ${it.video?`<div>Video “${esc(it.video.title)}” by ${esc(it.video.channel)} on YouTube.</div>`:""}
+     ${(it.readme_videos||[]).map(u=>`<div>More video in the README: <a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></div>`).join("")}
+     ${!media.some(m=>m.credit)?`<div>No official media found. See the project page for screenshots.</div>`:""}
+   </div></div></div>`;
+  const show=i=>{const m=media[i];const st=$("#stage");
+    if(m.k==="none"){st.innerHTML=`<div class="ph" style="width:100%;height:100%">${img(it)}</div>`;$("#cap").textContent="";return;}
+    st.innerHTML=`<img src="${esc(m.src)}" alt="${esc(it.name)} ${m.label}">`+(m.k==="video"?`<a class="play" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play on YouTube</span></a>`:"");
+    $("#cap").innerHTML=m.k==="video"?`“${esc(it.video.title)}”, ${esc(it.video.channel)}. Opens on YouTube.`:m.k==="gif"?"Demo clip from the official README, downscaled.":it.image_kind==="github-card"?"GitHub repository preview card.":it.image_kind==="video"?"Frame from the official video.":"Image from the official README.";
+    document.querySelectorAll(".thumbs button").forEach((b,j)=>b.setAttribute("aria-current",j===i?"true":"false"));};
+  show(0);
+  document.querySelectorAll(".thumbs button").forEach(b=>b.onclick=()=>show(+b.dataset.m));
+  $("#copy").onclick=async e=>{try{await navigator.clipboard.writeText(cmd);e.target.textContent="Copied"}catch(_){const r=document.createRange();r.selectNodeContents($("#cmd"));const s=getSelection();s.removeAllRanges();s.addRange(r);e.target.textContent="Selected"}};
+  window.scrollTo(0,0);
+}
+function renderRail(){
+  const n=c=>DATA.filter(it=>it.category===c).length;
+  $("#rail").innerHTML=`<button data-cat="" aria-pressed="${!state.cat&&!state.nv}">All (${DATA.length})</button>`+CATS.map(c=>`<button data-cat="${esc(c)}" aria-pressed="${state.cat===c}">${CAT_LABEL[c]} (${n(c)})</button>`).join("")+`<button class="nvbtn" data-nv="1" aria-pressed="${state.nv}">NVIDIA Isaac (${DATA.filter(i=>i.nvidia).length})</button>`;
+}
+function route(){const h=location.hash.slice(1);const it=h.startsWith("p-")&&DATA.find(d=>d.id===h.slice(2));renderRail();if(it)renderProduct(it);else renderList();}
+function save(){try{localStorage.setItem("li-sort",state.sort)}catch(_){}}
+document.addEventListener("change",e=>{const t=e.target;
+  if(t.dataset.f){const s=state[t.dataset.f];t.checked?s.add(t.value):s.delete(t.value);}
+  else if(t.id==="fDemo")state.demo=t.checked; else if(t.id==="fActive")state.active=t.checked; else if(t.id==="fNv")state.nv=t.checked;
+  else if(t.id==="sort"){state.sort=t.value;save();}
+  else if(t.id==="scope"){state.cat=t.value;}
+  else return;
+  const open=$("#side")?.classList.contains("open");renderRail();renderList();if(open)$("#side").classList.add("open");});
+document.addEventListener("click",e=>{const t=e.target.closest("button,a");if(!t)return;
+  if(t.dataset.cat!==undefined){state.cat=t.dataset.cat;state.nv=false;$("#scope").value=state.cat;if(location.hash){location.hash="";}else{renderRail();renderList();}}
+  else if(t.dataset.nv){state.nv=!state.nv;state.cat="";if(location.hash)location.hash="";else{renderRail();renderList();}}
+  else if(t.dataset.gocat){e.preventDefault();state.cat=t.dataset.gocat;location.hash="";}
+  else if(t.dataset.more){expanded[t.dataset.more]=!expanded[t.dataset.more];const open=$("#side").classList.contains("open");renderList();if(open)$("#side").classList.add("open");}
+  else if(t.dataset.rm){state[t.dataset.rm].delete(t.dataset.v);renderList();}
+  else if(t.id==="clear"){["robots","engines","tasks","lic"].forEach(k=>state[k].clear());state.q="";$("#q").value="";state.demo=state.nv=state.active=false;renderRail();renderList();}
+  else if(t.id==="ft"){$("#side").classList.toggle("open");}
+});
+document.addEventListener("mouseover",e=>{const c=e.target.closest(".card");if(c&&c.dataset.gif&&!c.dataset.on){c.dataset.on=1;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.gif;}});
+document.addEventListener("mouseout",e=>{const c=e.target.closest(".card");if(c&&c.dataset.on&&!c.contains(e.relatedTarget)){delete c.dataset.on;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.img;}});
+$("#searchForm").addEventListener("submit",e=>{e.preventDefault();state.q=$("#q").value.trim();if(location.hash)location.hash="";else renderList();});
+$("#q").addEventListener("input",()=>{state.q=$("#q").value.trim();if(!location.hash)renderList();});
+window.addEventListener("hashchange",route);
+try{const s=localStorage.getItem("li-sort");if(s)state.sort=s}catch(_){}
+fetch("catalog.json").then(r=>r.json()).then(d=>{DATA=d;$("#totalCount").textContent=d.length;
+  $("#scope").innerHTML=`<option value="">All departments</option>`+CATS.map(c=>`<option value="${esc(c)}">${CAT_LABEL[c]}</option>`).join("");route();})
+ .catch(()=>{$("#app").innerHTML=`<div class="wrap"><div class="empty" style="margin-block:30px">The catalog data didn't load. If you opened this file directly from disk, run <code>python3 -m http.server</code> in this folder and open http://localhost:8000.</div></div>`});
+</script>
+
+</body>
+</html>
