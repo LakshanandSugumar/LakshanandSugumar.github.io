@@ -1,197 +1,287 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Laksh's Inventory</title><meta name="description" content="Laksh's inventory of robot simulators, benchmarks, robot models, datasets and policies, with demos and source downloads."><link rel="icon" href="https://lakshanandsugumar.github.io/og/icon-48.png"><style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Laksh's Inventory</title>
-<meta name="description" content="Laksh's Inventory: robot simulators, benchmarks, robot models, datasets and policies, with official demos and source links.">
-<link rel="icon" href="https://lakshanandsugumar.github.io/og/icon-48.png" sizes="48x48" type="image/png">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@600;700&family=Saira+Semi+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
-html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}
-/* Layout: storefront header + category rail, filter sidebar beside a product grid; product pages open via #p-<id> */
+/* Layout: warehouse floor. Header = loading dock with hazard band; each category is an aisle of pallet racks
+   (blue uprights, orange beams); every item is a bin with a paper label; item pages are shipping labels. */
 :root{
-  /* PCB palette shared with lakshanand.dev: solder mask, copper, gold, silkscreen */
-  --bg:#05140d; --surface:#0a2a1d; --surface-2:#0f3726; --ink:#cdd9cb; --ink-2:#8fa693; --line:rgba(201,162,74,.26);
-  --head:#05140d; --head-ink:#dbe6d3; --head-2:#0a2a1d;
-  --accent:#ffb672; --accent-ink:#05140d; --accent-soft:rgba(200,118,58,.14);
-  --cta:#c8763a; --cta-ink:#05140d; --star:#c9a24a; --nv:#9ad13a; --nv-soft:rgba(118,185,0,.14); --silk:#dbe6d3;
-  --font-display:"Saira Extra Condensed","Arial Narrow",Impact,sans-serif; --font-head:"Saira Semi Condensed","Arial Narrow",sans-serif;
-  --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --r:4px; --shadow:0 0 0 1px rgba(255,182,114,.55),0 10px 30px rgba(0,0,0,.45);
+  /* black & white warehouse, wired in copper and gold; sparks run along the copper on hover */
+  --floor:#060606; --floor-2:#0d0d0d; --steel:#101010; --steel-2:#161616; --rack:#c8763a; --rack-2:#7a4a2a;
+  --beam:#d4a84b; --beam-2:#8f6d26; --hazard:#d4a84b; --hazard-ink:#060606;
+  --kraft:#0b0b0b; --kraft-2:#1a1a1a; --paper:#f5f5f2; --paper-ink:#0b0b0b;
+  --ink:#f2f2f2; --ink-2:#8d8d8d; --line:#2a2a2a; --nv:#76b900;
+  --cu:#c8763a; --cu-hot:#ffb672; --gold:#d4a84b; --spark:#fff6d6;
+  --font-stencil:"Big Shoulders Stencil Display","Impact","Arial Narrow",sans-serif;
+  --font-head:"Barlow Condensed","Arial Narrow",sans-serif;
+  --font-body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   color-scheme:dark;
 }
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@property --p{syntax:"<percentage>";inherits:false;initial-value:-20%}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--head)}
-a{color:var(--accent)}
+html,body{margin:0}
+body{background:var(--floor);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5;
+  background-image:radial-gradient(rgba(255,255,255,.025) 1px,transparent 1px),radial-gradient(rgba(0,0,0,.25) 1px,transparent 1px);
+  background-size:7px 7px,11px 11px;background-position:0 0,3px 5px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--floor)}
+img{max-width:100%}
+[hidden]{display:none!important}
+a{color:var(--hazard)}
 button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
-.wrap{max-width:1440px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-/* header */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--head);color:var(--head-ink)}
-.hbar{display:flex;align-items:center;gap:18px;padding-block:12px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--head-ink);flex:none}
-.brand b{font-family:var(--font-display);font-size:26px;letter-spacing:.02em;font-weight:700;text-transform:uppercase;color:var(--silk);line-height:1}
-.brand small{display:block;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-2);letter-spacing:.14em;text-transform:uppercase;margin-top:3px}
-.search{flex:1;display:flex;min-width:0;border-radius:var(--r);overflow:hidden;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
-.search:focus-within{box-shadow:inset 0 0 0 1px var(--accent)}
-.search select{border:0;border-right:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:0 8px;font-family:var(--font-mono);font-size:12px;max-width:150px}
-.search input{flex:1;min-width:0;border:0;padding:11px 12px;font-size:15px;background:transparent;color:var(--silk);outline:none}
-.search button{border:0;background:var(--cta);color:var(--cta-ink);padding:0 16px;cursor:pointer;display:grid;place-items:center}
-.hmeta{flex:none;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;line-height:1.3;text-align:right;color:var(--ink-2)}
-.hmeta b{display:block;font-family:var(--font-display);font-size:26px;color:var(--accent);line-height:1}
-.rail{background:var(--head-2);border-block:1px solid var(--line)}
-.rail .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-block:6px}
-.rail button{flex:none;border:1px solid transparent;background:none;color:var(--head-ink);padding:5px 11px;border-radius:var(--r);cursor:pointer;font-family:var(--font-head);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:13px;white-space:nowrap}
-.rail button:hover{border-color:var(--line)}
-.rail button[aria-pressed="true"]{background:var(--cta);color:var(--cta-ink)}
-.rail .nvbtn[aria-pressed="true"]{background:#76b900;color:#0b1400}
-.ph{box-shadow:inset 0 -1px 0 var(--line)}
-.card{box-shadow:inset 0 0 0 1px transparent}
-/* catalog layout */
-.page{display:grid;grid-template-columns:250px minmax(0,1fr);gap:22px;padding-block:20px 48px}
-aside{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);max-height:calc(100vh - 130px);overflow:auto;padding-right:4px}
-.fgroup{border-bottom:1px solid var(--line);padding-block:12px}
-.fgroup h3{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 8px;font-weight:500}
-.fgroup label{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;font-size:13px;color:var(--ink)}
-.fgroup label span.c{margin-left:auto;color:var(--ink-2);font-size:12px;font-variant-numeric:tabular-nums}
-.fgroup input[type=checkbox]{accent-color:var(--cta);width:15px;height:15px;margin:0}
-.more{background:none;border:0;color:var(--accent);padding:2px 0;cursor:pointer;font-size:12.5px}
+:focus-visible{outline:3px solid var(--hazard);outline-offset:2px}
+.wrap{max-width:1480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hazard{height:10px;background:repeating-linear-gradient(135deg,var(--hazard) 0 14px,var(--hazard-ink) 14px 28px)}
+
+/* loading dock header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:linear-gradient(#232629,#1d2023);box-shadow:0 6px 20px rgba(0,0,0,.45)}
+.dock{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);flex:none}
+.brand .crate{width:44px;height:44px;flex:none}
+.brand b{display:block;font-family:var(--font-stencil);font-weight:900;font-size:30px;letter-spacing:.04em;text-transform:uppercase;line-height:.9;color:var(--hazard)}
+.brand small{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.search{flex:1;display:flex;min-width:0;background:var(--paper);border:2px solid var(--paper);border-radius:3px;overflow:hidden}
+.search:focus-within{border-color:var(--hazard)}
+.search select{border:0;border-right:2px dashed #c8c2b2;background:#e9e4d6;color:var(--paper-ink);padding:0 10px;font-family:var(--font-head);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.04em;max-width:170px}
+.search input{flex:1;min-width:0;border:0;padding:11px 12px;font-size:15px;background:var(--paper);color:var(--paper-ink);outline:none;font-family:var(--font-mono)}
+.search input::placeholder{color:#7a776d}
+.search button{border:0;background:var(--hazard);color:var(--hazard-ink);padding:0 16px;cursor:pointer;display:grid;place-items:center}
+.stock{flex:none;display:flex;gap:14px}
+.stat{text-align:right;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);line-height:1.2}
+.stat b{display:block;font-family:var(--font-stencil);font-size:30px;font-weight:800;letter-spacing:.02em;color:var(--ink);line-height:1}
+.aisles{background:#15171a;border-top:1px solid #000}
+.aisles .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+.aisles button{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--steel);color:var(--ink);padding:5px 12px 5px 6px;border-radius:3px;cursor:pointer;font-family:var(--font-head);font-weight:600;font-size:14px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.aisles button i{font-style:normal;font-family:var(--font-mono);font-size:11px;background:var(--floor);color:var(--hazard);padding:1px 6px;border-radius:2px}
+.aisles button:hover{border-color:var(--hazard)}
+.aisles button[aria-pressed="true"]{background:var(--hazard);color:var(--hazard-ink);border-color:var(--hazard)}
+.aisles button[aria-pressed="true"] i{background:var(--hazard-ink);color:var(--hazard)}
+.aisles .nvbtn[aria-pressed="true"]{background:var(--nv);border-color:var(--nv);color:#0b1400}
+
+/* floor layout */
+.page{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;padding-block:22px 56px}
+aside{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 128px);max-height:calc(100vh - 146px);overflow:auto;background:var(--steel);border:1px solid var(--line);border-radius:4px;padding:4px 14px 10px}
+aside .clip{font-family:var(--font-stencil);font-weight:800;font-size:22px;letter-spacing:.05em;text-transform:uppercase;margin:10px 0 2px;color:var(--ink)}
+.fgroup{border-bottom:1px dashed var(--line);padding-block:12px}
+.fgroup:last-child{border-bottom:0}
+.fgroup h3{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--hazard);margin:0 0 8px;font-weight:500}
+.fgroup label{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;font-size:14px}
+.fgroup label span.c{margin-left:auto;color:var(--ink-2);font-family:var(--font-mono);font-size:11.5px;font-variant-numeric:tabular-nums}
+.fgroup input[type=checkbox]{accent-color:var(--hazard);width:15px;height:15px;margin:0}
+.more{background:none;border:0;color:var(--hazard);padding:2px 0;cursor:pointer;font-size:13px;font-family:var(--font-head);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .filters-toggle{display:none}
-.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
-.toolbar .res{font-size:13.5px;color:var(--ink-2)}
-.toolbar .res b{color:var(--ink)}
-.toolbar .sp{flex:1}
-.toolbar select{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:var(--r);padding:6px 8px;font-size:13px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:var(--r);padding:3px 10px;font-size:12px;cursor:pointer}
-.chip:hover{border-color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:16px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
-.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
-.ph{position:relative;aspect-ratio:16/10;background:var(--surface-2);overflow:hidden}
-.ph img{width:100%;height:100%;object-fit:cover;display:block}
-.ph .fallback{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--accent);background:repeating-linear-gradient(135deg,var(--surface-2) 0 12px,var(--bg) 12px 24px)}
-.badges{position:absolute;left:8px;top:8px;display:flex;gap:5px;flex-wrap:wrap}
-.b{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:rgba(5,20,13,.85);color:var(--silk)}
-.b.demo{background:var(--cta);color:var(--cta-ink)}
-.b.nv{background:#76b900;color:#0b1400}
-.b.arch{background:#6b6b6b}
-.cbody{padding:11px 12px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
-.cat{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);text-transform:uppercase;letter-spacing:.14em}
-.ttl{font-family:var(--font-head);font-weight:600;font-size:17px;line-height:1.15;letter-spacing:.05em;text-transform:uppercase;color:var(--silk);margin:0;text-wrap:balance}
-.mk{font-size:12px;color:var(--ink-2)}
-.desc{font-size:12.5px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}
-.row{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px;font-size:12.5px}
-.stars{color:var(--star);font-weight:600;font-variant-numeric:tabular-nums}
-.lic{color:var(--ink-2)}
-.tags{display:flex;gap:4px;flex-wrap:wrap}
-.tag{font-family:var(--font-mono);font-size:10.5px;padding:1px 7px;border-radius:2px;background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px rgba(200,118,58,.4)}
-.empty{padding:60px 20px;text-align:center;color:var(--ink-2);border:1px dashed var(--line);border-radius:var(--r)}
-/* product page */
-.pp{padding-block:18px 48px}
-.crumbs{font-size:13px;color:var(--ink-2);margin-bottom:12px;display:flex;gap:6px;flex-wrap:wrap}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+.res{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--ink-2);text-transform:uppercase}
+.res b{color:var(--hazard);font-size:14px}
+.sp{flex:1}
+.toolbar select{border:1px solid var(--line);background:var(--steel);color:var(--ink);border-radius:3px;padding:6px 8px;font-size:13px;font-family:var(--font-mono)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{border:1px solid var(--line);background:var(--steel);color:var(--ink);border-radius:3px;padding:3px 10px;font-size:12px;cursor:pointer;font-family:var(--font-mono)}
+.chip:hover{border-color:var(--hazard)}
+
+/* aisle + racks */
+.aisle{margin-top:26px}
+.aisle-sign{display:flex;align-items:stretch;gap:0;margin-bottom:14px}
+.aisle-sign .no{background:var(--hazard);color:var(--hazard-ink);font-family:var(--font-stencil);font-weight:900;font-size:40px;line-height:1;padding:8px 14px 4px;letter-spacing:.02em;display:flex;flex-direction:column;justify-content:center}
+.aisle-sign .no small{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.2em}
+.aisle-sign .nm{flex:1;min-width:0;background:var(--steel-2);border:1px solid var(--line);border-left:0;padding:8px 16px;display:flex;flex-direction:column;justify-content:center}
+.aisle-sign h2{margin:0;font-family:var(--font-stencil);font-weight:800;font-size:clamp(26px,3.4vw,40px);letter-spacing:.04em;text-transform:uppercase;line-height:1;text-wrap:balance}
+.aisle-sign p{margin:2px 0 0;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.rack{position:relative;padding:14px 22px 6px;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.05));border-left:14px solid var(--rack);border-right:14px solid var(--rack);
+  border-image:repeating-linear-gradient(180deg,var(--rack) 0 16px,var(--rack-2) 16px 18px) 14}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(218px,1fr));column-gap:16px;row-gap:34px;padding-bottom:20px}
+.bin{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--kraft);border-radius:3px 3px 0 0;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),0 8px 0 -2px rgba(0,0,0,.25);transition:transform .15s}
+.bin::after{content:"";position:absolute;left:-9px;right:-9px;bottom:-16px;height:10px;background:linear-gradient(var(--beam),var(--beam-2));box-shadow:0 3px 0 rgba(0,0,0,.35)}
+.bin:hover{transform:translateY(-4px)}
+.bin .ph{position:relative;aspect-ratio:16/10;margin:7px 7px 0;background:#0e1012;overflow:hidden;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.bin .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-stencil);font-size:44px;font-weight:900;color:var(--hazard);background:repeating-linear-gradient(135deg,#1d2022 0 12px,#24282b 12px 24px)}
+.badges{position:absolute;left:6px;top:6px;display:flex;gap:4px;flex-wrap:wrap}
+.b{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:2px;background:rgba(15,17,19,.88);color:var(--ink)}
+.b.demo{background:var(--hazard);color:var(--hazard-ink)}
+.b.nv{background:var(--nv);color:#0b1400}
+.b.arch{background:#5b5f63;color:#fff}
+.label{margin:8px 7px 9px;background:var(--paper);color:var(--paper-ink);border-radius:2px;padding:8px 9px 7px;display:flex;flex-direction:column;gap:3px;flex:1;box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.label .sku{display:flex;justify-content:space-between;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c5a52}
+.label h3{margin:0;font-family:var(--font-head);font-weight:700;font-size:19px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+.label .mk{font-size:12px;color:#55534c;line-height:1.3}
+.label .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.label .tag{font-family:var(--font-mono);font-size:10px;padding:0 5px;border:1px solid #2a2a2a;border-radius:2px;text-transform:uppercase;letter-spacing:.04em}
+.label .foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:6px}
+.bar{height:22px;width:84px;flex:none;opacity:.9}
+.qty{font-family:var(--font-mono);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right;line-height:1.15}
+.qty small{display:block;font-weight:400;font-size:9.5px;letter-spacing:.08em;color:#6b685f;text-transform:uppercase}
+.empty{padding:60px 20px;text-align:center;color:var(--ink-2);border:2px dashed var(--line);border-radius:4px;margin-top:20px;font-family:var(--font-mono)}
+
+/* item page = shipping label */
+.pp{padding-block:20px 56px}
+.crumbs{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap}
 .crumbs a{color:var(--ink-2)}
-.ppgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) 300px;gap:26px;align-items:start}
-.viewer{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
-.stage{position:relative;aspect-ratio:16/10;background:#0b0f0e;display:grid;place-items:center}
+.ppgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;align-items:start}
+.viewer{background:var(--steel);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.stage{position:relative;aspect-ratio:16/10;background:#0b0c0d;display:grid;place-items:center}
 .stage img{width:100%;height:100%;object-fit:contain}
 .stage .play{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none}
-.stage .play span{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.72);color:#fff;padding:12px 18px;border-radius:999px;font-weight:600}
-.stage .play:hover span{background:var(--cta);color:var(--cta-ink)}
+.stage .play span{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.78);color:#fff;padding:12px 18px;border-radius:3px;font-family:var(--font-head);font-weight:700;font-size:17px;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--hazard)}
+.stage .play:hover span{background:var(--hazard);color:var(--hazard-ink)}
 .thumbs{display:flex;gap:8px;padding:10px;overflow-x:auto}
-.thumbs button{flex:none;width:92px;aspect-ratio:16/10;border:2px solid transparent;border-radius:2px;overflow:hidden;padding:0;background:var(--surface-2);cursor:pointer;position:relative}
-.thumbs button[aria-current="true"]{border-color:var(--accent)}
+.thumbs button{flex:none;width:96px;aspect-ratio:16/10;border:2px solid transparent;border-radius:2px;overflow:hidden;padding:0;background:#0b0c0d;cursor:pointer;position:relative}
+.thumbs button[aria-current="true"]{border-color:var(--hazard)}
 .thumbs img{width:100%;height:100%;object-fit:cover;display:block}
-.thumbs em{position:absolute;right:3px;bottom:3px;font-style:normal;font-size:10px;background:rgba(0,0,0,.75);color:#fff;padding:0 4px;border-radius:3px}
-.cap{font-size:12px;color:var(--ink-2);padding:0 12px 12px}
-.info h1{font-family:var(--font-display);font-size:clamp(38px,5vw,56px);line-height:.95;margin:6px 0 8px;text-wrap:balance;letter-spacing:.02em;text-transform:uppercase;color:var(--silk)}
-.info .by{color:var(--ink-2);font-size:13.5px}
-.info .statline{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
-.info p.lead{font-size:15px;margin:0 0 14px;max-width:62ch}
-.specs{width:100%;border-collapse:collapse;font-size:13px}
-.specs th{text-align:left;font-weight:600;color:var(--ink-2);padding:7px 10px 7px 0;vertical-align:top;width:120px}
-.specs td{padding:7px 0;border-top:1px solid var(--line)}
-.specs tr:first-child td{border-top:0}
-.buy{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 120px)}
-.buy .price{font-family:var(--font-head);font-size:20px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--silk)}
-.buy .price small{display:block;font-family:var(--font-body);font-size:12px;font-weight:400;color:var(--ink-2)}
-.btn{display:flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;border-radius:var(--r);font-family:var(--font-head);letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;font-weight:600;font-size:14px;border:1px solid var(--line);color:var(--ink);background:var(--surface)}
-.btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--cta);color:var(--cta-ink);border-color:var(--cta)}
-.btn.primary:hover{filter:brightness(1.05)}
-.btn.sec{background:transparent;color:var(--accent);border-color:rgba(200,118,58,.6)}
-.code{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface-2)}
-.code code{flex:1;min-width:0;font-family:var(--font-mono);font-size:12px;padding:8px 9px;overflow-x:auto;white-space:nowrap}
-.code button{border:0;border-left:1px solid var(--line);background:var(--surface);color:var(--accent);cursor:pointer;padding:0 10px;font-size:12px}
-.note{font-size:11.5px;color:var(--ink-2)}
-.sect{margin-top:30px}
-.sect h2{font-family:var(--font-display);font-size:36px;text-transform:uppercase;letter-spacing:.02em;color:var(--silk);margin:0 0 12px;line-height:1}
-.credits{font-size:12.5px;color:var(--ink-2);display:grid;gap:4px}
+.thumbs em{position:absolute;right:3px;bottom:3px;font-style:normal;font-family:var(--font-mono);font-size:9.5px;background:rgba(0,0,0,.8);color:#fff;padding:0 4px;border-radius:2px}
+.cap{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-2);padding:0 12px 12px}
+.slip{background:var(--paper);color:var(--paper-ink);border-radius:3px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.slip .hz{height:12px;background:repeating-linear-gradient(135deg,var(--hazard) 0 12px,var(--hazard-ink) 12px 24px)}
+.slip .in{padding:16px 18px 18px}
+.slip .top{display:flex;justify-content:space-between;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5c5a52;border-bottom:2px solid var(--paper-ink);padding-bottom:8px}
+.slip h1{font-family:var(--font-stencil);font-weight:900;font-size:clamp(38px,5vw,60px);line-height:.92;letter-spacing:.02em;text-transform:uppercase;margin:12px 0 6px;text-wrap:balance}
+.slip .by{font-size:14px;color:#44423c}
+.slip .by a{color:#1d4f86}
+.slip p.lead{font-size:15.5px;margin:12px 0 14px;max-width:62ch}
+.specs{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:14px}
+.specs th{text-align:left;font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5c5a52;padding:7px 10px 7px 0;vertical-align:top;width:130px;border-top:1px solid #d4cfbf}
+.specs td{padding:7px 0;border-top:1px solid #d4cfbf}
+.specs a{color:#1d4f86}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{display:flex;justify-content:center;align-items:center;gap:8px;text-decoration:none;border-radius:3px;padding:11px 12px;font-family:var(--font-head);font-weight:700;font-size:16px;letter-spacing:.05em;text-transform:uppercase;border:2px solid var(--paper-ink);color:var(--paper-ink);background:transparent;text-align:center}
+.btn:hover{background:var(--paper-ink);color:var(--paper)}
+.btn.primary{background:var(--beam);border-color:var(--beam);color:#fff;grid-column:1/-1}
+.btn.primary:hover{background:var(--beam-2);border-color:var(--beam-2)}
+.btn.yt{border-color:#c4302b;color:#c4302b}
+.btn.yt:hover{background:#c4302b;color:#fff}
+.code{display:flex;align-items:stretch;border:2px solid var(--paper-ink);border-radius:3px;overflow:hidden;margin-top:10px;background:#fff}
+.code code{flex:1;min-width:0;font-family:var(--font-mono);font-size:12.5px;padding:9px 10px;overflow-x:auto;white-space:nowrap}
+.code button{border:0;border-left:2px solid var(--paper-ink);background:var(--hazard);color:var(--hazard-ink);cursor:pointer;padding:0 12px;font-family:var(--font-head);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.note{font-family:var(--font-mono);font-size:11px;color:#6b685f;margin-top:8px}
+.slip .barrow{display:flex;justify-content:space-between;align-items:flex-end;margin-top:14px;border-top:2px solid var(--paper-ink);padding-top:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em}
+.slip .barrow svg{height:38px;width:180px}
+.sect{margin-top:34px}
+.credits{font-family:var(--font-mono);font-size:12px;color:var(--ink-2);display:grid;gap:5px;background:var(--steel);border:1px solid var(--line);border-radius:4px;padding:12px 14px}
 .credits a{word-break:break-all}
-.similar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,230px);gap:14px;overflow-x:auto;padding-bottom:6px}
-footer{border-top:1px solid var(--line);color:var(--ink-2);font-size:12.5px}
+.similar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,230px);column-gap:16px;overflow-x:auto;padding:4px 10px 26px}
+footer{border-top:1px solid var(--line);color:var(--ink-2);font-size:13px}
 footer .wrap{padding-block:22px}
-@media (max-width:1180px){.ppgrid{grid-template-columns:minmax(0,1fr) 300px}.ppgrid .viewer{grid-column:1/-1}}
-@media (max-width:860px){
+@media (max-width:1000px){.ppgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:880px){
   .page{grid-template-columns:minmax(0,1fr)}
   aside{position:static;max-height:none;display:none}
   aside.open{display:block}
   .filters-toggle{display:inline-flex}
-  .hmeta{display:none}
-  .ppgrid{grid-template-columns:minmax(0,1fr)}
-  .buy{position:static}
+  .stock{display:none}
 }
 @media (max-width:560px){
-  .hbar{flex-wrap:wrap;gap:10px}
+  .dock{flex-wrap:wrap;gap:10px}
   .search{flex-basis:100%}
   .search select{display:none}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-  .desc{display:none}
-  .info h1{font-size:23px}
+  .rack{padding:10px 12px 4px;border-left-width:8px;border-right-width:8px}
+  .shelf{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:10px;row-gap:30px}
+  .bin::after{left:-6px;right:-6px}
+  .label h3{font-size:16px}
+  .label .mk,.bar{display:none}
+  .aisle-sign .no{font-size:30px}
+  .pick{grid-template-columns:1fr}
 }
-@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.bin{transition:none}.bin:hover{transform:none}}
+/* ---- copper wiring + electricity ---- */
+body{background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:9px 9px}
+.hazard{height:6px;background:linear-gradient(90deg,var(--cu),var(--gold) 50%,var(--cu));position:relative;overflow:hidden}
+.hazard::after{content:"";position:absolute;inset:0;width:18%;background:linear-gradient(90deg,transparent,var(--spark),transparent);animation:run 3.2s linear infinite}
+@keyframes run{from{transform:translateX(-120%)}to{transform:translateX(620%)}}
+header{background:#050505;box-shadow:0 1px 0 var(--rack-2),0 8px 24px rgba(0,0,0,.7)}
+.brand b{color:#fff}
+.search{border-color:var(--gold)}
+.search select{background:#ececea;border-right:2px solid var(--cu)}
+.search button{background:var(--gold)}
+.aisles{background:#050505;border-top:1px solid var(--line);border-bottom:1px solid var(--rack-2)}
+.aisles button{background:#0d0d0d;border-color:#2c2c2c}
+.aisles button i{color:var(--gold)}
+.aisles button:hover{border-color:var(--cu)}
+.aisles button[aria-pressed="true"]{background:#fff;color:#000;border-color:#fff}
+.aisles button[aria-pressed="true"] i{background:#000;color:var(--gold)}
+aside{background:#0b0b0b;border:1px solid var(--rack-2)}
+.aisle-sign .no{background:#fff;color:#000}
+.aisle-sign .nm{background:#0b0b0b;border:1px solid var(--cu);border-left:0}
+/* racks: copper traces as uprights with solder vias, gold beams */
+.rack{background:none;border:0;border-image:none;padding:16px 26px 6px}
+.rack::before,.rack::after{content:"";position:absolute;top:0;bottom:0;width:10px;
+  background:radial-gradient(circle,var(--gold) 2.2px,transparent 2.8px) center/10px 26px repeat-y,linear-gradient(90deg,transparent 3px,var(--cu) 3px 7px,transparent 7px)}
+.rack::before{left:0}.rack::after{right:0}
+.bin{background:#0b0b0b;border-radius:4px;box-shadow:none;isolation:isolate}
+.bin::after{left:-10px;right:-10px;bottom:-17px;height:4px;background:linear-gradient(90deg,var(--beam-2),var(--gold),var(--beam-2));box-shadow:0 0 0 1px rgba(0,0,0,.6)}
+/* the wire: a 2px copper border drawn with a mask; a bright spark travels around it on hover */
+.bin::before{content:"";position:absolute;inset:0;border-radius:4px;padding:2px;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--a),var(--cu) 0deg,var(--cu) 300deg,var(--cu-hot) 330deg,var(--spark) 348deg,var(--cu-hot) 354deg,var(--cu) 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.bin:hover::before,.bin:focus-visible::before{animation:spin 1.1s linear infinite;filter:drop-shadow(0 0 3px var(--cu-hot)) drop-shadow(0 0 7px rgba(255,182,114,.55))}
+.bin:hover{transform:translateY(-3px);box-shadow:0 0 24px rgba(200,118,58,.28)}
+@keyframes spin{to{--a:360deg}}
+.bin .ph{background:#000;box-shadow:none;margin:8px 8px 0}
+.label{background:#fff;margin:8px}
+.label .sku span:first-child{color:var(--rack-2);font-weight:600}
+.b{background:rgba(0,0,0,.9);border:1px solid #333}
+.b.demo{background:#fff;color:#000;border-color:#fff}
+.b.nv{border-color:var(--nv)}
+/* item page */
+.viewer{background:#0b0b0b;border:2px solid var(--cu)}
+.slip{position:relative}
+.slip .hz{height:6px;background:linear-gradient(90deg,var(--cu),var(--gold),var(--cu))}
+.btn.primary{background:#000;border-color:#000;color:#fff}
+.btn.primary:hover{background:var(--cu);border-color:var(--cu)}
+.code button{background:#000;color:var(--gold)}
+.credits{background:#0b0b0b;border-color:var(--rack-2)}
+.credits b{color:var(--gold)!important}
+.stage .play span{border-color:var(--gold)}
+.stage .play:hover span{background:var(--gold);color:#000}
+.empty{border-color:var(--rack-2)}
+@media (prefers-reduced-motion:reduce){.hazard::after{animation:none}.bin:hover::before{animation:none}}
+.slip .specs td,.slip .specs td *{color:var(--paper-ink)!important}.slip .specs td a{color:#1d4f86!important}
 </style>
 
-</head>
-<body>
 <header>
-  <div class="wrap hbar">
+  <div class="hazard"></div>
+  <div class="wrap dock">
     <a class="brand" href="#" aria-label="Laksh's Inventory home">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="3" fill="#c8763a"/><path d="M9 25h16M12 25v-5l6-6 4 4" stroke="#0d2a24" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="20" r="2.2" fill="#0d2a24"/><circle cx="18" cy="14" r="2.2" fill="#0d2a24"/><path d="M22 18l3-1.5M22 18l1.5 3" stroke="#0d2a24" stroke-width="2.2" stroke-linecap="round"/></svg>
-      <span><b>Laksh's Inventory</b><small>Robot simulation inventory</small></span>
+      <svg class="crate" viewBox="0 0 44 44" aria-hidden="true"><rect x="2" y="2" width="40" height="40" rx="2" fill="#c9a273"/><path d="M2 2l40 40M42 2L2 42" stroke="#a9834f" stroke-width="4"/><rect x="2" y="2" width="40" height="40" rx="2" fill="none" stroke="#7d5f36" stroke-width="3"/><rect x="11" y="15" width="22" height="14" fill="#f4f1e8"/><path d="M14 18v8M16 18v8M19 18v8M20.5 18v8M23 18v8M26 18v8M27.5 18v8M30 18v8" stroke="#1b1b1b" stroke-width="1.2"/></svg>
+      <span><b>Laksh's Inventory</b><small>Robot simulation warehouse</small></span>
     </a>
     <form class="search" id="searchForm" role="search">
-      <select id="scope" aria-label="Search in category"><option value="">All categories</option></select>
-      <input id="q" type="search" placeholder="Search simulators, robots, tasks… try “humanoid mujoco” or “drone”" autocomplete="off" aria-label="Search the catalog">
-      <button type="submit" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      <select id="scope" aria-label="Search in aisle"><option value="">All aisles</option></select>
+      <input id="q" type="search" placeholder="Find an item… humanoid mujoco, drone, isaac" autocomplete="off" aria-label="Search the inventory">
+      <button type="submit" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
     </form>
-    <div class="hmeta"><b id="totalCount">–</b>entries, all verified</div>
+    <div class="stock"><div class="stat"><b id="totalCount">–</b>items in stock</div><div class="stat"><b id="demoCount">–</b>with demos</div><div class="stat"><b>7</b>aisles</div></div>
   </div>
-  <nav class="rail" aria-label="Categories"><div class="wrap" id="rail"></div></nav>
+  <nav class="aisles" aria-label="Aisles"><div class="wrap" id="rail"></div></nav>
 </header>
 
 <main id="app"></main>
 
 <footer><div class="wrap">
-  Every entry links to its official source. Product photos and demo clips are downscaled from each project's own README, GitHub preview card or official YouTube video, and each detail page credits its source. All trademarks and media belong to their owners. Catalog data lives in <code>catalog.json</code>, one record per line, so it's easy to extend. Curated by <a href="https://www.lakshanand.dev/">Lakshanand Sugumar</a>.
+  Every item links to its official source. Product photos and demo clips are downscaled from each project's own README, GitHub preview card or official YouTube video, and each item page credits its source. All trademarks and media belong to their owners. Inventory data lives in <code>catalog.json</code>, one record per line, so it's easy to extend. Curated by <a href="https://www.lakshanand.dev/">Lakshanand Sugumar</a>.
 </div></footer>
 
 <script>
 const CATS=["Simulator","Benchmark","Robot models","Dataset","Policy / model","Framework","Tools"];
 const CAT_LABEL={"Simulator":"Simulators","Benchmark":"Benchmarks","Robot models":"Robot models","Dataset":"Datasets","Policy / model":"Policies & models","Framework":"Frameworks","Tools":"Tools & libraries"};
+const CAT_SUB={"Simulator":"Physics engines and full simulators","Benchmark":"Task suites and evaluation environments","Robot models":"URDF, MJCF and robot description packs","Dataset":"Demonstrations, logs and data generators","Policy / model":"Pretrained policies, VLAs and world models","Framework":"Training stacks and learning frameworks","Tools":"Planners, retargeting, SLAM and utilities"};
 const ENGINES=[["MuJoCo",/mujoco|robosuite|mjx|dm.control/i],["Isaac Sim / Isaac Lab",/isaac sim|isaac lab|omnigibson|omniverse|replicator/i],["Isaac Gym",/isaac ?gym/i],["PhysX / Warp / Newton",/physx|warp|newton/i],["PyBullet / Bullet",/bullet/i],["Gazebo",/gazebo|sitl/i],["ROS / ROS 2",/\bros\b|ros 2/i],["Unity",/unity/i],["Unreal Engine",/unreal|carla/i],["SAPIEN",/sapien/i],["Habitat",/habitat/i],["CoppeliaSim",/coppelia/i],["Genesis",/genesis/i],["JAX / Brax",/jax|brax/i],["Real robot / real data",/real/i]];
 const PERMISSIVE=/^(MIT|Apache|BSD|CC0)/i, COPYLEFT=/GPL|CC-BY-SA/i;
-let DATA=[], state={q:"",cat:"",nv:false,robots:new Set(),engines:new Set(),tasks:new Set(),lic:new Set(),demo:false,active:false,sort:"stars"}, expanded={};
+let DATA=[], SKU={}, state={q:"",cat:"",nv:false,robots:new Set(),engines:new Set(),tasks:new Set(),lic:new Set(),demo:false,active:false,sort:"stars"}, expanded={};
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=n=>n>=1000?(n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,"")+"k":String(n);
 const engOf=it=>ENGINES.filter(([,re])=>re.test(it.engine)).map(([n])=>n);
 const licOf=it=>!it.license?"See repository":PERMISSIVE.test(it.license)?"Permissive (MIT / Apache / BSD)":COPYLEFT.test(it.license)?"Copyleft (GPL / LGPL / CC-BY-SA)":"Other / custom";
 const hasDemo=it=>!!(it.video||it.gif);
 const ytUrl=id=>"https://www.youtube.com/watch?v="+id;
+const pad=(n,w)=>String(n).padStart(w,"0");
+function barcode(id,w=84,h=22){let x=0,out="",s=0;for(const c of id)s=(s*31+c.charCodeAt(0))>>>0;
+  while(x<w){s=(s*1103515245+12345)>>>0;const bw=1+(s>>>28)%3;if((s>>>20)&1)out+=`<rect x="${x}" y="0" width="${bw}" height="${h}"/>`;x+=bw+1;}
+  return `<svg class="bar" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true" fill="#1b1b1b">${out}</svg>`;}
 
 function matches(it,skip){
   if(state.cat&&it.category!==state.cat)return false;
@@ -202,20 +292,20 @@ function matches(it,skip){
   if(skip!=="engines"&&state.engines.size&&!engOf(it).some(e=>state.engines.has(e)))return false;
   if(skip!=="tasks"&&state.tasks.size&&!it.tasks.some(t=>state.tasks.has(t)))return false;
   if(skip!=="lic"&&state.lic.size&&!state.lic.has(licOf(it)))return false;
-  if(state.q){const hay=[it.name,it.desc,it.maker,it.category,it.engine,...it.robots,...it.tasks,it.nvidia?"nvidia":""].join(" ").toLowerCase();
+  if(state.q){const hay=[it.name,it.desc,it.maker,it.category,it.engine,SKU[it.id],...it.robots,...it.tasks,it.nvidia?"nvidia":""].join(" ").toLowerCase();
     if(!state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w=>hay.includes(w)))return false;}
   return true;
 }
 function counts(key,fn){const m=new Map();DATA.filter(it=>matches(it,key)).forEach(it=>fn(it).forEach(v=>m.set(v,(m.get(v)||0)+1)));return m;}
-function img(it,cls=""){return it.image?`<img src="${esc(it.image)}" alt="${esc(it.name)} preview" loading="lazy" ${cls}>`:`<div class="fallback">${esc(it.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3))}</div>`}
-function card(it){
-  const demo=it.video?"▶ Video":it.gif?"▶ Demo":"";
-  return `<a class="card" href="#p-${it.id}" data-gif="${esc(it.gif||"")}" data-img="${esc(it.image||"")}">
+function img(it){return it.image?`<img src="${esc(it.image)}" alt="${esc(it.name)} preview" loading="lazy">`:`<div class="fallback">${esc(it.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3))}</div>`}
+function bin(it){
+  const demo=it.video?"▶ Video":it.gif?"▶ Clip":"";
+  return `<a class="bin" href="#p-${it.id}" data-gif="${esc(it.gif||"")}" data-img="${esc(it.image||"")}">
     <div class="ph">${img(it)}<div class="badges">${demo?`<span class="b demo">${demo}</span>`:""}${it.nvidia_official?`<span class="b nv">NVIDIA</span>`:""}${it.archived?`<span class="b arch">Archived</span>`:""}</div></div>
-    <div class="cbody"><div class="cat">${esc(it.category)}</div><h3 class="ttl">${esc(it.name)}</h3><div class="mk">by ${esc(it.maker)} · ${esc(it.engine)}</div>
-    <p class="desc">${esc(it.desc)}</p>
-    <div class="tags">${it.robots.slice(0,3).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</div>
-    <div class="row">${it.stars?`<span class="stars">★ ${fmt(it.stars)}</span>`:`<span class="stars">Official site</span>`}<span class="lic">${esc(it.license||"")}</span></div></div></a>`;
+    <div class="label"><div class="sku"><span>${SKU[it.id]}</span><span>${esc(it.category)}</span></div>
+      <h3>${esc(it.name)}</h3><div class="mk">${esc(it.maker)} · ${esc(it.engine)}</div>
+      <div class="tags">${it.robots.slice(0,2).map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</div>
+      <div class="foot">${barcode(it.id)}<div class="qty">${it.stars?`★ ${fmt(it.stars)}<small>GitHub stars</small>`:`Official<small>site</small>`}</div></div></div></a>`;
 }
 function fgroup(key,title,map,limit=8){
   const set=state[key], all=[...map.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]));
@@ -224,28 +314,31 @@ function fgroup(key,title,map,limit=8){
   return `<div class="fgroup"><h3>${title}</h3>${show.map(([v,c])=>`<label><input type="checkbox" data-f="${key}" value="${esc(v)}" ${set.has(v)?"checked":""}>${esc(v)}<span class="c">${c}</span></label>`).join("")}
   ${all.length>limit?`<button class="more" data-more="${key}">${expanded[key]?"Show less":`Show all ${all.length}`}</button>`:""}</div>`;
 }
+function sorter(){const s=state.sort;return s==="name"?(a,b)=>a.name.localeCompare(b.name):s==="demo"?(a,b)=>(hasDemo(b)-hasDemo(a))||b.stars-a.stars:(a,b)=>b.stars-a.stars;}
 function renderList(){
-  let list=DATA.filter(it=>matches(it));
-  const s=state.sort; list.sort(s==="name"?(a,b)=>a.name.localeCompare(b.name):s==="demo"?(a,b)=>(hasDemo(b)-hasDemo(a))||b.stars-a.stars:(a,b)=>b.stars-a.stars);
+  const list=DATA.filter(it=>matches(it)).sort(sorter());
   const active=[...[...state.robots].map(v=>["robots",v]),...[...state.engines].map(v=>["engines",v]),...[...state.tasks].map(v=>["tasks",v]),...[...state.lic].map(v=>["lic",v])];
+  const aisles=CATS.map((c,i)=>[c,i+1,list.filter(it=>it.category===c)]).filter(([,,l])=>l.length);
   $("#app").innerHTML=`<div class="wrap page">
-   <aside id="side" aria-label="Filters">
+   <aside id="side" aria-label="Filters"><div class="clip">Pick list</div>
     <div class="fgroup"><h3>Quick picks</h3>
      <label><input type="checkbox" id="fDemo" ${state.demo?"checked":""}>Has demo video or clip</label>
-     <label><input type="checkbox" id="fActive" ${state.active?"checked":""}>Hide archived projects</label>
-     <label><input type="checkbox" id="fNv" ${state.nv?"checked":""}>NVIDIA Isaac / Omniverse ecosystem</label></div>
+     <label><input type="checkbox" id="fActive" ${state.active?"checked":""}>Hide archived items</label>
+     <label><input type="checkbox" id="fNv" ${state.nv?"checked":""}>NVIDIA Isaac / Omniverse</label></div>
     ${fgroup("robots","Robot type",counts("robots",it=>it.robots),12)}
-    ${fgroup("engines","Simulator / physics engine",counts("engines",engOf),10)}
+    ${fgroup("engines","Simulator / engine",counts("engines",engOf),10)}
     ${fgroup("tasks","Task",counts("tasks",it=>it.tasks),10)}
     ${fgroup("lic","License",counts("lic",it=>[licOf(it)]),6)}
    </aside>
-   <section aria-label="Results">
+   <section aria-label="Inventory">
     <div class="toolbar"><button class="chip filters-toggle" id="ft">Filters${active.length?` (${active.length})`:""}</button>
-     <div class="res"><b>${list.length}</b> results${state.cat?` in ${esc(CAT_LABEL[state.cat])}`:""}${state.q?` for “${esc(state.q)}”`:""}</div>
-     <div class="sp"></div><label class="res" for="sort">Sort by</label>
-     <select id="sort"><option value="stars">Most GitHub stars</option><option value="demo">Demo available first</option><option value="name">Name A–Z</option></select></div>
-    ${active.length||state.q||state.demo||state.nv||state.active?`<div class="chips" style="margin-bottom:14px">${active.map(([k,v])=>`<button class="chip" data-rm="${k}" data-v="${esc(v)}">${esc(v)} ✕</button>`).join("")}<button class="chip" id="clear">Clear all</button></div>`:""}
-    ${list.length?`<div class="grid">${list.map(card).join("")}</div>`:`<div class="empty">Nothing matches these filters. Remove a filter or try a broader word like “arm” or “driving”.</div>`}
+     <div class="res"><b>${list.length}</b> items${state.cat?` in ${esc(CAT_LABEL[state.cat])}`:""}${state.nv?" in the NVIDIA bay":""}${state.q?` matching “${esc(state.q)}”`:""}</div>
+     <div class="sp"></div><label class="res" for="sort">Sort</label>
+     <select id="sort"><option value="stars">Most GitHub stars</option><option value="demo">Demo first</option><option value="name">Name A–Z</option></select></div>
+    ${active.length||state.q||state.demo||state.active?`<div class="chips">${active.map(([k,v])=>`<button class="chip" data-rm="${k}" data-v="${esc(v)}">${esc(v)} ✕</button>`).join("")}<button class="chip" id="clear">Clear all</button></div>`:""}
+    ${aisles.length?aisles.map(([c,n,l])=>`<div class="aisle"><div class="aisle-sign"><div class="no"><small>AISLE</small>${pad(n,2)}</div><div class="nm"><h2>${esc(CAT_LABEL[c])}</h2><p>${esc(CAT_SUB[c])} · ${l.length} item${l.length>1?"s":""}</p></div></div>
+      <div class="rack"><div class="shelf">${l.map(bin).join("")}</div></div></div>`).join("")
+     :`<div class="empty">Nothing on the shelves matches. Remove a filter or try a broader word like “arm” or “driving”.</div>`}
    </section></div>`;
   $("#sort").value=state.sort;
 }
@@ -256,49 +349,46 @@ function renderProduct(it){
   if(it.image&&!media.some(m=>m.src===it.image))media.push({k:"img",src:it.image,label:"Photo",credit:it.image_credit});
   if(!media.length)media.push({k:"none"});
   const sim=DATA.filter(o=>o.id!==it.id&&o.robots.some(r=>it.robots.includes(r))&&(o.category===it.category||o.engine===it.engine)).sort((a,b)=>b.stars-a.stars).slice(0,10);
-  const dl=it.zip||it.download, src=it.repo;
-  const cmd=it.install;
+  const dl=it.zip||it.download, cmd=it.install, n=CATS.indexOf(it.category)+1;
   $("#app").innerHTML=`<div class="wrap pp">
-   <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Inventory</a>›<a href="#" data-gocat="${esc(it.category)}">${esc(CAT_LABEL[it.category])}</a>›<span>${esc(it.name)}</span></nav>
+   <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Warehouse</a>›<a href="#" data-gocat="${esc(it.category)}">Aisle ${pad(n,2)} · ${esc(CAT_LABEL[it.category])}</a>›<span>${SKU[it.id]}</span></nav>
    <div class="ppgrid">
     <div class="viewer"><div class="stage" id="stage"></div>
      ${media.length>1?`<div class="thumbs">${media.map((m,i)=>`<button data-m="${i}" aria-label="Show ${m.label}"><img src="${esc(m.src)}" alt=""><em>${m.k==="video"?"▶ YouTube":m.k==="gif"?"▶ Clip":"Photo"}</em></button>`).join("")}</div>`:""}
      <div class="cap" id="cap"></div></div>
-    <div class="info">
-     <div class="cat">${esc(it.category)}${it.nvidia_official?" · NVIDIA":""}</div>
+    <div class="slip"><div class="hz"></div><div class="in">
+     <div class="top"><span>Item ${SKU[it.id]}</span><span>${esc(it.category)}${it.nvidia_official?" · NVIDIA":""}</span></div>
      <h1>${esc(it.name)}</h1>
-     <div class="by">by <b>${esc(it.maker)}</b>${it.repo?` · <a href="${esc(it.repo)}" target="_blank" rel="noopener">${esc(it.repo.replace("https://github.com/",""))}</a>`:""}</div>
-     <div class="statline">${it.stars?`<span class="stars">★ ${it.stars.toLocaleString()} GitHub stars</span>`:""}${it.archived?`<span class="b arch">Archived</span>`:""}${hasDemo(it)?`<span class="b demo">Demo available</span>`:""}</div>
+     <div class="by">from <b>${esc(it.maker)}</b>${it.repo?` · <a href="${esc(it.repo)}" target="_blank" rel="noopener">${esc(it.repo.replace("https://github.com/",""))}</a>`:""}${it.stars?` · ★ ${it.stars.toLocaleString()}`:""}${it.archived?" · archived":""}</div>
      <p class="lead">${esc(it.desc)}</p>
      <table class="specs"><tbody>
       <tr><th>Robot types</th><td>${it.robots.map(esc).join(", ")}</td></tr>
       <tr><th>Tasks</th><td>${it.tasks.map(esc).join(", ")}</td></tr>
-      <tr><th>Simulator / engine</th><td>${esc(it.engine)}</td></tr>
+      <tr><th>Simulator</th><td>${esc(it.engine)}</td></tr>
       <tr><th>License</th><td>${esc(it.license||"Custom or unspecified, check the repository")}</td></tr>
       ${it.homepage?`<tr><th>Project page</th><td><a href="${esc(it.homepage)}" target="_blank" rel="noopener">${esc(it.homepage.replace(/^https?:\/\//,"").replace(/\/$/,""))}</a></td></tr>`:""}
      </tbody></table>
-    </div>
-    <div class="buy">
-     <div class="price">Source &amp; files<small>${it.repo?"Open source · "+esc(it.license||"see license"):esc(it.license)}</small></div>
-     ${dl?`<a class="btn primary" href="${esc(dl)}" target="_blank" rel="noopener">${it.zip?"⬇ Download source (.zip)":"⬇ Go to download page"}</a>`:""}
-     ${src?`<a class="btn sec" href="${esc(src)}" target="_blank" rel="noopener">View source files on GitHub</a>`:""}
-     ${it.homepage?`<a class="btn" href="${esc(it.homepage)}" target="_blank" rel="noopener">Docs &amp; project page</a>`:""}
-     ${it.video?`<a class="btn" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener">▶ Watch demo on YouTube</a>`:""}
-     <div class="note">Install</div>
+     <div class="pick">
+      ${dl?`<a class="btn primary" href="${esc(dl)}" target="_blank" rel="noopener">${it.zip?"⬇ Download source (.zip)":"⬇ Go to download page"}</a>`:""}
+      ${it.repo?`<a class="btn" href="${esc(it.repo)}" target="_blank" rel="noopener">Source files</a>`:""}
+      ${it.homepage?`<a class="btn" href="${esc(it.homepage)}" target="_blank" rel="noopener">Docs &amp; site</a>`:""}
+      ${it.video?`<a class="btn yt" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener">▶ Watch demo</a>`:""}
+     </div>
      <div class="code"><code id="cmd">${esc(cmd)}</code><button id="copy">Copy</button></div>
-     ${it.zip?`<div class="note">The zip is the latest <code>${esc(it.branch)}</code> branch, straight from GitHub.</div>`:""}
-    </div>
+     ${it.zip?`<div class="note">Zip = latest ${esc(it.branch)} branch, straight from GitHub.</div>`:""}
+     <div class="barrow"><span>${SKU[it.id]}<br>AISLE ${pad(n,2)}</span>${barcode(it.id,180,38)}</div>
+    </div></div>
    </div>
-   ${sim.length?`<div class="sect"><h2>Related entries</h2><div class="similar">${sim.map(card).join("")}</div></div>`:""}
-   <div class="sect"><h2>Media credits</h2><div class="credits">
+   ${sim.length?`<div class="sect"><div class="aisle-sign"><div class="no"><small>ALSO IN</small>${pad(n,2)}</div><div class="nm"><h2>Nearby on the shelves</h2><p>Same robots, same aisle or same simulator</p></div></div><div class="rack"><div class="similar">${sim.map(bin).join("")}</div></div></div>`:""}
+   <div class="sect"><div class="credits"><b style="color:var(--hazard)">MEDIA CREDITS</b>
      ${media.filter(m=>m.credit).map(m=>`<div>${m.label}: <a href="${esc(m.credit)}" target="_blank" rel="noopener">${esc(m.credit)}</a></div>`).join("")}
      ${it.video?`<div>Video “${esc(it.video.title)}” by ${esc(it.video.channel)} on YouTube.</div>`:""}
      ${(it.readme_videos||[]).map(u=>`<div>More video in the README: <a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></div>`).join("")}
      ${!media.some(m=>m.credit)?`<div>No official media found. See the project page for screenshots.</div>`:""}
    </div></div></div>`;
   const show=i=>{const m=media[i];const st=$("#stage");
-    if(m.k==="none"){st.innerHTML=`<div class="ph" style="width:100%;height:100%">${img(it)}</div>`;$("#cap").textContent="";return;}
-    st.innerHTML=`<img src="${esc(m.src)}" alt="${esc(it.name)} ${m.label}">`+(m.k==="video"?`<a class="play" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play on YouTube</span></a>`:"");
+    if(m.k==="none"){st.innerHTML=`<div class="fallback">${esc(it.name.split(/\s+/).map(w=>w[0]).join("").slice(0,3))}</div>`;$("#cap").textContent="";return;}
+    st.innerHTML=`<img src="${esc(m.src)}" alt="${esc(it.name)} ${m.label}">`+(m.k==="video"?`<a class="play" href="${esc(ytUrl(it.video.youtube))}" target="_blank" rel="noopener"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Play demo on YouTube</span></a>`:"");
     $("#cap").innerHTML=m.k==="video"?`“${esc(it.video.title)}”, ${esc(it.video.channel)}. Opens on YouTube.`:m.k==="gif"?"Demo clip from the official README, downscaled.":it.image_kind==="github-card"?"GitHub repository preview card.":it.image_kind==="video"?"Frame from the official video.":"Image from the official README.";
     document.querySelectorAll(".thumbs button").forEach((b,j)=>b.setAttribute("aria-current",j===i?"true":"false"));};
   show(0);
@@ -308,36 +398,38 @@ function renderProduct(it){
 }
 function renderRail(){
   const n=c=>DATA.filter(it=>it.category===c).length;
-  $("#rail").innerHTML=`<button data-cat="" aria-pressed="${!state.cat&&!state.nv}">All (${DATA.length})</button>`+CATS.map(c=>`<button data-cat="${esc(c)}" aria-pressed="${state.cat===c}">${CAT_LABEL[c]} (${n(c)})</button>`).join("")+`<button class="nvbtn" data-nv="1" aria-pressed="${state.nv}">NVIDIA Isaac (${DATA.filter(i=>i.nvidia).length})</button>`;
+  $("#rail").innerHTML=`<button data-cat="" aria-pressed="${!state.cat&&!state.nv}"><i>ALL</i>Whole floor (${DATA.length})</button>`+CATS.map((c,i)=>`<button data-cat="${esc(c)}" aria-pressed="${state.cat===c}"><i>${pad(i+1,2)}</i>${CAT_LABEL[c]} (${n(c)})</button>`).join("")+`<button class="nvbtn" data-nv="1" aria-pressed="${state.nv}"><i>NV</i>NVIDIA bay (${DATA.filter(i=>i.nvidia).length})</button>`;
 }
 function route(){const h=location.hash.slice(1);const it=h.startsWith("p-")&&DATA.find(d=>d.id===h.slice(2));renderRail();if(it)renderProduct(it);else renderList();}
 function save(){try{localStorage.setItem("li-sort",state.sort)}catch(_){}}
+function rerender(){const open=$("#side")?.classList.contains("open");renderRail();renderList();if(open)$("#side").classList.add("open");}
 document.addEventListener("change",e=>{const t=e.target;
   if(t.dataset.f){const s=state[t.dataset.f];t.checked?s.add(t.value):s.delete(t.value);}
   else if(t.id==="fDemo")state.demo=t.checked; else if(t.id==="fActive")state.active=t.checked; else if(t.id==="fNv")state.nv=t.checked;
   else if(t.id==="sort"){state.sort=t.value;save();}
   else if(t.id==="scope"){state.cat=t.value;}
   else return;
-  const open=$("#side")?.classList.contains("open");renderRail();renderList();if(open)$("#side").classList.add("open");});
+  rerender();});
 document.addEventListener("click",e=>{const t=e.target.closest("button,a");if(!t)return;
-  if(t.dataset.cat!==undefined){state.cat=t.dataset.cat;state.nv=false;$("#scope").value=state.cat;if(location.hash){location.hash="";}else{renderRail();renderList();}}
-  else if(t.dataset.nv){state.nv=!state.nv;state.cat="";if(location.hash)location.hash="";else{renderRail();renderList();}}
+  if(t.dataset.cat!==undefined){state.cat=t.dataset.cat;state.nv=false;$("#scope").value=state.cat;if(location.hash)location.hash="";else rerender();}
+  else if(t.dataset.nv){state.nv=!state.nv;state.cat="";if(location.hash)location.hash="";else rerender();}
   else if(t.dataset.gocat){e.preventDefault();state.cat=t.dataset.gocat;location.hash="";}
-  else if(t.dataset.more){expanded[t.dataset.more]=!expanded[t.dataset.more];const open=$("#side").classList.contains("open");renderList();if(open)$("#side").classList.add("open");}
-  else if(t.dataset.rm){state[t.dataset.rm].delete(t.dataset.v);renderList();}
-  else if(t.id==="clear"){["robots","engines","tasks","lic"].forEach(k=>state[k].clear());state.q="";$("#q").value="";state.demo=state.nv=state.active=false;renderRail();renderList();}
+  else if(t.dataset.more){expanded[t.dataset.more]=!expanded[t.dataset.more];rerender();}
+  else if(t.dataset.rm){state[t.dataset.rm].delete(t.dataset.v);rerender();}
+  else if(t.id==="clear"){["robots","engines","tasks","lic"].forEach(k=>state[k].clear());state.q="";$("#q").value="";state.demo=state.nv=state.active=false;rerender();}
   else if(t.id==="ft"){$("#side").classList.toggle("open");}
 });
-document.addEventListener("mouseover",e=>{const c=e.target.closest(".card");if(c&&c.dataset.gif&&!c.dataset.on){c.dataset.on=1;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.gif;}});
-document.addEventListener("mouseout",e=>{const c=e.target.closest(".card");if(c&&c.dataset.on&&!c.contains(e.relatedTarget)){delete c.dataset.on;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.img;}});
+document.addEventListener("mouseover",e=>{const c=e.target.closest(".bin");if(c&&c.dataset.gif&&!c.dataset.on){c.dataset.on=1;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.gif;}});
+document.addEventListener("mouseout",e=>{const c=e.target.closest(".bin");if(c&&c.dataset.on&&!c.contains(e.relatedTarget)){delete c.dataset.on;const i=c.querySelector(".ph img");if(i)i.src=c.dataset.img;}});
 $("#searchForm").addEventListener("submit",e=>{e.preventDefault();state.q=$("#q").value.trim();if(location.hash)location.hash="";else renderList();});
 $("#q").addEventListener("input",()=>{state.q=$("#q").value.trim();if(!location.hash)renderList();});
 window.addEventListener("hashchange",route);
 try{const s=localStorage.getItem("li-sort");if(s)state.sort=s}catch(_){}
-fetch("catalog.json").then(r=>r.json()).then(d=>{DATA=d;$("#totalCount").textContent=d.length;
-  $("#scope").innerHTML=`<option value="">All categories</option>`+CATS.map(c=>`<option value="${esc(c)}">${CAT_LABEL[c]}</option>`).join("");route();})
- .catch(()=>{$("#app").innerHTML=`<div class="wrap"><div class="empty" style="margin-block:30px">The catalog data didn't load. If you opened this file directly from disk, run <code>python3 -m http.server</code> in this folder and open http://localhost:8000.</div></div>`});
+fetch("catalog.json").then(r=>r.json()).then(d=>{DATA=d;
+  CATS.forEach((c,ci)=>d.filter(it=>it.category===c).sort((a,b)=>b.stars-a.stars||a.name.localeCompare(b.name)).forEach((it,k)=>SKU[it.id]=`A${pad(ci+1,2)}-${pad(k+1,3)}`));
+  $("#totalCount").textContent=d.length;$("#demoCount").textContent=d.filter(hasDemo).length;
+  $("#scope").innerHTML=`<option value="">All aisles</option>`+CATS.map((c,i)=>`<option value="${esc(c)}">Aisle ${pad(i+1,2)} · ${CAT_LABEL[c]}</option>`).join("");route();})
+ .catch(()=>{$("#app").innerHTML=`<div class="wrap"><div class="empty">The inventory data didn't load. If you opened this file directly from disk, run <code>python3 -m http.server</code> in this folder and open http://localhost:8000.</div></div>`});
 </script>
 
-</body>
-</html>
+</body></html>
