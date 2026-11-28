@@ -66,7 +66,7 @@ hide:
 
 -   :material-store-search-outline: **[Laksh's Inventory](https://lakshanandsugumar.github.io/inventory/)**
 
-    A shop-style catalog of 214 robot simulators, benchmarks, robot models, datasets and policies, including the full NVIDIA Isaac stack, with demos and download links.
+    My inventory of 214 robot simulators, benchmarks, robot models, datasets and policies, including the full NVIDIA Isaac stack, with demos and download links.
 
 -   :material-account-voice: **[Zephy](https://lakshanandsugumar.github.io/projects/zephy/)**
 
